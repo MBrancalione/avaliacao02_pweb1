@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 CREATE TABLE IF NOT EXISTS `lista_favoritos` (
 	`id_favorito` int AUTO_INCREMENT NOT NULL UNIQUE,
 	`id_usuario` int NOT NULL,
-	`id_video` int NOT NULL,
+	`id_obra` int NOT NULL,
 	`status` varchar(20) NOT NULL DEFAULT 'Pendente',
 	PRIMARY KEY (`id_favorito`)
 );
@@ -52,6 +52,6 @@ CREATE TABLE IF NOT EXISTS `avaliacao` (
 );
 ALTER TABLE `catalogo` ADD CONSTRAINT `catalogo_fk6` FOREIGN KEY (`elenco`) REFERENCES `atores`(`id_artista`);
 ALTER TABLE `lista_favoritos` ADD CONSTRAINT `lista_favoritos_fk1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario`(`id_usuario`);
-ALTER TABLE `lista_favoritos` ADD CONSTRAINT `lista_favoritos_fk2` FOREIGN KEY (`id_video`) REFERENCES `catalogo`(`id_obra`);
+ALTER TABLE `lista_favoritos` ADD CONSTRAINT `lista_favoritos_fk2` FOREIGN KEY (`id_obra`) REFERENCES `catalogo`(`id_obra`);
 ALTER TABLE `avaliacao` ADD CONSTRAINT `avaliacao_fk1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario`(`id_usuario`);
 ALTER TABLE `avaliacao` ADD CONSTRAINT `avaliacao_fk2` FOREIGN KEY (`id_obra`) REFERENCES `catalogo`(`id_obra`);
