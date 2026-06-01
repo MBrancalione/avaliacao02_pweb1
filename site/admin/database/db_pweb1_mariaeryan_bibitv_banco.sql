@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `lista_favoritos` (
 	`id_favorito` int AUTO_INCREMENT NOT NULL UNIQUE,
 	`id_usuario` int NOT NULL,
 	`id_video` int NOT NULL,
-	`status` timestamp NOT NULL DEFAULT 45,
+	`status` varchar(20) NOT NULL DEFAULT 'Pendente',
 	PRIMARY KEY (`id_favorito`)
 );
 CREATE TABLE IF NOT EXISTS `avaliacao` (
