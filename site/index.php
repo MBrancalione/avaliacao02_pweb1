@@ -4,17 +4,17 @@ include_once './admin/db.class.php';
 //instaciar um objeto da classe DB
 $conn = new db('usuario');
 
-/* inserção de dados manualmente
+/*admin manual
 $dados = [
     'nome' => 'Ryan',
     'telefone' => '123456789',
     'email' => 'ryan@example.com',
-    'login' => 'user',
-    'senha' => '123',
+    'login' => 'admin',
+    'senha' => password_hash('123456', PASSWORD_DEFAULT),   
     'tipo' => '2'
-];
+];*/
 
-$conn->store($dados);*/
+$conn->store($dados);
 echo "Você está no index caralho"; ?>
 
 <div>

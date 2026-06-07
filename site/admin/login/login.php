@@ -8,6 +8,10 @@ $actionError = '';
 $errors = [];
 $data = '';
 
+if(session_status() == PHP_SESSION_NONE) { 
+        session_start();
+}
+
 if (!empty($_POST)){ //verifica se o formulário foi submetido
     $data = (object) $_POST; //converte o array associativo do POST para um objeto para facilitar o acesso aos dados
 
@@ -23,14 +27,20 @@ if (!empty($_POST)){ //verifica se o formulário foi submetido
 
         if(empty($errors)){
             $usuario = $db->findBy('login', $_POST['login']); //busca o usuário no banco de dados pelo login fornecido
-
+    //echo "<pre>"; print_r($usuario); echo "</pre>"; exit;
             if($usuario && password_verify($_POST['senha'], $usuario->senha)){ //verifica se o usuário existe e se a senha está correta
-                $_SESSION['user_id'] = $usuario->id; //armazena o ID do usuário na sessão para manter o estado de login
-                $_SESSION['user_login'] = $usuario->login; 
-                $_SESSION['user_nome'] = $usuario->nome;
-                $_SESSION['user_tipo'] = $usuario->tipo;
+                $_SESSION['usuario_id'] = $usuario->id; //armazena o ID do usuário na sessão para manter o estado de login
+                $_SESSION['usuario_login'] = $usuario->login; 
+                $_SESSION['usuario_nome'] = $usuario->nome;
+                $_SESSION['usuario_tipo'] = $usuario->tipo;
                 $success = "Login bem-sucedido! Redirecionando para o painel...";
-                redirect('../index.php', 1000);
+                
+                if ($_SESSION['usuario_tipo'] == 2) {
+                    redirect('/avaliacao02_pweb1/site/admin/indexAdmin.php', 1000); // Ajuste para a pasta real do seu admin
+                } else {
+                    redirect('/avaliacao02_pweb1/site/usuario/indexUser.php', 1000); // Vai para a index do usuário comum
+                }
+                exit;
             }
         }
     } catch (PDOException $e){
@@ -45,7 +55,7 @@ if (!empty($_POST)){ //verifica se o formulário foi submetido
     <?php actionMessage($success, $actionError) ?>
     <?php showValidationError($errors) ?>
 
-    <form action="./login.php" method="POST"> <!--mudar para redirecionar par a página principal-->
+    <form action="" method="POST"> 
         <div class="mb-3">
             <label for="login" class="form-label">Login</label>
             <input type="text" class="form-control" name="login" value="<?php echo getFormValue($data, 'login'); ?>">
