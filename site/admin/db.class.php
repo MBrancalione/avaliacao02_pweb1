@@ -59,6 +59,16 @@ class db
         }
     }
 
+    //método para buscar um registro na tabela com base em um campo específico, recebe o nome do campo e o valor a ser buscado
+    public function findBy($campo, $valor)
+    {
+        $sql = "SELECT * FROM $this->table_name WHERE $campo = ?";
+        $st = $this->conn->prepare($sql);
+        $st->execute([$valor]);
+
+        return $st->fetchObject();
+    }
+
 
 
 }

@@ -9,9 +9,10 @@
 
   <?php
     // Função para redirecionar para outra página após um tempo determinado
-    function redirect($page, $time = 1500){
+    function redirect($page, $time = 500){
         echo "<script>setTimeout(()=>window.location.href='$page', '$time')</script>";
     }
+
     // Função para exibir mensagens de sucesso ou erro
     function actionMessage($success, $error){
         if(!empty($success)){
@@ -21,10 +22,28 @@
             echo "<div class='alert alert-danger' role='alert'>$error</div>";
         }
     }
-  ?>
+
+    // Função para exibir erros de validação dos campos
+    function showValidationError($errors = [])
+    {
+        if (!empty($errors)) {
+            echo "<div class='alert alert-danger' role='alert'><ul>";
+            echo "<strong>Erros nos campos:</strong>";
+            foreach ($errors as $error) {
+                echo $error;
+            }
+            echo "</ul></div>";
+        }
+    }   
+
+    // Função para obter o valor de um campo de formulário, usada no login
+    function getFormValue($data, $field='')
+    {
+        return isset($data->$field) ? $data->$field : '';
+    }
+?>
   <body>
     <div class="container">
         <div class="row">
-<!--fechamento das tags vão para a página destinada ao footer - faz sentido? não-->
 
   

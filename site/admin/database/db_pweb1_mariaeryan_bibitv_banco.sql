@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 	`telefone` int NOT NULL,
 	`email` varchar(120) NOT NULL,
 	`login` varchar(25) NOT NULL,
-	`senha` varchar(12) NOT NULL,
+	`senha` text NOT NULL,
 	`tipo` int NOT NULL,
 	PRIMARY KEY (`id_usuario`)
 );
