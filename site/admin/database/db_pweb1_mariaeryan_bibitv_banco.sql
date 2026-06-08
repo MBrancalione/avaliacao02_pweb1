@@ -18,10 +18,10 @@ CREATE TABLE IF NOT EXISTS `planos` (
 	PRIMARY KEY (`id`)
 );
 CREATE TABLE IF NOT EXISTS `atores` (
-	`id` int NOT NULL,
+	`id` int AUTO_INCREMENT NOT NULL UNIQUE,
 	`nome_artista` varchar(255) NOT NULL,
 	`data_nascimento` date NOT NULL,
-	`nacionalidade` int NOT NULL,
+	`nacionalidade` varchar(100) NOT NULL,
 	PRIMARY KEY (`id`)
 );
 CREATE TABLE IF NOT EXISTS `usuario` (
