@@ -17,7 +17,7 @@ $dados = [
 
 // Comentado para evitar inserções duplicadas toda vez que atualizar a Home. 
 // Se precisar rodar o teste, basta tirar as duas barras da linha abaixo:
-// $conn->store($dados);
+//$conn->store($dados);
 ?>
 
 <div class="col-12 text-center py-5">

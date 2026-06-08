@@ -55,9 +55,13 @@ if (!empty($_POST)) {
                 $db->store($_POST);
                 $success = "Registro Salvo com sucesso!";
             }
-            $success = "Registro Salvo com sucesso!";
+            else {
+        // Atualização
+        $db->update($_POST); // Passa o $_POST (array), já que a sua função espera só um parâmetro!
+        $success = "Registro Atualizado com sucesso!";
+    }
 
-            redirect('index.php');
+            redirect('atorList.php');
         }
     } catch (PDOException $e) {
         $actionError = $e->getMessage();
@@ -92,7 +96,7 @@ if (!empty($_POST)) {
         </div>
         <div class="mt-2">
             <button type="submit" class="btn btn-success">Salvar</button>
-            <a href="index.php" class="btn btn-primary"> Voltar</a>
+            <a href="atorList.php" class="btn btn-primary"> Voltar</a>
         </div>
 </div>
 

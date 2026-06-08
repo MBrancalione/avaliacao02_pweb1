@@ -58,7 +58,39 @@ class db
             throw new Exception("Erro ao inserir: ". $e->getMessage());
         }
     }
+    public function find($id)
+    {
+        $sql = "SELECT * FROM $this->table_name WHERE id=?";
+        $st = $this->conn->prepare($sql);
+        $st->execute([$id]);
 
+        return $st->fetchObject();
+    }
+
+    public function update($dados)
+    {
+        $campos = "";
+        $marcadores = "";
+        $vetorData = [];
+        $sep = "";
+
+        foreach ($dados as $campo => $valor) {
+            if($campo !== 'id') {
+            $campos .= $sep . " $campo = ?"; //?, ?, ?
+            $vetorData[] = $valor; //guarda os valores em um vetor para passar no execute
+            $sep = ", "; //após a primeira iteração, passa a ser ", " para separar os campos e marcadores
+        }}
+        $vetorData[] = $dados['id']; //adiciona o id no final do vetor para passar no execute
+                //concatenação dos dados que vem do banco para inserir no insert
+        $sql = "UPDATE $this->table_name SET $campos WHERE id = ?";
+
+        try {
+            $st = $this->conn->prepare($sql);
+            $st->execute($vetorData);
+        } catch (PDOException $e) {
+            throw new Exception("Erro ao atualizar: ". $e->getMessage());
+        }
+    }
     //método para buscar um registro na tabela com base em um campo específico, recebe o nome do campo e o valor a ser buscado
     public function findBy($campo, $valor)
     {

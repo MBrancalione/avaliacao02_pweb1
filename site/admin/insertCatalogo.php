@@ -35,10 +35,6 @@ if (!empty($_POST)) {
     //exit;
     try {
 
-        if (empty($_POST['nome_artista'])) {
-            $errors[] = "<li>O nome do artista é obrigatório</li>";
-        }
-
         if (empty($_POST['url'])) {
             $errors[] = "<li>O url é obrigatório</li>";
         }
@@ -69,16 +65,21 @@ if (!empty($_POST)) {
         }
 
         if (empty($errors)) {
-            if(empty($_POST['id_obra'])) {
+            if(empty($_POST['id'])) {
                 //o código está enviando um id vazio para o banco, se não existir um id, ele deve ser retirado, para que então seja possível ao banco inserir automaticamente
-                unset($_POST['id_obra']);
+                unset($_POST['id']);
 
                 $db->store($_POST);
                 $success = "Registro Salvo com sucesso!";
             }
+            else {
+        // Atualização
+        $db->update($_POST); // Passa o $_POST (array), já que a sua função espera só um parâmetro!
+        $success = "Registro Atualizado com sucesso!";
+    }
             $success = "Registro Salvo com sucesso!";
 
-            redirect('index.php');
+            redirect('catalogoList.php');
         }
     } catch (PDOException $e) {
         $actionError = $e->getMessage();

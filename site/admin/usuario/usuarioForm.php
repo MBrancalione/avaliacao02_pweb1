@@ -61,9 +61,9 @@ if (!empty($_POST)) {
                 $db->update($_POST, $_POST['id']);
                 $success = "Registro atualizado com sucesso!";
             }
-            $success = "Registro Salvo com sucesso!";
+            
 
-            redirect('UserList.php');
+            redirect('usuarioList.php');
         }
     } catch (PDOException $e) {
         $actionError = $e->getMessage();

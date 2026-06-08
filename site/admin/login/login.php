@@ -38,7 +38,7 @@ if (!empty($_POST)){ //verifica se o formulário foi submetido
                 if ($_SESSION['usuario_tipo'] == 2) {
                     redirect('/avaliacao02_pweb1/site/admin/indexAdmin.php', 1000); // Ajuste para a pasta real do seu admin
                 } else {
-                    redirect('/avaliacao02_pweb1/site/usuario/indexUser.php', 1000); // Vai para a index do usuário comum
+                    redirect('/avaliacao02_pweb1/site/admin/usuario/indexUsuario.php', 1000); // Vai para a index do usuário comum
                 }
                 exit;
             }

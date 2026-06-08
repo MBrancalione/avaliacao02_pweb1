@@ -24,7 +24,7 @@ if (!empty($_POST['valor'])) {
             <div class="col-md-4">
                 <label class="form-label">Buscar por:</label>
                 <select name="tipo" class="form-select">
-                    <option value="nome">Nome</option>
+                    <option value="nome_artista">Nome</option>
                     <option value="nacionalidade">Nacionalidade</option>
                 </select>
             </div>
@@ -59,15 +59,14 @@ if (!empty($_POST['valor'])) {
                 foreach ($dados as $item) {
                     echo "<tr>
                     <th scope='row'>$item->id</th>
-                    <td>$item->nome</td>
+                    <td>$item->nome_artista</td>
                     <td>$item->data_nascimento</td>
-                    <td>$item->email</td>
                     <td>$item->nacionalidade</td>
                     <td class='text-center'>
                         <a class='btn btn-warning btn-sm' title='Editar' href='insertAtor.php?id=$item->id'>Editar</a>
                     </td>   
                     <td class='text-center'>
-                        <a class='btn btn-danger btn-sm' title='Deletar' onclick='return confirm(\"Tem certeza que deseja deletar este usuário?\")' href='atoreList.php?id=$item->id'>Deletar</a>
+                        <a class='btn btn-danger btn-sm' title='Deletar' onclick='return confirm(\"Tem certeza que deseja deletar este usuário?\")' href='atorList.php?id=$item->id'>Deletar</a>
                     </td>   
                 </tr>";
                 }

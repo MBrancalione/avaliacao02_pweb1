@@ -20,9 +20,10 @@ if($_SESSION['usuario_tipo'] !== 2) {
 ?>
 
 <div>
-    <a href="./insertAtor.php">Inserir Ator</a>
-    <a href="./insertCatalogo.php">Inserir Catálogo</a>
-    <a href="./insertPlano.php">Inserir Plano</a>
+    <a href="./atorList.php">Atores</a>
+    <a href="./catalogoList.php">Catálogo</a>
+    <a href="./planoList.php">Planos</a>
+    <a href="./usuario/usuarioList.php">Usuarios</a>
 </div>
 
 <?php

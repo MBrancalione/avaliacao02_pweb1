@@ -59,9 +59,13 @@ if (!empty($_POST)) {
                 $db->store($_POST);
                 $success = "Registro Salvo com sucesso!";
             }
-            $success = "Registro Salvo com sucesso!";
+            else {
+                // Atualização
+                $db->update($_POST); // Passa o $_POST (array), já que a sua função espera só um parâmetro!
+                $success = "Registro Atualizado com sucesso!";
+            }
 
-            redirect('index.php');
+            redirect('planoList.php');
         }
     } catch (PDOException $e) {
         $actionError = $e->getMessage();
