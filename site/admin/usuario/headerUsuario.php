@@ -72,19 +72,19 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-3">
-                    <a href="index.php" class="text-decoration-none">
+                    <a href="../../index.php" class="text-decoration-none">
                         <h4>Bibi TV</h4>
                     </a>
                 </div>
                 <div class="col-md-9">
                     <nav class="nav justify-content-end align-items-center gap-2">
-                        <a class="nav-link nav-link-custom" href="index.php">Home</a>
-                        <a class="nav-link nav-link-custom" href="admin/indexAdmin.php">Admin</a>
-                        <a class="nav-link nav-link-custom" href="admin/post/postList.php">Posts</a>
-                        <a class="nav-link nav-link-custom" href="admin/usuario/indexUsuario.php">Usuários</a>
-                        <a class="nav-link nav-link-custom" href="admin/login/login.php">Login</a>
-                        <a class="nav-link nav-link-custom" href="admin/login/cadastro.php">Cadastrar</a>
-                        <a class="btn btn-sm btn-header-logout px-3" href="admin/login/logout.php">Sair</a>
+                        <a class="nav-link nav-link-custom" href="../../index.php">Home</a>
+                        <a class="nav-link nav-link-custom" href="../indexAdmin.php">Admin</a>
+                        <a class="nav-link nav-link-custom" href="../post/postList.php">Posts</a>
+                        <a class="nav-link nav-link-custom" href="indexUsuario.php">Usuários</a>
+                        <a class="nav-link nav-link-custom" href="../login/login.php">Login</a>
+                        <a class="nav-link nav-link-custom" href="../login/cadastro.php">Cadastrar</a>
+                        <a class="btn btn-sm btn-header-logout px-3" href="../login/logout.php">Sair</a>
                     </nav>
                 </div>
             </div>

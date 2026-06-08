@@ -8,6 +8,9 @@ $actionError = '';
 $errors = [];
 $data = '';
 
+
+//joga para o login se a pessoa n estiver logada
+
 //if(session_status() == PHP_SESSION_NONE) { session_start(); }
 //if(!isset($_SESSION['usuario_id'])) {
 //    header('Location: ../login.php');
@@ -31,11 +34,6 @@ if (!empty($_POST)) {
     // var_dump($_POST);
     //exit;
     try {
-
-        //coloquei para definirmos o id pq ele está dando algum erro referente as chaves, ver isso.
-        if (empty($_POST['id'])) {
-            $errors[] = "<li>O id do artista é obrigatório</li>";
-        }
 
         if (empty($_POST['nome_artista'])) {
             $errors[] = "<li>O nome do artista é obrigatório</li>";
@@ -81,11 +79,7 @@ if (!empty($_POST)) {
         <input type="hidden" name="id" value="<?php echo isset($data->id) ? $data->id : ''; ?>"> 
 
         <div class="col-6">
-            <label for="id">ID</label>
-            <input type="int" name="id" class="form-control" value="<?php echo getFormValue($data, 'id'); ?>">
-        </div>
-        <div class="col-6">
-            <label for="nome_artista">Nome</label>
+            <label for="nome_artista">Nome do Artista</label>
             <input type="text" name="nome_artista" class="form-control" value="<?php echo getFormValue($data, 'nome_artista'); ?>">
         </div>
         <div class="col-6">

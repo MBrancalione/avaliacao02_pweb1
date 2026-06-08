@@ -1,5 +1,5 @@
 <?php
-include 'C:\Users\rynbo\OneDrive\Documentos\GitHub\avaliacao02_pweb1\site\header.php'; //inclui desta forma, pois ele dava erro da forma relativa. Mantive assim por enquanto
+include '.\headerUsuario.php';
 include_once "..\db.class.php";
 
 $db = new db('usuario');
@@ -112,5 +112,5 @@ if (!empty($_POST)) {
 </div>
 
 <?php
-include 'C:\Users\rynbo\OneDrive\Documentos\GitHub\avaliacao02_pweb1\site\footer.php';
+include '.\footerUsuario.php';
 ?>

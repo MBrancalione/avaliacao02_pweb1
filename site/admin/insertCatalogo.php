@@ -2,25 +2,142 @@
 include '../header.php';
 include_once "./db.class.php";
 
-$db = new db('usuario');
+$db = new db('catalogo');
 $success = '';
 $actionError = '';
 $errors = [];
 $data = '';
 
-if(session_status() == PHP_SESSION_NONE) { session_start(); }
-if(!isset($_SESSION['usuario_id'])) {
-    header('Location: ../login.php');
-    exit;
+
+//joga para o login se a pessoa n estiver logada
+
+//if(session_status() == PHP_SESSION_NONE) { session_start(); }
+//if(!isset($_SESSION['usuario_id'])) {
+//    header('Location: ../login.php');
+//    exit;
+//}
+//if($_SESSION['usuario_tipo'] !== 2) { 
+//  header('Location: ../index.php?erro=sem_permissao');
+//    exit; 
+//}
+
+
+
+
+if(!empty($_GET['id'])) {
+    $data = $db->find($_GET['id']);
 }
-if($_SESSION['usuario_tipo'] !== 2) { 
-    header('Location: ../index.php?erro=sem_permissao');
-    exit; 
+
+if (!empty($_POST)) {
+
+    $data = (object) $_POST; //converte o array associativo do post para um objeto para facilitar o acesso aos campos
+    // var_dump($_POST);
+    //exit;
+    try {
+
+        if (empty($_POST['nome_artista'])) {
+            $errors[] = "<li>O nome do artista é obrigatório</li>";
+        }
+
+        if (empty($_POST['url'])) {
+            $errors[] = "<li>O url é obrigatório</li>";
+        }
+
+        if (empty($_POST['titulo'])) {
+            $errors[] = "<li>O titulo é obrigatório</li>";
+        }
+
+        if (empty($_POST['sinopse'])) {
+            $errors[] = "<li>A sinopse é obrigatório</li>";
+        }
+
+        if (empty($_POST['faixa_etaria'])) {
+            $errors[] = "<li>O faixa etaria é obrigatório</li>";
+        }
+
+        if (empty($_POST['ano_lançamento'])) {
+            $errors[] = "<li>O ano do lançamento é obrigatório</li>";
+        }
+
+        //Fazer de uma forma que possa colocar mais de um
+        if (empty($_POST['elenco'])) {
+            $errors[] = "<li>O elenco é obrigatório</li>";
+        }
+
+        if (empty($_POST['genero'])) {
+            $errors[] = "<li>O genero é obrigatório</li>";
+        }
+
+        if (empty($errors)) {
+            if(empty($_POST['id_obra'])) {
+                //o código está enviando um id vazio para o banco, se não existir um id, ele deve ser retirado, para que então seja possível ao banco inserir automaticamente
+                unset($_POST['id_obra']);
+
+                $db->store($_POST);
+                $success = "Registro Salvo com sucesso!";
+            }
+            $success = "Registro Salvo com sucesso!";
+
+            redirect('index.php');
+        }
+    } catch (PDOException $e) {
+        $actionError = $e->getMessage();
+    } catch (Exception $e) {
+        $actionError = $e->getMessage();
+    }
 }
+
+
 ?>
 
-<div>
+<div class="row">
+    <?php actionMessage($success, $actionError) ?>
+    <?php showValidationError($errors) ?>
+
+    <form action="./insertCatalogo.php" method="post">
+        <h3>Formulário ITEM CATALOGO</h3>
+
+        <input type="hidden" name="id" value="<?php echo isset($data->id) ? $data->id : ''; ?>"> 
+
+        <div class="col-6">
+            <label for="url">URL</label>
+            <input type="text" name="url" class="form-control" value="<?php echo getFormValue($data, 'url'); ?>">
+        </div>
+        <div class="col-6">
+            <label for="titulo">Titulo</label>
+            <input type="text" name="titulo" class="form-control" value="<?php echo getFormValue($data, 'titulo'); ?>">
+        </div>
+        <div class="col-6">
+            <label for="faixa_etaria">Faixa Etaria</label>
+            <input type="int" name="faixa_etaria" class="form-control" value="<?php echo getFormValue($data, 'faixa_etaria'); ?>">
+        </div>
+        <div class="col-6">
+            <label for="ano_lançamento">Ano de Lançamento</label>
+            <input type="int" name="ano_lançamento" class="form-control" value="<?php echo getFormValue($data, 'ano_lançamento'); ?>">
+        </div>
+        <div class="col-6">
+            <label for="elenco">Código do Elenco</label>
+            <input type="int" name="elenco" class="form-control" value="<?php echo getFormValue($data, 'elenco'); ?>">
+        </div>
+        <div class="col-6">
+            <label for="genero">Genero</label>
+            <input type="int" name="genero" class="form-control" value="<?php echo getFormValue($data, 'genero'); ?>">
+        </div>
+        <div class="col-6">
+            <label for="genero">Sinopse</label>
+            <input type="int" name="sinopse" class="form-control" value="<?php echo getFormValue($data, 'sinopse'); ?>">
+        </div>
+        <div class="mt-2">
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <a href="index.php" class="btn btn-primary"> Voltar</a>
+        </div>
 </div>
+
+
+    </form>
+
+</div>
+
 
 <?php
 include '../footer.php';

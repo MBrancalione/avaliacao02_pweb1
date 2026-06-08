@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS `catalogo` (
-	`id` int NOT NULL,
+	`id` int AUTO_INCREMENT NOT NULL UNIQUE,
 	`url` varchar(255),
 	`titulo` varchar(255),
 	`sinopse` text,
@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `catalogo` (
 	PRIMARY KEY (`id`)
 );
 CREATE TABLE IF NOT EXISTS `planos` (
-	`id` int NOT NULL,
+	`id` int AUTO_INCREMENT NOT NULL UNIQUE,
 	`nome_plano` varchar(255),
 	`preco_mensal` int,
 	`limite_telas` int,

@@ -1,10 +1,11 @@
 <?php
+include_once './header.php';
 include_once './admin/db.class.php';
 
-//instaciar um objeto da classe DB
 $conn = new db('usuario');
 
-
+// Se quiser que esse usuário seja inserido toda vez que a página carregar, mantenha o código abaixo.
+// Caso contrário, você pode apagar esse bloco de dados e o store.
 $dados = [
     'nome' => 'Ryan',
     'telefone' => '123456789',
@@ -14,10 +15,21 @@ $dados = [
     'tipo' => '2'
 ];
 
-$conn->store($dados);
-echo "Você está no index caralho"; ?>
+// Comentado para evitar inserções duplicadas toda vez que atualizar a Home. 
+// Se precisar rodar o teste, basta tirar as duas barras da linha abaixo:
+// $conn->store($dados);
+?>
 
-<div>
-    <a href="./admin/login/login.php">Login</a>
-    <a href="./admin/login/cadastro.php">Cadastro</a>
+<div class="col-12 text-center py-5">
+    <h1 class="display-4 fw-bold mb-3" style="color: #4c32a8;">Bem-vindo à Bibi TV</h1>
+    <p class="lead text-muted mb-5">Sua plataforma favorita de vídeos e conteúdos interativos.</p>
+    
+    <div class="d-flex justify-content-center gap-3">
+        <a href="./admin/login/login.php" class="btn btn-primary btn-lg px-4" style="background-color: #4c32a8; border-color: #4c32a8;">Acessar Login</a>
+        <a href="./admin/login/cadastro.php" class="btn btn-outline-secondary btn-lg px-4">Criar uma Conta</a>
+    </div>
 </div>
+
+<?php
+include_once './footer.php';
+?>

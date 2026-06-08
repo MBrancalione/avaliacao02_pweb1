@@ -69,6 +69,36 @@ class db
         return $st->fetchObject();
     }
 
+    // Retorna todos os registros da tabela
+    public function all()
+    {
+        $sql = "SELECT * FROM $this->table_name";
+        $st = $this->conn->prepare($sql);
+        $st->execute();
+
+        return $st->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    // Deleta um registro pelo ID
+    public function destroi($id)
+    {
+        $sql = "DELETE FROM $this->table_name WHERE id = ?";
+        $st = $this->conn->prepare($sql);
+        return $st->execute([$id]);
+    }
+
+    // Realiza buscas baseadas no filtro do formulário (tipo e valor)
+    public function search($post)
+    {
+        $campo = !empty($post['tipo']) ? $post['tipo'] : 'nome';
+        $valor = !empty($post['valor']) ? $post['valor'] : '';
+
+        $sql = "SELECT * FROM $this->table_name WHERE $campo LIKE ?";
+        $st = $this->conn->prepare($sql);
+        $st->execute(["%$valor%"]);
+
+        return $st->fetchAll(PDO::FETCH_OBJ);
+    }
 
 
 }

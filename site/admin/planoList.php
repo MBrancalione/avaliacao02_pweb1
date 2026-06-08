@@ -1,9 +1,9 @@
 <?php
-include '.\headerUsuario.php';
+include '..\header.php';
 //include '../login/autenticacao.php';
-include_once "../db.class.php";
+include_once "./db.class.php";
 
-$db = new db('usuario');
+$db = new db('planos');
 
 if (!empty($_GET['id'])) {
     $db->destroi($_GET['id']);
@@ -18,17 +18,14 @@ if (!empty($_POST['valor'])) {
 ?>
 
 <div class="row">
-    <h3>Listagem de Usuários</h3>
-    <form action="usuarioList.php" method="post">
+    <h3>Listagem de Planos</h3>
+    <form action="planoList.php" method="post">
         <div class="row align-items-end g-3 mb-4">
             <div class="col-md-4">
                 <label class="form-label">Buscar por:</label>
                 <select name="tipo" class="form-select">
-                    <option value="nome">Nome</option>
-                    <option value="telefone">Telefone</option>
-                    <option value="email">Email</option>
-                    <option value="login">Login</option>
-                    <option value="tipo">Tipo</option>
+                    <option value="nome_plano">Nome do Plano</option>
+                    <option value="preco_mensal">Preço Mensal</option>
                 </select>
             </div>
             <div class="col-md-5">
@@ -41,7 +38,7 @@ if (!empty($_POST['valor'])) {
         </div>
     </form>
     <div class="mb-3">
-        <a href="usuarioForm.php" class="btn btn-success">Novo Usuário</a>
+        <a href="insertPlano.php" class="btn btn-success">Cadastrar Novo Plano</a>
     </div>
 </div>
 
@@ -51,11 +48,10 @@ if (!empty($_POST['valor'])) {
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Telefone</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Login</th>
-                    <th scope="col">Tipo</th>
+                    <th scope="col">Nome do Plano</th>
+                    <th scope="col">Preço Mensal</th>
+                    <th scope="col">Limite de Telas</th>
+                    <th scope="col">Resolução Máxima</th>
                     <th scope="col" colspan="2" class="text-center">Ações</th>
                 </tr>
             </thead>
@@ -64,16 +60,15 @@ if (!empty($_POST['valor'])) {
                 foreach ($dados as $item) {
                     echo "<tr>
                     <th scope='row'>$item->id</th>
-                    <td>$item->nome</td>
-                    <td>$item->telefone</td>
-                    <td>$item->email</td>
-                    <td>$item->login</td>
-                    <td>$item->tipo</td>
+                    <td>$item->nome_plano</td>
+                    <td>$item->preco_mensal</td>
+                    <td>$item->limite_telas</td>
+                    <td>$item->resolucao_max</td>
                     <td class='text-center'>
-                        <a class='btn btn-warning btn-sm' title='Editar' href='usuarioForm.php?id=$item->id'>Editar</a>
+                        <a class='btn btn-warning btn-sm' title='Editar' href='insertPlano.php?id=$item->id'>Editar</a>
                     </td>   
                     <td class='text-center'>
-                        <a class='btn btn-danger btn-sm' title='Deletar' onclick='return confirm(\"Tem certeza que deseja deletar este usuário?\")' href='usuarioList.php?id=$item->id'>Deletar</a>
+                        <a class='btn btn-danger btn-sm' title='Deletar' onclick='return confirm(\"Tem certeza que deseja deletar este usuário?\")' href='planoList.php?id=$item->id'>Deletar</a>
                     </td>   
                 </tr>";
                 }
@@ -84,5 +79,5 @@ if (!empty($_POST['valor'])) {
 </div>
 
 <?php
-include '.\footerUsuario.php';
+include '..\footer.php';
 ?>
