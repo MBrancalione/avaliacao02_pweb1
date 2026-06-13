@@ -100,7 +100,20 @@ if (!empty($_POST)) {
         </div>
         <div class="col-6">
             <label for="resolucao_max">Resoluçao Máxima</label>
-            <input type="text" name="resolucao_max" class="form-control" value="<?php echo getFormValue($data, 'resolucao_max'); ?>">
+            <select name="resolucao_max" class="form-select"> 
+                <option value="">Selecione a Resolução</option>
+                <?php
+                    //mesma ideia utilizada no insertAtor.php
+                    $resolucoes = ["HD (720p)", "Full HD (FHD / 1080p)", "Quad HD (QHD / 2K / 1440p)", "Ultra HD (UHD / 4K)", "8K (UHD)"];
+                    
+                    $resolucaoSelecionada = getFormValue($data, 'resolucao_max'); 
+                    
+                    foreach ($resolucoes as $resolucao) {
+                        $selecionado = ($resolucao === $resolucaoSelecionada) ? 'selected' : '';
+                        echo "<option value=\"{$resolucao}\" {$selecionado}>{$resolucao}</option>";
+                    }
+                    ?>
+            </select>
         </div>
         <div class="mt-2">
             <button type="submit" class="btn btn-success">Salvar</button>

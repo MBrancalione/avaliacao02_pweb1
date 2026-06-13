@@ -7,14 +7,15 @@ $db = new db('planos');
 
 if (!empty($_GET['id'])) {
     $db->destroi($_GET['id']);
-    $dados = $db->all(); 
 }
+$dados = $db->all(); 
 
 if (!empty($_POST['valor'])) {
-    $dados = $db->search($_POST); 
-} else {
-    $dados = $db->all();
-} 
+    $termo = $_POST['valor'];
+    $tipoCampo = $_POST['tipo']; 
+
+    $dados = $db->pesquisarItem($dados, $termo, $tipoCampo);
+    }
 ?>
 
 <div class="row">
@@ -24,8 +25,8 @@ if (!empty($_POST['valor'])) {
             <div class="col-md-4">
                 <label class="form-label">Buscar por:</label>
                 <select name="tipo" class="form-select">
-                    <option value="nome_plano">Nome do Plano</option>
-                    <option value="preco_mensal">Preço Mensal</option>
+                    <option value="nome_plano" <?php echo (isset($_POST['tipo']) && $_POST['tipo'] === 'nome_plano') ? 'selected' : ''; ?>>Nome do Plano</option>
+                    <option value="preco_mensal" <?php echo (isset($_POST['tipo']) && $_POST['tipo'] === 'preco_mensal') ? 'selected' : '';?>>Preço Mensal</option>
                 </select>
             </div>
             <div class="col-md-5">

@@ -132,5 +132,26 @@ class db
         return $st->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function pesquisarItem($listaDeAtores, $termoDigitado, $campoDaBusca) { //Não consegui fazer isso sozinho, tentei mas deu erro. Pedi pro gemini ajuda
+        if (empty($termoDigitado)) {
+            return $listaDeAtores;
+        }
+
+        // Criamos a ferramenta que remove acentos e joga para minúsculo
+        $limpador = Transliterator::create("Any-Latin; Latin-ASCII; Lower");
+
+        // Mudamos o termo digitado usando a ferramenta
+        $termoSemAcento = $limpador->transliterate($termoDigitado); 
+
+        return array_filter($listaDeAtores, function($ator) use ($limpador, $termoSemAcento, $campoDaBusca) {
+            $valorDoCampo = $ator->$campoDaBusca;
+            
+            // Mudamos o valor do banco usando a ferramenta
+            $itemSemAcento = $limpador->transliterate($valorDoCampo);
+            
+            // CORRIGIDO: Agora compara o item do banco com o termo digitado!
+            return str_contains($itemSemAcento, $termoSemAcento);
+        });
+    }
 
 }

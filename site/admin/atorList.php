@@ -7,14 +7,17 @@ $db = new db('atores');
 
 if (!empty($_GET['id'])) {
     $db->destroi($_GET['id']);
-    $dados = $db->all(); 
 }
+$dados = $db->all(); 
 
 if (!empty($_POST['valor'])) {
-    $dados = $db->search($_POST); 
-} else {
-    $dados = $db->all();
-} 
+    $termo = $_POST['valor'];
+    $tipoCampo = $_POST['tipo'];
+    
+    //filtrar maiusculas, minusculas e acentos
+    $dados = $db->pesquisarItem($dados, $termo, $tipoCampo);
+}
+
 ?>
 
 <div class="row">
@@ -24,8 +27,8 @@ if (!empty($_POST['valor'])) {
             <div class="col-md-4">
                 <label class="form-label">Buscar por:</label>
                 <select name="tipo" class="form-select">
-                    <option value="nome_artista">Nome</option>
-                    <option value="nacionalidade">Nacionalidade</option>
+                    <option value="nome_artista" <?php echo (isset($_POST['tipo']) && $_POST['tipo'] === 'nome_artista') ? 'selected' : ''; ?>>Nome</option>  <!--Serve para manter o item selecionado no select-form-->
+                    <option value="nacionalidade" <?php echo (isset($_POST['tipo']) && $_POST['tipo'] === 'nacionalidade') ? 'selected' : ''; ?>>País de Origem</option>
                 </select>
             </div>
             <div class="col-md-5">

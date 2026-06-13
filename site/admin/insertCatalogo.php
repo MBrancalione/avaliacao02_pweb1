@@ -8,6 +8,10 @@ $actionError = '';
 $errors = [];
 $data = '';
 
+$dbAtores = new db('atores');//para importar os atores para o insert de IDs
+$listaAtores = $dbAtores->all();
+$elenco = [];
+
 
 //joga para o login se a pessoa n estiver logada
 
@@ -110,27 +114,71 @@ if (!empty($_POST)) {
         </div>
         <div class="col-6">
             <label for="faixa_etaria">Faixa Etaria</label>
-            <input type="int" name="faixa_etaria" class="form-control" value="<?php echo getFormValue($data, 'faixa_etaria'); ?>">
+            <select name="faixa_etaria" class="form-select" value="<?php echo getFormValue($data, 'faixa_etaria'); ?>">
+                <option value="">Selecionar Faixa Etaria</option>
+                <option value="Livre">Livre</option>
+                <option value="12">12</option>
+                <option value="14">14</option>
+                <option value="16">16</option>
+                <option value="18">18</option>
+            </select>
         </div>
         <div class="col-6">
             <label for="ano_lançamento">Ano de Lançamento</label>
             <input type="int" name="ano_lançamento" class="form-control" value="<?php echo getFormValue($data, 'ano_lançamento'); ?>">
         </div>
         <div class="col-6">
-            <label for="elenco">Código do Elenco</label>
-            <input type="int" name="elenco" class="form-control" value="<?php echo getFormValue($data, 'elenco'); ?>">
+            <label for="elenco">Atores Participantes</label>
+            <a>Insira o ID</a>
+            <input type="int" name="elenco" class="form-control" placeholder="Ex: 1, 2, 3," value="<?php echo getFormValue($data, 'elenco'); ?>">
+
         </div>
         <div class="col-6">
             <label for="genero">Genero</label>
-            <input type="int" name="genero" class="form-control" value="<?php echo getFormValue($data, 'genero'); ?>">
+            <select type="int" name="genero" class="form-select">
+                <option value="">Selecione um Gênero</option>
+                <?php $generos = ["Ação","Aventura","Cinema de arte",
+                                "Chanchada","Comédia","Comédia de ação",
+                                "Comédia de terror","Comédia dramática","Comédia romântica","Dança",
+                                "Documentário","Docuficção","Drama","Espionagem",
+                                "Faroeste","Fantasia","Fantasia científica","Ficção científica",
+                                "Filme épico","Filmes com truques","Filmes de guerra",
+                                "Filme policial","Mistério","Musical",
+                                "Romance","Terror","Thriller"];
+                    
+                    $generoSelecionado = getFormValue($data, 'genero');
+
+                    foreach ($generos as $genero) {
+                        $selecionado = ($genero === $generoSelecionado) ? 'selected' : '';
+                        echo "<option value=\"{$genero}\" {$selecionado}>{$genero}</option>";
+                    }
+                    
+                ?>
+            </select>
         </div>
         <div class="col-6">
             <label for="genero">Sinopse</label>
-            <input type="int" name="sinopse" class="form-control" value="<?php echo getFormValue($data, 'sinopse'); ?>">
+            <input type="text"  maxlength="600" name="sinopse" class="form-control" value="<?php echo getFormValue($data, 'sinopse'); ?>">
         </div>
         <div class="mt-2">
             <button type="submit" class="btn btn-success">Salvar</button>
             <a href="index.php" class="btn btn-primary"> Voltar</a>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        //Listagem de Atores
+        <div class="col-6">
+            <a>
+                <?php
+                    foreach ($listaAtores as $ator) {
+                        $selecionado = in_array($ator->id, $elenco) ? 'selected' : '';
+                        
+                        echo "<option value='{$ator->id}' {$selecionado}>{$ator->id} ({$ator->nome_artista})>";
+                    }
+                ?>
+            </a>
         </div>
 </div>
 
