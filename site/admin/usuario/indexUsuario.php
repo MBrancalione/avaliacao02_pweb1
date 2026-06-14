@@ -1,120 +1,100 @@
 <?php
-include_once './headerUsuario.php';
-include_once "../login/autenticacao.php";
+include './headerUsuario.php';
+include '../login/autenticacao.php';
 include_once '../db.class.php';
+
+$db = new db('usuario');
+$dbCatalogo = new db('catalogo');
+
+// Retorna todos os registros cadastrados
+$filmes = $dbCatalogo->all();
+
+// Sorteia um filme aleatório para o banner de destaque
+$filmeAleatorio = null;
+if (!empty($filmes)) {
+    $chaveAleatoria = array_rand($filmes); 
+    $filmeAleatorio = $filmes[$chaveAleatoria];
+}
+
+// Cria uma cópia isolada para a seção horizontal "O que acha desses?"
+$filmesAleatorios = $filmes;
 ?>
 
-<div class="container">
-    <div class="row">
-        <div class="col-12 text-left py-2" style="background-color:">
-            <h4 class="fw-bold mb-3" style="color: #4c32a8;">Bem-vindo, <?php echo $_SESSION['usuario_nome']; ?>!</h4>
-            <br>
-        </div>
-        <!--Foto banner no começo-->
-    <div class="container-fluid d-flex align-items-end" style="height: 60vh; background: linear-gradient(rgba(255, 255, 255, 0.23), #ffffff), url('https://picsum.photos/1200');">
-        <div class="container">
-            <h1 class="display-3 fw-bold">Título do Filme</h1>
-            <p class="lead w-50">Descrição breve do filme ou série destacada que aparece no banner principal da página inicial.</p>
-            <button class="btn btn-light btn-lg px-4 me-2">Assistir</button>
-            <button class="btn btn-secondary btn-lg px-4">Mais Informações</button>
-            <br>
-            <br>
-            <br>
-        </div>
-    </div>
-
-    <div class="col-12" style="background-color: white;">
-        <br>
-        <br>
-        <h4>Ideia</h4>
-        <div class="flex-row d-flex overflow-auto gap-3 p-3" style="scrollbar-width:none; min-width:300px; ">
-            <div class="d-flex align-items-end"style="width: 200px; height: 300px; flex-shrink: 0; background: linear-gradient(rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.9)), url('https://picsum.photos/200/300');">
-                <div class="container d-flex justify-content-center">
-                    <button class="btn"><i class="fi fi-rr-play" style="font-size: 26px;"></i></button>
-                    <button class="btn"><i class="fi fi-rr-bookmark" style="font-size: 24px;"></i></button>
-                </div>
-                
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-12 text-left py-2">
+                <h3 class="fw-bold mb-3" style="color: var(--lilas);">Bem-vindo, <?= htmlspecialchars($_SESSION['usuario_nome']); ?>!</h3>
             </div>
-        </div>
-
-        <div class="col-12 my-4">
-            <h4 class="mb-3 fw-bold">Catálogo</h4>
             
-            <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-6 g-4">
+            <?php if ($filmeAleatorio): ?>
+            <div class="container-fluid d-flex align-items-end rounded shadow mb-5" style="height: 60vh; background: linear-gradient(rgba(0, 0, 0, 0.2), #141414), url('<?= htmlspecialchars($filmeAleatorio->url_poster) ?>'); background-size: cover; background-position: center;">
+                <div class="container text-white pb-4 ps-4">
+                    <h1 class="display-3 fw-bold"><?= htmlspecialchars($filmeAleatorio->titulo) ?></h1>
+                    <p class="lead w-50 text-light"><?= htmlspecialchars($filmeAleatorio->sinopse) ?></p>
+                    <a href="detalhes.php?id=<?= $filmeAleatorio->id ?>" class="btn btn-light btn-lg px-4 me-2 fw-bold">Assistir</a>
+                    <a href="detalhes.php?id=<?= $filmeAleatorio->id ?>" class="btn btn-secondary btn-lg px-4 text-white" style="background-color: rgba(255,255,255,0.2); border: none;">Mais Informações</a>
+                </div>
+            </div>
+            <?php endif; ?>
+
+            <div class="col-12 mb-4">
+                <h4 class="fw-bold">O que acha desses?</h4>
+                <div class="flex-row d-flex overflow-auto gap-3 p-3" style="scrollbar-width: none; -ms-overflow-style: none;">
+                    <?php 
+                    if (!empty($filmesAleatorios)):
+                        shuffle($filmesAleatorios); // Embaralha de forma independente
+                        foreach ($filmesAleatorios as $filme): 
+                    ?>
+                            <div class="d-flex align-items-end rounded shadow movie-card-scale" 
+                                 style="width: 200px; min-width: 200px; height: 300px; flex-shrink: 0; background: linear-gradient(rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.9)), url('<?= htmlspecialchars($filme->url_poster) ?>'); background-size: cover; background-position: center;">
+                                
+                                <a href="detalhes.php?id=<?= $filme->id ?>" class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 1;" title="Ver detalhes de <?= htmlspecialchars($filme->titulo) ?>"></a>
+
+                                <div class="container d-flex justify-content-center mb-2 position-absolute bottom-0 start-0 w-100 movie-buttons-container">
+                                    <button class="btn text-white btn-movie-action" title="Comentar em <?= htmlspecialchars($filme->titulo) ?>">
+                                        <a href="./avaliaInsert.php" class="btn-link"><i class="fi fi-rr-comment" style="font-size: 24px;"></i></a>                                    </button>
+                                    </button>
+                                </div>
+                            </div>
+                    <?php 
+                        endforeach; 
+                    else:
+                        echo "<p class='text-muted ps-3'>Nenhum filme disponível no momento.</p>";
+                    endif;
+                    ?>
+                </div>
+            </div>
+
+            <div class="col-12 my-4">
+                <h4 class="mb-3 fw-bold">Catálogo</h4>
                 
-                <div class="col">
-                    <div class="movie-card">
-                        <img src="https://picsum.photos/300/450" class="img-fluid movie-img" alt="Filme 1">
-                    </div>
+                <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 p-2 mb-4">
+                    <?php if (!empty($filmes)):
+                        foreach ($filmes as $filme): ?>
+
+                            <div class="col">
+                                <div class="d-flex align-items-end rounded shadow movie-card-scale" 
+                                     style="height: 300px; background: linear-gradient(rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.9)), url('<?= htmlspecialchars($filme->url_poster) ?>'); background-size: cover; background-position: center;">
+                                    
+                                    <a href="detalhes.php?id=<?= $filme->id ?>" class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 1;" title="Ver detalhes de <?= htmlspecialchars($filme->titulo) ?>"></a>
+
+                                    <div class="container d-flex justify-content-center mb-2 position-absolute bottom-0 start-0 w-100 movie-buttons-container">
+                                        <button class="btn text-white btn-movie-action" title="Comentar em <?= htmlspecialchars($filme->titulo) ?>">
+                                            <a href="./avaliaInsert.php" class="btn-link"><i class="fi fi-rr-comment" style="font-size: 24px;"></i></a>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                    <?php endforeach; 
+                    else:
+                        echo "<div class='col-12'><p class='text-muted ps-3'>Nenhum filme disponível no momento.</p></div>";
+                    endif;?>
                 </div>
-                <div class="col">
-                    <div class="movie-card">
-                        <img src="https://picsum.photos/300/450" class="img-fluid movie-img" alt="Filme 1">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="movie-card">
-                        <img src="https://picsum.photos/300/450" class="img-fluid movie-img" alt="Filme 1">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="movie-card">
-                        <img src="https://picsum.photos/300/450" class="img-fluid movie-img" alt="Filme 1">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="movie-card">
-                        <img src="https://picsum.photos/300/450" class="img-fluid movie-img" alt="Filme 1">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="movie-card">
-                        <img src="https://picsum.photos/300/450" class="img-fluid movie-img" alt="Filme 1">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="movie-card">
-                        <img src="https://picsum.photos/300/450" class="img-fluid movie-img" alt="Filme 1">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="movie-card">
-                        <img src="https://picsum.photos/300/450" class="img-fluid movie-img" alt="Filme 1">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="movie-card">
-                        <img src="https://picsum.photos/300/450" class="img-fluid movie-img" alt="Filme 1">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="movie-card">
-                        <img src="https://picsum.photos/300/450" class="img-fluid movie-img" alt="Filme 1">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="movie-card">
-                        <img src="https://picsum.photos/300/450" class="img-fluid movie-img" alt="Filme 1">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="movie-card">
-                        <img src="https://picsum.photos/300/450" class="img-fluid movie-img" alt="Filme 1">
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="movie-card">
-                        <img src="https://picsum.photos/300/450" class="img-fluid movie-img" alt="Filme 1">
-                    </div>
-                </div>
-                
             </div>
         </div>
     </div>
-
-</div>
-<script src="https://jsdelivr.net"></script>
 
 <?php
-include_once '../../footer.php';
+include '../../footer.php';
 ?>

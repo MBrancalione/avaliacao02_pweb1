@@ -1,12 +1,37 @@
-    </div> 
-        </div>
-        <footer style="background-color: #342766; color: #f3f0ff; padding: 10px; margin-top: 0; opacity: 0.9;">
-            <div class="container text-center">
-                <h4 style="font-weight: 300; margin-bottom: 10px;">ASSINE PARA UMA DIVERSÃO SURREAL!!!</h4>
-                <p style="font-size: 14px; color: #d0bfff; margin-bottom: 0;">
-                    &copy; <?php echo date('Y'); ?> Bibi TV. Todos os direitos reservados.
-                </p>
+</div> </div> <footer class="mt-5 py-4" style="background-color: var(--lilas, #4c32a8) !important; border-top: 1px solid rgba(255,255,255,0.1);">
+        <div class="container">
+            <div class="row align-items-center">
+                
+                <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                    <span class="fw-bold text-white" style="font-size: 1.2rem; letter-spacing: -0.5px;">Bibi TV</span>
+                    <span class="text-white-50 small ms-2">&copy; <?= date('Y'); ?>. Todos os direitos reservados.</span>
+                </div>
+
+                <div class="col-md-6 text-center text-md-end">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item me-4">
+                            <a href="#" class="text-decoration-none small fw-semibold text-white link-footer-fade" 
+                               style="transition: opacity 0.2s; opacity: 0.85;"
+                               onmouseover="this.style.opacity='1'; this.style.color='var(--amarelopastel, #fbd28c)';" 
+                               onmouseout="this.style.opacity='0.85'; this.style.color='#ffffff';">
+                               Termos de Uso
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="#" class="text-decoration-none small fw-semibold text-white link-footer-fade" 
+                               style="transition: opacity 0.2s; opacity: 0.85;"
+                               onmouseover="this.style.opacity='1'; this.style.color='var(--amarelopastel, #fbd28c)';" 
+                               onmouseout="this.style.opacity='0.85'; this.style.color='#ffffff';">
+                               Políticas de Privacidade
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
-        </footer>
-    </body>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
 </html>

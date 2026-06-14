@@ -163,12 +163,15 @@ class db
             return str_contains($itemSemAcento, $termoSemAcento);
         });
     }
+   
+   
+   
     /*tempo padrão para o redirecoinamento nas páginas */
-    function redirect($page, $time = 500){
+    public  function redirect($page, $time = 500){
         echo "<script>setTimeout(()=>window.location.href='$page', '$time')</script>";
     }
 
-    function actionMessage($success, $error){
+    public function actionMessage($success, $error){
         if(!empty($success)){
             echo "<div class='alert alert-success' role='alert'>$success</div>";
         }
@@ -177,7 +180,7 @@ class db
         }
     }
 
-    function showValidationError($errors = [])
+    public function showValidationError($errors = [])
     {
         if (!empty($errors)) {
             echo "<div class='alert alert-danger' role='alert'><ul>";
@@ -189,9 +192,10 @@ class db
         }
     }   
 
-    function getFormValue($data, $field='')
+    public function getFormValue($data, $field='')
     {
         return isset($data->$field) ? $data->$field : '';
     }
 
 }
+

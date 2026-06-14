@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS `catalogo` (
 	`id` int AUTO_INCREMENT NOT NULL UNIQUE,
 	`url_poster` varchar(300),
 	`url_video` varchar(300),
+	`url_foto` varchar(300),
 	`titulo` varchar(255),
 	`sinopse` text,
 	`faixa_etaria` int,

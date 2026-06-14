@@ -73,7 +73,7 @@ if (!empty($_POST['valor'])) {
                         <a class='btn btn-warning btn-sm' title='Editar' href='../login/cadastro.php?id=$item->id'>Editar</a>
                     </td>   
                     <td class='text-center'>
-                        <a class='btn btn-danger btn-sm' title='Deletar' onclick='return confirm(\"Tem certeza que deseja deletar este usuário?\")' href='listUsuario.php?id=$item->id'>Deletar</a>
+                        <a class='btn-sair btn btn-danger btn-sm' title='Deletar' onclick='return confirm(\"Tem certeza que deseja deletar este usuário?\")' href='listUsuario.php?id=$item->id'>Deletar</a>
                     </td>   
                 </tr>";
                 }

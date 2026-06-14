@@ -7,44 +7,43 @@ $db = new db('avaliacao');
 $success = '';
 $actionError = '';
 $errors = [];
-$data = '';
+$data = null;
 
-
-$filme_id = 1;
+$filme_id = 1; // ID do filme fixado pelo seu escopo atual
 if (isset($_SESSION['usuario_id'])) {
     $id = $_SESSION['usuario_id'];
 }
 
+// Se for edição, busca os dados atuais do item
 if(!empty($_GET['id'])) {  
     $data = $db->find($_GET['id']);
 } 
 
+// Processamento do Formulário
 if (!empty($_POST)) {
-
     $data = (object) $_POST; 
     try {
         if (empty($errors)) {
             if(empty($_POST['id'])) {
                 unset($_POST['id']);
                 $dado = [
-                    'id_usuario' => $id,      // Salvando quem é o usuário logado
-                    'id_catalogo'   => $filme_id,        // Salvando quem é o filme
-                    'nota'       => $_POST['nota'],    // Salvando a nota digitada
-                    'comentario' => $_POST['comentario'], // Salvando o texto digitado
-                    'spoiler'    => $_POST['spoiler']   // Salvando se tem spoiler ou não
+                    'id_usuario'  => $id,          
+                    'id_catalogo' => $filme_id,    
+                    'nota'        => $_POST['nota'],    
+                    'comentario'  => $_POST['comentario'], 
+                    'spoiler'     => $_POST['spoiler']   
                 ];
 
                 $db->store($dado);
-                $success = "Registro Salvo com sucesso!";
+                $success = "Avaliação salva com sucesso!";
+            } else {
+                // Modo Edição/Atualização
+                $db->update($_POST); 
+                $success = "Avaliação atualizada com sucesso!";
             }
-            else {
-        // Atualização
-        $db->update($_POST); // Passa o $_POST (array), já que a sua função espera só um parâmetro!
-        $success = "Registro Atualizado com sucesso!";
-    }
-            $success = "Registro Salvo com sucesso!";
 
-$db->redirect('avaliaList.php', 1000);
+            // Utiliza a sua função nativa de redirecionamento do arquivo
+            redirect('avaliaList.php', 1200);
         }
     } catch (PDOException $e) {
         $actionError = $e->getMessage();
@@ -54,49 +53,116 @@ $db->redirect('avaliaList.php', 1000);
 }
 ?>
 
-<div class="row">
-    <?php actionMessage($success, $actionError) ?>
-    <?php showValidationError($errors) ?>
+<?php
+    /* Funções Auxiliares do seu arquivo */
+    function redirect($page, $time = 500){
+        echo "<script>setTimeout(()=>window.location.href='$page', '$time')</script>";
+    }
 
-    <form action="./avaliaInsert.php" method="post">
-        <h3>Formulário AVALIAÇÃO</h3>
+    function actionMessage($success, $error){
+        if(!empty($success)){
+            echo "<div class='alert alert-success rounded-3 shadow-sm' role='alert'><i class='fi fi-rr-check-circle me-2'></i>$success</div>";
+        }
+        if(!empty($error)){
+            echo "<div class='alert alert-danger rounded-3 shadow-sm' role='alert'><i class='fi fi-rr-cross-circle me-2'></i>$error</div>";
+        }
+    }
 
-        <input type="hidden" name="id" value="<?php echo isset($data->id) ? $data->id : ''; ?>"> 
+    function showValidationError($errors = []) {
+        if (!empty($errors)) {
+            echo "<div class='alert alert-danger rounded-3 shadow-sm' role='alert'><ul>";
+            echo "<strong>Erros nos campos:</strong>";
+            foreach ($errors as $error) {
+                echo "<li>" . $error . "</li>"; 
+            }
+            echo "</ul></div>";
+        }
+    }   
 
-        <div class="col-6">
-            <label for="nota" class="form-label fw-medium">Sua Nota:</label>
-            <select name="nota" id="nota" class="form-select form-select-lg" style="color: #ffc107; font-weight: bold;">
-                <option value="" style="color: #000;">Escolha uma nota...</option>
-                <option value="5">★★★★★ (5 - Excelente)</option>
-                <option value="4">★★★★☆ (4 - Muito Bom)</option>
-                <option value="3">★★★☆☆ (3 - Regular)</option>
-                <option value="2">★★☆☆☆ (2 - Ruim)</option>
-                <option value="1">★☆☆☆☆ (1 - Péssimo)</option>
-            </select>
+    function getFormValue($data, $field='') {
+        return isset($data->$field) ? $data->$field : '';
+    }
+?>
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            
+            <?php actionMessage($success, $actionError) ?>
+            <?php showValidationError($errors) ?>
+
+            <div class="card shadow border-0 rounded-4 overflow-hidden" style="background: #ffffff;">
+                
+                <div class="d-flex align-items-center px-4" style="height: 100px; background: linear-gradient(135deg, var(--lilas, #4c32a8), var(--lilas-hover, #745ccc));">
+                    <h4 class="fw-bold text-white m-0">
+                        <i class="fi fi-rr-comment-heart me-2" style="vertical-align: middle;"></i>
+                        <?= !empty($_GET['id']) ? 'Editar Avaliação' : 'Nova Avaliação' ?>
+                    </h4>
+                </div>
+
+                <div class="card-body p-4">
+                    <form action="./avaliaInsert.php" method="post">
+                        
+                        <input type="hidden" name="id" value="<?= getFormValue($data, 'id'); ?>"> 
+
+                        <div class="mb-4">
+                            <label for="nota" class="form-label small fw-semibold text-muted">Sua Nota:</label>
+                            <select name="nota" id="nota" class="form-select border-2 py-2 fw-bold" style="color: #ffc107;" required>
+                                <option value="" style="color: #000;">Escolha uma nota...</option>
+                                <?php 
+                                $notaAtual = getFormValue($data, 'nota');
+                                $opcoesNotas = [
+                                    "5" => "★★★★★ (5 - Excelente)",
+                                    "4" => "★★★★☆ (4 - Muito Bom)",
+                                    "3" => "★★★☆☆ (3 - Regular)",
+                                    "2" => "★★☆☆☆ (2 - Ruim)",
+                                    "1" => "★☆☆☆☆ (1 - Péssimo)"
+                                ];
+                                foreach ($opcoesNotas as $valor => $texto):
+                                    $selected = ($notaAtual == $valor) ? 'selected' : '';
+                                    echo "<option value='{$valor}' {$selected} style='color: #212529;'>{$texto}</option>";
+                                endforeach;
+                                ?>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="comentario" class="form-label small fw-semibold text-muted">Comentário:</label>
+                            <textarea name="comentario" id="comentario" maxlength="600" rows="4" class="form-control border-2 p-3 text-secondary" placeholder="Deixe sua opinião sincera sobre a obra..." required><?= getFormValue($data, 'comentario'); ?></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="spoiler" class="form-label small fw-semibold text-muted">Contém Spoiler?</label>
+                            <select name="spoiler" id="spoiler" class="form-select border-2 py-2" required>
+                                <option value="">Selecione uma opção...</option>
+                                <?php $spoilerAtual = getFormValue($data, 'spoiler'); ?>
+                                <option value="1" <?= ($spoilerAtual == '1' || $spoilerAtual == 'Sim') ? 'selected' : '' ?>>Sim</option>
+                                <option value="0" <?= ($spoilerAtual == '0' || $spoilerAtual == 'Não') ? 'selected' : '' ?>>Não</option>
+                            </select>
+                        </div>
+
+                        <hr class="text-black-50 my-4">
+
+                        <div class="d-flex gap-2 justify-content-end align-items-center">
+                            <a href="avaliaList.php" class="btn btn-link text-decoration-none fw-semibold text-muted me-2">
+                                Cancelar
+                            </a>
+                            
+                            <button type="submit" class="btn fw-bold px-4 py-2 border-0 text-dark rounded-3" 
+                                    style="background-color: var(--amarelopastel, #fbd28c); transition: all 0.2s;"
+                                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(251, 210, 140, 0.4)';"
+                                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                                    <i class="fi fi-rr-disk me-1" style="vertical-align: middle;"></i> Salvar Avaliação
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
         </div>
-        <div class="col-6">
-            <label for="comentario">Comentário</label>
-            <input type="text"  maxlength="600" name="comentario" class="form-control" value="<?php echo getFormValue($data, 'comentario'); ?>">
-        </div>
-        <div class="col-6">
-            <label for="spoiler" class="form-label fw-medium">Contém Spoiler?</label>
-            <select name="spoiler" id="spoiler" class="form-select form-select-lg">
-                <option value="" style="color: #000;">Selecione uma opção...</option>
-                <option value="1">Sim</option>
-                <option value="0">Não</option>
-            </select>
-        </div>
-        <div class="mt-2">
-            <button type="submit" class="btn btn-success">Salvar</button>
-            <a href="avaliaList.php" class="btn btn-primary"> Voltar</a>
-        </div>
+    </div>
 </div>
-
-
-    </form>
-
-</div>
-
 
 <?php
 include '../../footer.php';

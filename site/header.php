@@ -44,13 +44,11 @@
   ?>
   
   <body>
-    <header class="custom-header">
+    <header class="custom-header" style="background-color: var(--lilas);">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-3">
-                    <a href="index.php" class="text-decoration-none">
-                        <h4>Bibi TV</h4>
-                    </a>
+                    <a href="./index.html"><img class="logo" src="./img/logos/logobranca.png" alt="logo"></a>
                 </div>
                 <div class="col-md-9">
                     <nav class="nav justify-content-end align-items-center gap-2">
