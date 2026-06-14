@@ -1,34 +1,38 @@
 <?php
-include '..\header.php';
-//include '../login/autenticacao.php';
-include_once "./db.class.php";
+include "../../header.php";
+include '../login/autenticacao.php';
+include_once "../db.class.php";
 
-$db = new db('atores');
+if($_SESSION['user_tipo'] !== 'admin') { 
+    header('Location: ../login.php?erro=sem_permissao');
+    exit; 
+}
+
+$db = new db('catalogo');
 
 if (!empty($_GET['id'])) {
     $db->destroi($_GET['id']);
+    $dados = $db->all(); 
 }
-$dados = $db->all(); 
 
 if (!empty($_POST['valor'])) {
-    $termo = $_POST['valor'];
-    $tipoCampo = $_POST['tipo'];
-    
-    //filtrar maiusculas, minusculas e acentos
-    $dados = $db->pesquisarItem($dados, $termo, $tipoCampo);
-}
-
+    $dados = $db->search($_POST); 
+} else {
+    $dados = $db->all();
+} 
 ?>
 
 <div class="row">
-    <h3>Listagem de Atores</h3>
-    <form action="atorList.php" method="post">
+    <h3>Catalogo</h3>
+    <form action="listCatalogo.php" method="post">
         <div class="row align-items-end g-3 mb-4">
             <div class="col-md-4">
                 <label class="form-label">Buscar por:</label>
                 <select name="tipo" class="form-select">
-                    <option value="nome_artista" <?php echo (isset($_POST['tipo']) && $_POST['tipo'] === 'nome_artista') ? 'selected' : ''; ?>>Nome</option>  <!--Serve para manter o item selecionado no select-form-->
-                    <option value="nacionalidade" <?php echo (isset($_POST['tipo']) && $_POST['tipo'] === 'nacionalidade') ? 'selected' : ''; ?>>País de Origem</option>
+                    <option value="titulo">Título</option>
+                    <option value="id">ID</option>
+                    <option value="genero">Genero</option>
+                    <option value="faixa_etaria">Faixa Etaria</option>
                 </select>
             </div>
             <div class="col-md-5">
@@ -41,7 +45,7 @@ if (!empty($_POST['valor'])) {
         </div>
     </form>
     <div class="mb-3">
-        <a href="insertAtor.php" class="btn btn-success">Novo Ator</a>
+        <a href="insertCatalogo.php" class="btn btn-success">Novo Item no Catalogo</a>
     </div>
 </div>
 
@@ -51,9 +55,11 @@ if (!empty($_POST['valor'])) {
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Data de Nascimento</th>
-                    <th scope="col">Nacionalidade</th>
+                    <th scope="col">Título</th>
+                    <th scope="col">Sinopse</th>
+                    <th scope="col">Ano de Lançamento</th>
+                    <th scope="col">Elenco</th>
+                    <th scope="col">Genero</th>
                     <th scope="col" colspan="2" class="text-center">Ações</th>
                 </tr>
             </thead>
@@ -62,14 +68,16 @@ if (!empty($_POST['valor'])) {
                 foreach ($dados as $item) {
                     echo "<tr>
                     <th scope='row'>$item->id</th>
-                    <td>$item->nome_artista</td>
-                    <td>$item->data_nascimento</td>
-                    <td>$item->nacionalidade</td>
+                    <td>$item->titulo</td>
+                    <td>$item->sinopse</td>
+                    <td>$item->ano_lançamento</td>
+                    <td>$item->elenco</td>
+                    <td>$item->genero</td>
                     <td class='text-center'>
-                        <a class='btn btn-warning btn-sm' title='Editar' href='insertAtor.php?id=$item->id'>Editar</a>
+                        <a class='btn btn-warning btn-sm' title='Editar' href='insertCatalogo.php?id=$item->id'>Editar</a>
                     </td>   
                     <td class='text-center'>
-                        <a class='btn btn-danger btn-sm' title='Deletar' onclick='return confirm(\"Tem certeza que deseja deletar este usuário?\")' href='atorList.php?id=$item->id'>Deletar</a>
+                        <a class='btn btn-danger btn-sm' title='Deletar' onclick='return confirm(\"Tem certeza que deseja deletar este usuário?\")' href='listCatalogo.php?id=$item->id'>Deletar</a>
                     </td>   
                 </tr>";
                 }
@@ -80,5 +88,5 @@ if (!empty($_POST['valor'])) {
 </div>
 
 <?php
-include '..\footer.php';
+include "../../footer.php";
 ?>

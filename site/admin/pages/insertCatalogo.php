@@ -1,6 +1,12 @@
 <?php
-include '../header.php';
-include_once "./db.class.php";
+include '../../header.php';
+include '../login/autenticacao.php';
+include_once "../db.class.php";
+
+if($_SESSION['user_tipo'] !== 'admin') { 
+    header('Location: ../login.php?erro=sem_permissao');
+    exit; 
+}
 
 $db = new db('catalogo');
 $success = '';
@@ -11,20 +17,6 @@ $data = '';
 $dbAtores = new db('atores');//para importar os atores para o insert de IDs
 $listaAtores = $dbAtores->all();
 $elenco = [];
-
-
-//joga para o login se a pessoa n estiver logada
-
-//if(session_status() == PHP_SESSION_NONE) { session_start(); }
-//if(!isset($_SESSION['usuario_id'])) {
-//    header('Location: ../login.php');
-//    exit;
-//}
-//if($_SESSION['usuario_tipo'] !== 2) { 
-//  header('Location: ../index.php?erro=sem_permissao');
-//    exit; 
-//}
-
 
 
 
@@ -83,7 +75,7 @@ if (!empty($_POST)) {
     }
             $success = "Registro Salvo com sucesso!";
 
-            redirect('catalogoList.php');
+            redirect('listCatalogo.php');
         }
     } catch (PDOException $e) {
         $actionError = $e->getMessage();
@@ -189,5 +181,5 @@ if (!empty($_POST)) {
 
 
 <?php
-include '../footer.php';
+include '../../footer.php';
 ?>

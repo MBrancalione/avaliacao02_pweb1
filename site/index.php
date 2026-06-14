@@ -1,32 +1,30 @@
-<?php
-include_once './header.php';
-include_once './admin/db.class.php';
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link rel="stylesheet" href="./admin/categoria/css/styles.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-$conn = new db('usuario');
-
-// Se quiser que esse usuário seja inserido toda vez que a página carregar, mantenha o código abaixo.
-// Caso contrário, você pode apagar esse bloco de dados e o store.
-$dados = [
-    'nome' => 'Ryan',
-    'telefone' => '123456789',
-    'email' => 'ryan@example.com',
-    'login' => 'admin',
-    'senha' => password_hash('123456', PASSWORD_DEFAULT),   
-    'tipo' => '2'
-];
-
-// Comentado para evitar inserções duplicadas toda vez que atualizar a Home. 
-// Se precisar rodar o teste, basta tirar as duas barras da linha abaixo:
-//$conn->store($dados);
-?>
-
-<div class="col-12 text-center py-5">
-    <h1 class="display-4 fw-bold mb-3" style="color: #4c32a8;">Bem-vindo à Bibi TV</h1>
-    <p class="lead text-muted mb-5">Sua plataforma favorita de vídeos e conteúdos interativos.</p>
+<div class="carousel-container">
+    <div class="texto-fixo-overlay">
+        <h1 class="display-4 fw-bold mb-3" style="color: #4c32a8;">Bem-vindo à Bibi TV</h1>
+        <p class="lead text-muted mb-5">Sua plataforma favorita de vídeos e conteúdos interativos.</p>
+        <div class="d-flex justify-content-center gap-3">
+            <a href="./admin/login/login.php" class="btn btn-primary btn-lg px-4" style="background-color: #4c32a8; border-color: #4c32a8;">Acessar Login</a><br>
+            <a href="./admin/login/cadastro.php" class="btn btn-outline-secondary btn-lg px-4">Criar uma Conta</a>
+        </div>
+    </div>
     
-    <div class="d-flex justify-content-center gap-3">
-        <a href="./admin/login/login.php" class="btn btn-primary btn-lg px-4" style="background-color: #4c32a8; border-color: #4c32a8;">Acessar Login</a>
-        <a href="./admin/login/cadastro.php" class="btn btn-outline-secondary btn-lg px-4">Criar uma Conta</a>
+    <!-- Carrossel -->
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://picsum.photos/1200/400?random=1" class="d-block w-100" alt="Primeiro Slide">
+            </div>
+            <div class="carousel-item">
+                <img src="https://picsum.photos/1200/400?random=2" class="d-block w-100" alt="Segundo Slide">
+            </div>
+            <div class="carousel-item">
+                <img src="https://picsum.photos/1200/400?random=3" class="d-block w-100" alt="Terceiro Slide">
+            </div>
+        </div>
     </div>
 </div>
 

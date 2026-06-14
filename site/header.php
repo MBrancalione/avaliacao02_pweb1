@@ -5,34 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bibi TV</title>
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <style>
-      .custom-header {
-        background-color: #e5dbff;
-        color: #4c32a8;
-        padding: 15px 0;
-        margin-bottom: 30px;
-        border-bottom: 2px solid #fff; 
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); 
-      }
-      .custom-header h4 {
-        margin: 0;
-        font-weight: 700;
-      }
-      .nav-link-custom {
-        color: #4c32a8 !important;
-        font-weight: 500;
-        transition: opacity 0.2s;
-      }
-      .nav-link-custom:hover {
-        opacity: 0.8;
-      }
-      .btn-header-logout {
-        background-color: #4c32a8;
-        color: #fff !important;
-      }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="./admin/categoria/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   </head>
 
   <?php
@@ -61,6 +36,7 @@
         }
     }   
 
+    /*função para preencher os campos do formulário com os dados do banco, caso seja uma edição, ou deixar vazio caso seja um cadastro */
     function getFormValue($data, $field='')
     {
         return isset($data->$field) ? $data->$field : '';
@@ -78,13 +54,11 @@
                 </div>
                 <div class="col-md-9">
                     <nav class="nav justify-content-end align-items-center gap-2">
-                        <a class="nav-link nav-link-custom" href="index.php">Home</a>
-                        <a class="nav-link nav-link-custom" href="admin/indexAdmin.php">Admin</a>
-                        <a class="nav-link nav-link-custom" href="admin/post/postList.php">Posts</a>
-                        <a class="nav-link nav-link-custom" href="admin/usuario/indexUsuario.php">Usuários</a>
-                        <a class="nav-link nav-link-custom" href="admin/login/login.php">Login</a>
-                        <a class="nav-link nav-link-custom" href="admin/login/cadastro.php">Cadastrar</a>
-                        <a class="btn btn-sm btn-header-logout px-3" href="admin/login/logout.php">Sair</a>
+                        <a class="nav-link nav-link-custom" href="/avaliacao02_pweb1/site/admin/indexAdmin.php">Home</a>
+                        <a class="nav-link nav-link-custom" href="/avaliacao02_pweb1/site/admin/pages/listCatalogo.php">Catalogo</a>
+                        <a class="nav-link nav-link-custom" href="/avaliacao02_pweb1/site/admin/pages/listPlano.php">Planos</a>
+                        <a class="nav-link nav-link-custom" href="/avaliacao02_pweb1/site/admin/usuario/listUsuario.php">Usuários</a>
+                        <a class="btn btn-sm btn-header-logout px-3" href="/avaliacao02_pweb1/site/admin/login/logout.php">Sair</a>
                     </nav>
                 </div>
             </div>

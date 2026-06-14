@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `atores` (
 CREATE TABLE IF NOT EXISTS `usuario` (
 	`id` int AUTO_INCREMENT NOT NULL UNIQUE,
 	`nome` varchar(120) NOT NULL,
-	`telefone` int NOT NULL,
+	`telefone` varchar(20) NOT NULL,
 	`email` varchar(120) NOT NULL,
 	`login` varchar(25) NOT NULL,
 	`senha` text NOT NULL,

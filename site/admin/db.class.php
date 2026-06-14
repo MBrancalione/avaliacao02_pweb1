@@ -153,5 +153,35 @@ class db
             return str_contains($itemSemAcento, $termoSemAcento);
         });
     }
+    /*tempo padrão para o redirecoinamento nas páginas */
+    function redirect($page, $time = 500){
+        echo "<script>setTimeout(()=>window.location.href='$page', '$time')</script>";
+    }
+
+    function actionMessage($success, $error){
+        if(!empty($success)){
+            echo "<div class='alert alert-success' role='alert'>$success</div>";
+        }
+        if(!empty($error)){
+            echo "<div class='alert alert-danger' role='alert'>$error</div>";
+        }
+    }
+
+    function showValidationError($errors = [])
+    {
+        if (!empty($errors)) {
+            echo "<div class='alert alert-danger' role='alert'><ul>";
+            echo "<strong>Erros nos campos:</strong>";
+            foreach ($errors as $error) {
+                echo "<li>" . $error . "</li>"; 
+            }
+            echo "</ul></div>";
+        }
+    }   
+
+    function getFormValue($data, $field='')
+    {
+        return isset($data->$field) ? $data->$field : '';
+    }
 
 }

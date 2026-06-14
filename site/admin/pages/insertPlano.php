@@ -1,28 +1,18 @@
 <?php
-include '../header.php';
-include_once "./db.class.php";
+include '../../header.php';
+include '../login/autenticacao.php';
+include_once "../db.class.php";
+
+if($_SESSION['user_tipo'] !== 'admin') { 
+    header('Location: ../login.php?erro=sem_permissao');
+    exit; 
+}
 
 $db = new db('planos');
 $success = '';
 $actionError = '';
 $errors = [];
 $data = '';
-
-
-//joga para o login se a pessoa n estiver logada
-
-//if(session_status() == PHP_SESSION_NONE) { session_start(); }
-//if(!isset($_SESSION['usuario_id'])) {
-//    header('Location: ../login.php');
-//    exit;
-//}
-//if($_SESSION['usuario_tipo'] !== 2) { 
-//  header('Location: ../index.php?erro=sem_permissao');
-//    exit; 
-//}
-
-
-
 
 if(!empty($_GET['id'])) {
     $data = $db->find($_GET['id']);
@@ -65,7 +55,7 @@ if (!empty($_POST)) {
                 $success = "Registro Atualizado com sucesso!";
             }
 
-            redirect('planoList.php');
+            redirect('listPlano.php');
         }
     } catch (PDOException $e) {
         $actionError = $e->getMessage();
@@ -128,5 +118,5 @@ if (!empty($_POST)) {
 
 
 <?php
-include '../footer.php';
+include '../../footer.php';
 ?>
