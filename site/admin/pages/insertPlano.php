@@ -102,7 +102,7 @@ if (!empty($_POST)) {
         </div>
         <div class="mt-2">
             <button type="submit" class="btn btn-success">Salvar</button>
-            <a href="index.php" class="btn btn-primary"> Voltar</a>
+            <a href="listPlano.php" class="btn btn-primary"> Voltar</a>
         </div>
 </div>
 

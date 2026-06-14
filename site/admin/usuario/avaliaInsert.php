@@ -1,5 +1,5 @@
 <?php
-include '../../header.php';
+include './headerUsuario.php';
 include '../login/autenticacao.php';
 include_once "../db.class.php";
 
@@ -10,8 +10,10 @@ $errors = [];
 $data = '';
 
 
-$filme_id = isset($_GET['filme_id']) ? $_GET['filme_id'] : null;
-$usuario_id = isset($_SESSION['usuario_id']) ? $_SESSION['usuario_id'] : null;
+$filme_id = 1;
+if (isset($_SESSION['usuario_id'])) {
+    $id = $_SESSION['usuario_id'];
+}
 
 if(!empty($_GET['id'])) {  
     $data = $db->find($_GET['id']);
@@ -25,10 +27,10 @@ if (!empty($_POST)) {
             if(empty($_POST['id'])) {
                 unset($_POST['id']);
                 $dado = [
-                    'id_usuario' => $usuario_id,      // Salvando quem é o usuário logado
+                    'id_usuario' => $id,      // Salvando quem é o usuário logado
                     'id_catalogo'   => $filme_id,        // Salvando quem é o filme
                     'nota'       => $_POST['nota'],    // Salvando a nota digitada
-                    'comentario' => $_POST['comentario'] // Salvando o texto digitado
+                    'comentario' => $_POST['comentario'], // Salvando o texto digitado
                     'spoiler'    => $_POST['spoiler']   // Salvando se tem spoiler ou não
                 ];
 
@@ -42,7 +44,7 @@ if (!empty($_POST)) {
     }
             $success = "Registro Salvo com sucesso!";
 
-            redirect('avaliaList.php');
+$db->redirect('avaliaList.php', 1000);
         }
     } catch (PDOException $e) {
         $actionError = $e->getMessage();
@@ -56,7 +58,7 @@ if (!empty($_POST)) {
     <?php actionMessage($success, $actionError) ?>
     <?php showValidationError($errors) ?>
 
-    <form action="./insertAvaliacao.php" method="post">
+    <form action="./avaliaInsert.php" method="post">
         <h3>Formulário AVALIAÇÃO</h3>
 
         <input type="hidden" name="id" value="<?php echo isset($data->id) ? $data->id : ''; ?>"> 
@@ -73,8 +75,8 @@ if (!empty($_POST)) {
             </select>
         </div>
         <div class="col-6">
-            <label for="sinopse">Comentário</label>
-            <input type="text"  maxlength="600" name="sinopse" class="form-control" value="<?php echo getFormValue($data, 'comentario'); ?>">
+            <label for="comentario">Comentário</label>
+            <input type="text"  maxlength="600" name="comentario" class="form-control" value="<?php echo getFormValue($data, 'comentario'); ?>">
         </div>
         <div class="col-6">
             <label for="spoiler" class="form-label fw-medium">Contém Spoiler?</label>
@@ -86,7 +88,7 @@ if (!empty($_POST)) {
         </div>
         <div class="mt-2">
             <button type="submit" class="btn btn-success">Salvar</button>
-            <a href="index.php" class="btn btn-primary"> Voltar</a>
+            <a href="avaliaList.php" class="btn btn-primary"> Voltar</a>
         </div>
 </div>
 

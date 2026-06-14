@@ -6,7 +6,6 @@ CREATE TABLE IF NOT EXISTS `catalogo` (
 	`sinopse` text,
 	`faixa_etaria` int,
 	`ano_lançamento` int,
-	`elenco` varchar(100),
 	`genero` varchar(20) NOT NULL,
 	PRIMARY KEY (`id`)
 );
@@ -25,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 	`telefone` varchar(20) NOT NULL,
 	`email` varchar(120) NOT NULL,
 	`login` varchar(25) NOT NULL,
-	`senha` text NOT NULL,
+	`senha` varchar(255) NOT NULL,
 	`tipo` int NOT NULL,
 	PRIMARY KEY (`id`)
 );
@@ -40,14 +39,3 @@ CREATE TABLE IF NOT EXISTS `avaliacao` (
 );
 ALTER TABLE `avaliacao` ADD CONSTRAINT `avaliacao_fk1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario`(`id`);
 ALTER TABLE `avaliacao` ADD CONSTRAINT `avaliacao_fk2` FOREIGN KEY (`id_catalogo`) REFERENCES `catalogo`(`id`);
-
-INSERT INTO usuario (nome, telefone, email, login, senha, tipo) 
-VALUES (
-    'Administrador', 
-    '49999999999', 
-    'admin@bibitv.com', 
-    'admin', 
-    -- senha '123456'
-    '$2y$10$8KzVv1p4Rby6N6zEGE3vAegG098rO0T4P.UeOQx7gE2kDeC1Vlyre', 
-    2
-);

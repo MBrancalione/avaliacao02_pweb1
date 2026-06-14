@@ -111,7 +111,6 @@ if (!empty($_POST)) {
         <input type="hidden" name="tipo" value="1"> <!--cadastra como usuário automaticamente -->
         <div class="mt-2">
             <button type="submit" class="btn btn-success">Salvar</button>
-            <a href="./login.php" class="btn btn-primary"> Faça login aqui!</a>
         </div>
     </form>
 </div>

@@ -2,6 +2,20 @@
 <link rel="stylesheet" href="./admin/categoria/css/styles.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
+<?php
+include './admin/db.class.php';
+/*$conn = new db('usuario');
+$dados = [
+    'nome' => 'João',
+    'telefone' => '123456789',
+    'email' => 'joao@example.com',
+    'login' => 'admin',
+    'senha' => password_hash('123456', PASSWORD_DEFAULT),
+    'tipo' => '2'
+];
+$conn->store($dados);*/
+?>
+
 <div class="carousel-container">
     <div class="texto-fixo-overlay">
         <h1 class="display-4 fw-bold mb-3" style="color: #4c32a8;">Bem-vindo à Bibi TV</h1>

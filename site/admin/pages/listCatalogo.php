@@ -65,8 +65,8 @@ if (!empty($_POST['valor'])) {
                     echo "<tr>
                     <th scope='row'>$item->id</th>
                     <td>$item->titulo</td>
-                    <td><img src="<?php echo $item->url_poster; ?>"></td>
-                    <td><img src="<?php echo $item->url_video; ?>"></td>
+                    <td><img src='$item->url_poster'></td>
+                    <td><img src='$item->url_video'></td>
                     <td>$item->sinopse</td>
                     <td>$item->ano_lançamento</td>
                     <td>$item->elenco</td>

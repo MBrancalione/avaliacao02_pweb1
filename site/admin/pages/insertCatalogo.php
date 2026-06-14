@@ -45,10 +45,6 @@ if (!empty($_POST)) {
             $errors[] = "<li>O ano do lançamento é obrigatório</li>";
         }
 
-        if (empty($_POST['elenco'])) {
-            $errors[] = "<li>O elenco é obrigatório</li>";
-        }
-
         if (empty($_POST['genero'])) {
             $errors[] = "<li>O genero é obrigatório</li>";
         }
@@ -68,7 +64,7 @@ if (!empty($_POST)) {
     }
             $success = "Registro Salvo com sucesso!";
 
-            redirect('catalogoList.php');
+            redirect('listCatalogo.php');
         }
     } catch (PDOException $e) {
         $actionError = $e->getMessage();
@@ -119,12 +115,6 @@ if (!empty($_POST)) {
             <input type="int" name="ano_lançamento" class="form-control" value="<?php echo getFormValue($data, 'ano_lançamento'); ?>">
         </div>
         <div class="col-6">
-            <label for="elenco">Atores Participantes</label>
-            <a>Insira o ID</a>
-            <input type="text" name="elenco" class="form-control"  value="<?php echo getFormValue($data, 'elenco'); ?>">
-
-        </div>
-        <div class="col-6">
             <label for="genero">Genero</label>
             <select type="int" name="genero" class="form-select">
                 <option value="">Selecione um Gênero</option>
@@ -153,7 +143,7 @@ if (!empty($_POST)) {
         </div>
         <div class="mt-2">
             <button type="submit" class="btn btn-success">Salvar</button>
-            <a href="index.php" class="btn btn-primary"> Voltar</a>
+            <a href="listCatalogo.php" class="btn btn-primary"> Voltar</a>
         </div>
 
         <br>
