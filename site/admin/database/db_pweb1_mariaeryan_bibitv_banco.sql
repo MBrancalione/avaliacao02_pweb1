@@ -22,31 +22,32 @@ CREATE TABLE IF NOT EXISTS `planos` (
 CREATE TABLE IF NOT EXISTS `usuario` (
 	`id` int AUTO_INCREMENT NOT NULL UNIQUE,
 	`nome` varchar(120) NOT NULL,
-	`telefone` int NOT NULL,
+	`telefone` varchar(20) NOT NULL,
 	`email` varchar(120) NOT NULL,
 	`login` varchar(25) NOT NULL,
 	`senha` text NOT NULL,
 	`tipo` int NOT NULL,
 	PRIMARY KEY (`id`)
 );
-CREATE TABLE IF NOT EXISTS `lista_favoritos` (
-	`id` int AUTO_INCREMENT NOT NULL UNIQUE,
-	`id_usuario` int NOT NULL,
-	`id_obra` int NOT NULL,
-	`status` varchar(20) NOT NULL DEFAULT 'Pendente',
-	PRIMARY KEY (`id`)
-);
 CREATE TABLE IF NOT EXISTS `avaliacao` (
 	`id` int AUTO_INCREMENT NOT NULL UNIQUE,
 	`id_usuario` int NOT NULL,
-	`id_obra` int NOT NULL,
-	`nota` int NOT NULL,
+	`id_catalogo` int NOT NULL,
+	`nota` text NOT NULL,
 	`comentario` text NOT NULL,
 	`spoiler` boolean NOT NULL,
 	PRIMARY KEY (`id`)
 );
-
-ALTER TABLE `lista_favoritos` ADD CONSTRAINT `lista_favoritos_fk1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario`(`id`);
-ALTER TABLE `lista_favoritos` ADD CONSTRAINT `lista_favoritos_fk2` FOREIGN KEY (`id_obra`) REFERENCES `catalogo`(`id`);
 ALTER TABLE `avaliacao` ADD CONSTRAINT `avaliacao_fk1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario`(`id`);
-ALTER TABLE `avaliacao` ADD CONSTRAINT `avaliacao_fk2` FOREIGN KEY (`id_obra`) REFERENCES `catalogo`(`id`);
+ALTER TABLE `avaliacao` ADD CONSTRAINT `avaliacao_fk2` FOREIGN KEY (`id_catalogo`) REFERENCES `catalogo`(`id`);
+
+INSERT INTO usuario (nome, telefone, email, login, senha, tipo) 
+VALUES (
+    'Administrador', 
+    '49999999999', 
+    'admin@bibitv.com', 
+    'admin', 
+    -- senha '123456'
+    '$2y$10$8KzVv1p4Rby6N6zEGE3vAegG098rO0T4P.UeOQx7gE2kDeC1Vlyre', 
+    2
+);

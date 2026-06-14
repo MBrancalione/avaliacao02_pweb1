@@ -8,6 +8,10 @@ $actionError = '';
 $errors = [];
 $data = '';
 
+if(!empty($_GET['id'])) {  
+    $data = $db->find($_GET['id']);
+} 
+
 if (!empty($_POST)) {
 
     $data = (object) $_POST; 
@@ -28,26 +32,46 @@ if (!empty($_POST)) {
             }
         }
 
-        if(empty($errors)){
-            $usuario = $db->findBy('login', $_POST['login']); 
-            if($usuario){
-                $errors[] = "<li>O login já existe. Por favor, escolha outro.</li>";
-            }
-        }
-
         if (empty($errors)) {
-            $dado = [
-                'nome' => $_POST['nome'],
-                'telefone' => $_POST['telefone'] ? $_POST['telefone'] : "",
-                'email' => $_POST['email'],
-                'login' => $_POST['login'],
-                'senha' => password_hash($_POST['senha'], PASSWORD_DEFAULT),
-                'tipo' => $_POST['tipo']
-            ];
+            if(empty($_POST['id'])) {
+                //o código está enviando um id vazio para o banco, se não existir um id, ele deve ser retirado, para que então seja possível ao banco inserir automaticamente
+                unset($_POST['id']);
+                $usuario = $db->findBy('login', $_POST['login']); 
+                if($usuario){
+                    $errors[] = "<li>O login já existe. Por favor, escolha outro.</li>";
+                }
+                $dado = [
+                    'nome' => $_POST['nome'],
+                    'telefone' => $_POST['telefone'] ? $_POST['telefone'] : "",
+                    'email' => $_POST['email'],
+                    'login' => $_POST['login'],
+                    'senha' => password_hash($_POST['senha'], PASSWORD_DEFAULT),
+                    'tipo' => $_POST['tipo']
+                ];
 
-            $db->store($dado);
-            $success = "Registro Salvo com sucesso!";
-            redirect('./login.php');
+                $db->store($dado);
+                $success = "Registro Salvo com sucesso!";
+                redirect('./login.php');
+            }
+            else {
+                // Atualização
+                $dado = [
+                    'id'       => $_POST['id'],
+                    'nome'     => $_POST['nome'],
+                    'telefone' => $_POST['telefone'] ? $_POST['telefone'] : "",
+                    'email'    => $_POST['email'],
+                    'login'    => $_POST['login'],
+                    'tipo'     => $_POST['tipo']
+                ];
+                if (!empty($_POST['senha'])) {
+                    $dado['senha'] = password_hash($_POST['senha'], PASSWORD_DEFAULT);
+                }
+                
+                $db->update($dado); 
+                $success = "Registro Atualizado com sucesso!";
+                redirect('/avaliacao02_pweb1/site/admin/usuario/contaUsuario.php');
+            }
+
         }
     } catch (PDOException $e) {
         $actionError = $e->getMessage();

@@ -78,13 +78,10 @@
                 </div>
                 <div class="col-md-9">
                     <nav class="nav justify-content-end align-items-center gap-2">
-                        <a class="nav-link nav-link-custom" href="../../index.php">Home</a>
-                        <a class="nav-link nav-link-custom" href="../indexAdmin.php">Admin</a>
-                        <a class="nav-link nav-link-custom" href="../post/postList.php">Posts</a>
-                        <a class="nav-link nav-link-custom" href="indexUsuario.php">Usuários</a>
-                        <a class="nav-link nav-link-custom" href="../login/login.php">Login</a>
-                        <a class="nav-link nav-link-custom" href="../login/cadastro.php">Cadastrar</a>
-                        <a class="btn btn-sm btn-header-logout px-3" href="../login/logout.php">Sair</a>
+                        <a class="nav-link nav-link-custom" href="/avaliacao02_pweb1/site/admin/usuario/indexUsuario.php">Home</a>
+                        <a class="nav-link nav-link-custom" href="/avaliacao02_pweb1/site/admin/usuario/avaliaUsuario.php">Avaliações</a>
+                        <a class="nav-link nav-link-custom" href="/avaliacao02_pweb1/site/admin/usuario/contaUsuario.php">Conta</a>
+                        <a class="btn btn-sm btn-header-logout px-3" href="/avaliacao02_pweb1/site/admin/login/logout.php">Sair</a>
                     </nav>
                 </div>
             </div>

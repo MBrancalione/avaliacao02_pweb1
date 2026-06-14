@@ -111,6 +111,16 @@ class db
         return $st->fetchAll(PDO::FETCH_OBJ);
     }
 
+    public function getUser($id) 
+    {
+        $sql = "SELECT * FROM $this->table_name WHERE id = ?";
+        $st = $this->conn->prepare($sql);
+        $st->execute([$id]);
+
+        return $st->fetchAll(PDO::FETCH_OBJ); //é oq faz retornar, se estiver vazio, retorna um array vazio, se tiver um registro, retorna um array com um objeto, se tiver mais de um registro, retorna um array com vários objetos
+    }
+
+
     // Deleta um registro pelo ID
     public function destroi($id)
     {

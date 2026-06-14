@@ -3,11 +3,6 @@ include '../../header.php';
 include '../login/autenticacao.php';
 include_once "../db.class.php";
 
-if($_SESSION['user_tipo'] !== 'admin') { 
-    header('Location: ../login.php?erro=sem_permissao');
-    exit; 
-}
-
 $db = new db('planos');
 $success = '';
 $actionError = '';
@@ -41,7 +36,7 @@ if (!empty($_POST)) {
             $errors[] = "<li>A resolucao max é obrigatório</li>";
         }
 
-        if (empty($errors)) {
+        if (empty($errors)) { 
             if(empty($_POST['id'])) {
                 //o código está enviando um id vazio para o banco, se não existir um id, ele deve ser retirado, para que então seja possível ao banco inserir automaticamente
                 unset($_POST['id']);

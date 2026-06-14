@@ -1,6 +1,6 @@
 <?php
 include_once './headerUsuario.php';
-include '../login/autenticacao.php';
+include_once "../login/autenticacao.php";
 include_once '../db.class.php';
 ?>
 

@@ -3,11 +3,6 @@ include "../../header.php";
 include '../login/autenticacao.php';
 include_once "../db.class.php";
 
-if($_SESSION['user_tipo'] !== 'admin') { 
-    header('Location: ../login.php?erro=sem_permissao');
-    exit; 
-}
-
 $db = new db('catalogo');
 
 if (!empty($_GET['id'])) {

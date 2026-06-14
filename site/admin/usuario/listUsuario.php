@@ -1,6 +1,6 @@
 <?php
 include '../../header.php';
-//include '../login/autenticacao.php';
+include '../login/autenticacao.php';
 include_once "../db.class.php";
 
 $db = new db('usuario');
@@ -70,7 +70,7 @@ if (!empty($_POST['valor'])) {
                     <td>$item->login</td>
                     <td>$item->tipo</td>
                     <td class='text-center'>
-                        <a class='btn btn-warning btn-sm' title='Editar' href='usuarioForm.php?id=$item->id'>Editar</a>
+                        <a class='btn btn-warning btn-sm' title='Editar' href='../login/cadastro.php?id=$item->id'>Editar</a>
                     </td>   
                     <td class='text-center'>
                         <a class='btn btn-danger btn-sm' title='Deletar' onclick='return confirm(\"Tem certeza que deseja deletar este usuário?\")' href='listUsuario.php?id=$item->id'>Deletar</a>
