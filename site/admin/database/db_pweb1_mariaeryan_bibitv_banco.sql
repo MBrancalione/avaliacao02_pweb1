@@ -1,11 +1,12 @@
 CREATE TABLE IF NOT EXISTS `catalogo` (
 	`id` int AUTO_INCREMENT NOT NULL UNIQUE,
-	`url` varchar(255),
+	`url_poster` varchar(300),
+	`url_video` varchar(300),
 	`titulo` varchar(255),
 	`sinopse` text,
 	`faixa_etaria` int,
 	`ano_lançamento` int,
-	`elenco` int,
+	`elenco` varchar(100),
 	`genero` varchar(20) NOT NULL,
 	PRIMARY KEY (`id`)
 );
@@ -17,17 +18,11 @@ CREATE TABLE IF NOT EXISTS `planos` (
 	`resolucao_max` varchar(255),
 	PRIMARY KEY (`id`)
 );
-CREATE TABLE IF NOT EXISTS `atores` (
-	`id` int AUTO_INCREMENT NOT NULL UNIQUE,
-	`nome_artista` varchar(255) NOT NULL,
-	`data_nascimento` date NOT NULL,
-	`nacionalidade` varchar(100) NOT NULL,
-	PRIMARY KEY (`id`)
-);
+
 CREATE TABLE IF NOT EXISTS `usuario` (
 	`id` int AUTO_INCREMENT NOT NULL UNIQUE,
 	`nome` varchar(120) NOT NULL,
-	`telefone` varchar(20) NOT NULL,
+	`telefone` int NOT NULL,
 	`email` varchar(120) NOT NULL,
 	`login` varchar(25) NOT NULL,
 	`senha` text NOT NULL,
@@ -50,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `avaliacao` (
 	`spoiler` boolean NOT NULL,
 	PRIMARY KEY (`id`)
 );
-ALTER TABLE `catalogo` ADD CONSTRAINT `catalogo_fk6` FOREIGN KEY (`elenco`) REFERENCES `atores`(`id`);
+
 ALTER TABLE `lista_favoritos` ADD CONSTRAINT `lista_favoritos_fk1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario`(`id`);
 ALTER TABLE `lista_favoritos` ADD CONSTRAINT `lista_favoritos_fk2` FOREIGN KEY (`id_obra`) REFERENCES `catalogo`(`id`);
 ALTER TABLE `avaliacao` ADD CONSTRAINT `avaliacao_fk1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario`(`id`);

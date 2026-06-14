@@ -21,16 +21,15 @@ if (!empty($_POST['valor'])) {
     $dados = $db->all();
 } 
 ?>
-
 <div class="row">
     <h3>Catalogo</h3>
-    <form action="listCatalogo.php" method="post">
+    <form action="catalogoList.php" method="post">
         <div class="row align-items-end g-3 mb-4">
             <div class="col-md-4">
                 <label class="form-label">Buscar por:</label>
                 <select name="tipo" class="form-select">
-                    <option value="titulo">Título</option>
                     <option value="id">ID</option>
+                    <option value="titulo">Título</option>
                     <option value="genero">Genero</option>
                     <option value="faixa_etaria">Faixa Etaria</option>
                 </select>
@@ -56,6 +55,8 @@ if (!empty($_POST['valor'])) {
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Título</th>
+                    <th scope="col">url_poster</th>
+                    <th scope="col">url_video</th>
                     <th scope="col">Sinopse</th>
                     <th scope="col">Ano de Lançamento</th>
                     <th scope="col">Elenco</th>
@@ -69,6 +70,8 @@ if (!empty($_POST['valor'])) {
                     echo "<tr>
                     <th scope='row'>$item->id</th>
                     <td>$item->titulo</td>
+                    <td><img src="<?php echo $item->url_poster; ?>"></td>
+                    <td><img src="<?php echo $item->url_video; ?>"></td>
                     <td>$item->sinopse</td>
                     <td>$item->ano_lançamento</td>
                     <td>$item->elenco</td>
@@ -77,7 +80,7 @@ if (!empty($_POST['valor'])) {
                         <a class='btn btn-warning btn-sm' title='Editar' href='insertCatalogo.php?id=$item->id'>Editar</a>
                     </td>   
                     <td class='text-center'>
-                        <a class='btn btn-danger btn-sm' title='Deletar' onclick='return confirm(\"Tem certeza que deseja deletar este usuário?\")' href='listCatalogo.php?id=$item->id'>Deletar</a>
+                        <a class='btn btn-danger btn-sm' title='Deletar' onclick='return confirm(\"Tem certeza que deseja deletar este usuário?\")' href='catalogoList.php?id=$item->id'>Deletar</a>
                     </td>   
                 </tr>";
                 }

@@ -7,16 +7,24 @@ if($_SESSION['user_tipo'] !== 'admin') {
     header('Location: ../login.php?erro=sem_permissao');
     exit; 
 }
-
 $db = new db('catalogo');
 $success = '';
 $actionError = '';
 $errors = [];
 $data = '';
 
-$dbAtores = new db('atores');//para importar os atores para o insert de IDs
-$listaAtores = $dbAtores->all();
-$elenco = [];
+//joga para o login se a pessoa n estiver logada
+
+//if(session_status() == PHP_SESSION_NONE) { session_start(); }
+//if(!isset($_SESSION['usuario_id'])) {
+//    header('Location: ../login.php');
+//    exit;
+//}
+//if($_SESSION['usuario_tipo'] !== 2) { 
+//  header('Location: ../index.php?erro=sem_permissao');
+//    exit; 
+//}
+
 
 
 
@@ -31,8 +39,12 @@ if (!empty($_POST)) {
     //exit;
     try {
 
-        if (empty($_POST['url'])) {
-            $errors[] = "<li>O url é obrigatório</li>";
+        if (empty($_POST['url_poster'])) {
+            $errors[] = "<li>O url do poster é obrigatório</li>";
+        }
+
+        if (empty($_POST['url_video'])) {
+            $errors[] = "<li>O url do video é obrigatório</li>";
         }
 
         if (empty($_POST['titulo'])) {
@@ -51,7 +63,6 @@ if (!empty($_POST)) {
             $errors[] = "<li>O ano do lançamento é obrigatório</li>";
         }
 
-        //Fazer de uma forma que possa colocar mais de um
         if (empty($_POST['elenco'])) {
             $errors[] = "<li>O elenco é obrigatório</li>";
         }
@@ -75,7 +86,7 @@ if (!empty($_POST)) {
     }
             $success = "Registro Salvo com sucesso!";
 
-            redirect('listCatalogo.php');
+            redirect('catalogoList.php');
         }
     } catch (PDOException $e) {
         $actionError = $e->getMessage();
@@ -97,9 +108,15 @@ if (!empty($_POST)) {
         <input type="hidden" name="id" value="<?php echo isset($data->id) ? $data->id : ''; ?>"> 
 
         <div class="col-6">
-            <label for="url">URL</label>
-            <input type="text" name="url" class="form-control" value="<?php echo getFormValue($data, 'url'); ?>">
+            <label for="url">URL do Poster</label>
+            <input type="text" name="url_poster" class="form-control" value="<?php echo getFormValue($data, 'url_poster'); ?>">
         </div>
+
+        <div class="col-6">
+            <label for="url">URL do Video</label>
+            <input type="text" name="url_video" class="form-control" value="<?php echo getFormValue($data, 'url_video'); ?>">
+        </div>
+
         <div class="col-6">
             <label for="titulo">Titulo</label>
             <input type="text" name="titulo" class="form-control" value="<?php echo getFormValue($data, 'titulo'); ?>">
@@ -122,7 +139,7 @@ if (!empty($_POST)) {
         <div class="col-6">
             <label for="elenco">Atores Participantes</label>
             <a>Insira o ID</a>
-            <input type="int" name="elenco" class="form-control" placeholder="Ex: 1, 2, 3," value="<?php echo getFormValue($data, 'elenco'); ?>">
+            <input type="text" name="elenco" class="form-control"  value="<?php echo getFormValue($data, 'elenco'); ?>">
 
         </div>
         <div class="col-6">
@@ -160,18 +177,7 @@ if (!empty($_POST)) {
         <br>
         <br>
         <br>
-        //Listagem de Atores
-        <div class="col-6">
-            <a>
-                <?php
-                    foreach ($listaAtores as $ator) {
-                        $selecionado = in_array($ator->id, $elenco) ? 'selected' : '';
-                        
-                        echo "<option value='{$ator->id}' {$selecionado}>{$ator->id} ({$ator->nome_artista})>";
-                    }
-                ?>
-            </a>
-        </div>
+       
 </div>
 
 
