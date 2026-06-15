@@ -34,9 +34,9 @@ if (!empty($_POST)){ //verifica se o formulário foi submetido
                 $success = "Login bem-sucedido! Redirecionando para o painel...";
                 
                 if ($_SESSION['usuario_tipo'] == 2) {
-                    $db->redirect('/avaliacao02_pweb1/site/admin/indexAdmin.php', 1000); // Ajuste para a pasta real do seu admin
+                    $db->redirect('/avaliacao02_pweb1/site/admin/indexAdmin.php', 1000); 
                 } else {
-                    $db->redirect('/avaliacao02_pweb1/site/admin/usuario/indexUsuario.php', 1000); // Vai para a index do usuário comum
+                    $db->redirect('/avaliacao02_pweb1/site/admin/usuario/indexUsuario.php', 1000); 
                 }
                 exit;
             }
