@@ -27,7 +27,7 @@ $filmesAleatorios = $filmes;
             </div>
             
             <?php if ($filmeAleatorio): ?>
-            <div class="container-fluid d-flex align-items-end rounded shadow mb-5" style="height: 60vh; background: linear-gradient(rgba(0, 0, 0, 0.2), #141414), url('<?= htmlspecialchars($filmeAleatorio->url_imagem_horizontal) ?>'); background-size: cover; background-position: center;">
+            <div class="container-fluid d-flex align-items-end rounded shadow mb-5" style="height: 80vh; background: linear-gradient(rgba(0, 0, 0, 0.2), #141414), url('<?= htmlspecialchars($filmeAleatorio->url_imagem_horizontal) ?>'); background-size: cover; background-position: top;">
                 <div class="container text-white pb-4 ps-4">
                     <h1 class="display-3 fw-bold"><?= htmlspecialchars($filmeAleatorio->titulo) ?></h1>
                     <p class="lead w-50 text-light"><?= htmlspecialchars($filmeAleatorio->sinopse) ?></p>

@@ -8,3 +8,30 @@
 2026-06-14T19:16:45.552691Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
 2026-06-14T19:16:45.651019Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
 2026-06-14T19:16:45.651349Z 0 [System] [MY-010931] [Server] C:\laragon\bin\mysql\mysql-8.4.3-winx64\bin\mysqld: ready for connections. Version: '8.4.3'  socket: ''  port: 3306  MySQL Community Server - GPL.
+2026-06-15T15:46:22.335787Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+2026-06-15T15:46:22.656263Z 0 [Warning] [MY-010097] [Server] Insecure configuration for --secure-file-priv: Current value does not restrict location of generated files. Consider setting it to a valid, non-empty path.
+2026-06-15T15:46:22.657435Z 0 [System] [MY-010116] [Server] C:\laragon\bin\mysql\mysql-8.4.3-winx64\bin\mysqld (mysqld 8.4.3) starting as process 32180
+2026-06-15T15:46:22.864172Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2026-06-15T15:46:24.101254Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2026-06-15T15:46:24.643601Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2026-06-15T15:46:24.649620Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2026-06-15T15:46:24.796064Z 0 [Warning] [MY-013829] [Server] Missing data directory for ICU regular expressions: C:\laragon\bin\mysql\mysql-8.4.3-winx64\lib\private\.
+2026-06-15T15:46:24.848829Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2026-06-15T15:46:24.850342Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2026-06-15T15:46:24.909800Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2026-06-15T15:46:24.909992Z 0 [System] [MY-010931] [Server] C:\laragon\bin\mysql\mysql-8.4.3-winx64\bin\mysqld: ready for connections. Version: '8.4.3'  socket: ''  port: 3306  MySQL Community Server - GPL.
+2026-06-15T16:11:56.633512Z 116 [System] [MY-013172] [Server] Received SHUTDOWN from user root. Shutting down mysqld (Version: 8.4.3).
+2026-06-15T16:11:56.635783Z 0 [System] [MY-013105] [Server] C:\laragon\bin\mysql\mysql-8.4.3-winx64\bin\mysqld: Normal shutdown.
+2026-06-15T16:11:58.641103Z 0 [Warning] [MY-010909] [Server] C:\laragon\bin\mysql\mysql-8.4.3-winx64\bin\mysqld: Forcing close of thread 110  user: 'root'.
+2026-06-15T16:12:07.444261Z 0 [System] [MY-015015] [Server] MySQL Server - start.
+2026-06-15T16:12:07.855438Z 0 [Warning] [MY-010097] [Server] Insecure configuration for --secure-file-priv: Current value does not restrict location of generated files. Consider setting it to a valid, non-empty path.
+2026-06-15T16:12:07.855628Z 0 [System] [MY-010116] [Server] C:\laragon\bin\mysql\mysql-8.4.3-winx64\bin\mysqld (mysqld 8.4.3) starting as process 23356
+2026-06-15T16:12:07.921063Z 1 [System] [MY-013576] [InnoDB] InnoDB initialization has started.
+2026-06-15T16:12:09.096206Z 1 [System] [MY-013577] [InnoDB] InnoDB initialization has ended.
+2026-06-15T16:12:09.525664Z 0 [System] [MY-010229] [Server] Starting XA crash recovery...
+2026-06-15T16:12:09.531336Z 0 [System] [MY-010232] [Server] XA crash recovery finished.
+2026-06-15T16:12:09.652431Z 0 [Warning] [MY-013829] [Server] Missing data directory for ICU regular expressions: C:\laragon\bin\mysql\mysql-8.4.3-winx64\lib\private\.
+2026-06-15T16:12:09.678656Z 0 [Warning] [MY-010068] [Server] CA certificate ca.pem is self signed.
+2026-06-15T16:12:09.679968Z 0 [System] [MY-013602] [Server] Channel mysql_main configured to support TLS. Encrypted connections are now supported for this channel.
+2026-06-15T16:12:09.752962Z 0 [System] [MY-011323] [Server] X Plugin ready for connections. Bind-address: '::' port: 33060
+2026-06-15T16:12:09.753198Z 0 [System] [MY-010931] [Server] C:\laragon\bin\mysql\mysql-8.4.3-winx64\bin\mysqld: ready for connections. Version: '8.4.3'  socket: ''  port: 3306  MySQL Community Server - GPL.

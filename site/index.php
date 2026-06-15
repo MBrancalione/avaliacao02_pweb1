@@ -34,16 +34,16 @@ $conn->store($dados);*/
         <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="https://picsum.photos/1200/600?random=1" class="d-block w-100" alt="Primeiro Slide">
+                    <img src="https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2024/04/o-menino-maluquinho-filme.png?w=1200&h=675&crop=1" class="d-block w-100" alt="Primeiro Slide">
                 </div>
                 <div class="carousel-item">
-                    <img src="https://picsum.photos/1200/600?random=2" class="d-block w-100" alt="Segundo Slide">
+                    <img src="https://bubblegeek.com.br/media/o-verdadeiro-nome-do-chaves.webp" class="d-block w-100" alt="Segundo Slide">
                 </div>
                 <div class="carousel-item">
-                    <img src="https://picsum.photos/1200/600?random=3" class="d-block w-100" alt="Terceiro Slide">
+                    <img src="https://occ-0-8407-2219.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABfzhocnO_OhjXKkwQJqVEEUm1gmSLpGP4MHNrPFPnhVcnjqmSJfJCZrLpmISMkROESKf004aKR1I4eZNUfT2UE_9D7yHrUREr1G_.jpg?r=2ad" class="d-block w-100" alt="Terceiro Slide">
                 </div>
                 <div class="carousel-item">
-                    <img src="https://picsum.photos/1200/600?random=4" class="d-block w-100" alt="Quarto Slide">
+                    <img src="https://conteudo.imguol.com.br/c/entretenimento/d8/2017/09/27/bob-esponja-1506562776988_v2_900x506.jpg" class="d-block w-100" alt="Quarto Slide">
                 </div>
             </div>
         </div>

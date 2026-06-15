@@ -105,7 +105,7 @@ if (!empty($_POST)) {
 
                 <div class="col-md-6">
                     <label class="form-label small fw-semibold text-secondary">Preço Mensal (R$)</label>
-                    <input type="number" name="preco_mensal" class="form-control border-2" placeholder="Ex: 45,90" value="<?php echo getFormValue($data, 'preco_mensal'); ?>">
+                    <input type="float" name="preco_mensal" class="form-control border-2" placeholder="Ex: 45.90" value="<?php echo getFormValue($data, 'preco_mensal'); ?>">
                 </div>
 
                 <div class="col-md-6">
