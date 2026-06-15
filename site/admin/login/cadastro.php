@@ -55,14 +55,14 @@ if (!empty($_POST)) {
                 $db->redirect('./login.php');
             }
             else {
-                // Atualização
+                $id = $_SESSION['usuario_id'] ?? 1;
                 $dado = [
                     'id'       => $_POST['id'],
                     'nome'     => $_POST['nome'],
                     'telefone' => $_POST['telefone'] ? $_POST['telefone'] : "",
                     'email'    => $_POST['email'],
                     'login'    => $_POST['login'],
-                    'tipo'     => $_POST['tipo']
+                    'tipo'     => $id
                 ];
                 if (!empty($_POST['senha'])) {
                     $dado['senha'] = password_hash($_POST['senha'], PASSWORD_DEFAULT);
@@ -142,7 +142,7 @@ if (!empty($_POST)) {
                                 </div>
                             </div>
                         </div>
-
+                        
                         <input type="hidden" name="tipo" value="1"> 
 
                         <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">

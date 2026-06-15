@@ -95,11 +95,6 @@ if (!empty($_POST['valor'])) {
                                         <a class="btn btn-light border btn-sm text-dark" title="Editar" href="../login/cadastro.php?id=<?php echo $item->id; ?>">
                                             <i class="bi bi-pencil"></i>
                                         </a>
-                                        <a class="btn btn-outline-danger btn-sm" title="Deletar" 
-                                           onclick="return confirm('Tem certeza que deseja deletar este usuário permanentemente?')" 
-                                           href="listUsuario.php?id=<?php echo $item->id; ?>">
-                                            <i class="bi bi-trash"></i>
-                                        </a>
                                     </div>
                                 </td>   
                             </tr>
