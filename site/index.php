@@ -31,19 +31,19 @@ $conn->store($dados);*/
         </div>
         
         <!-- Carrossel -->
-        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="https://picsum.photos/1200/600?random=1&grayscale" class="d-block w-100" alt="Primeiro Slide">
+                    <img src="https://picsum.photos/1200/600?random=1" class="d-block w-100" alt="Primeiro Slide">
                 </div>
                 <div class="carousel-item">
-                    <img src="https://picsum.photos/1200/600?random=2&grayscale" class="d-block w-100" alt="Segundo Slide">
+                    <img src="https://picsum.photos/1200/600?random=2" class="d-block w-100" alt="Segundo Slide">
                 </div>
                 <div class="carousel-item">
-                    <img src="https://picsum.photos/1200/600?random=3&grayscale" class="d-block w-100" alt="Terceiro Slide">
+                    <img src="https://picsum.photos/1200/600?random=3" class="d-block w-100" alt="Terceiro Slide">
                 </div>
                 <div class="carousel-item">
-                    <img src="https://picsum.photos/1200/600?random=4&grayscale" class="d-block w-100" alt="Terceiro Slide">
+                    <img src="https://picsum.photos/1200/600?random=4" class="d-block w-100" alt="Quarto Slide">
                 </div>
             </div>
         </div>

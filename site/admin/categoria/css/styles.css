@@ -93,6 +93,8 @@ body {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
+    /* Cria uma camada roxa de fundo para o efeito duotone */
+    background-color: #4c32a84c; 
 }
 
 .carousel-container .carousel,
@@ -106,6 +108,15 @@ body {
     height: 100%;
     z-index: 1;
     object-fit: cover;
+}
+
+/* Deixa o fundo colorido, mas sutil para não brigar com o texto do card */
+.carousel-container .carousel-item img {
+    opacity: 0.45; /* Mostra a cor roxa do fundo através da imagem */
+}
+
+.carousel-container .carousel-item.active {
+    opacity: 1;
 }
 
 /* Centralização perfeita do card sobre as imagens */
