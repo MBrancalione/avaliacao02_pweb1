@@ -106,7 +106,7 @@ if (!empty($_POST)) {
 
                 <div class="col-md-6">
                     <label class="form-label small fw-semibold text-secondary">URL da Imagem Banner</label>
-                    <input type="url" name="url_imagem_horizontal" class="form-control border-2" placeholder="https://link-da-imagem.com/banner-horizontal.jpg" value="<?php echo getFormValue($data, 'url_imagemHorizontal'); ?>">
+                    <input type="url" name="url_imagem_horizontal" class="form-control border-2" placeholder="https://link-da-imagem.com/banner-horizontal.jpg" value="<?php echo getFormValue($data, 'url_imagem_horizontal'); ?>">
                 </div>
 
                 <div class="col-md-6">
