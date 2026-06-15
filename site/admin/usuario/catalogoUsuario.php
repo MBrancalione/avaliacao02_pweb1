@@ -6,11 +6,12 @@ include_once '../db.class.php';
 $db = new db('usuario');
 $dbCatalogo = new db('catalogo');
 
-// Processamento da Busca / Filtro por Título
+// Processamento da Busca / Filtro Dinâmico
 if (!empty($_POST['valor'])) {
-    // Tratamento para manter compatibilidade com o método search() da sua classe db
-    // Ajustado para buscar pelo campo 'titulo' do catálogo
-    $_POST['tipo'] = 'titulo'; 
+    // Se o usuário selecionou um tipo no select, usamos ele. 
+    // Caso contrário, define 'titulo' como o padrão de segurança.
+    $_POST['tipo'] = !empty($_POST['tipo']) ? $_POST['tipo'] : 'titulo'; 
+    
     $filmes = $dbCatalogo->search($_POST); 
 } else {
     // Se não houver busca, traz todos os registros ordinários
@@ -42,19 +43,31 @@ $filmesAleatorios = $filmes;
             <div class="card shadow-sm border-0 rounded-4 p-4" style="background: #ffffff;">
                 <form action="catalogoUsuario.php" method="post">
                     <div class="row align-items-end g-3">
-                        <div class="col-md-9">
-                            <label class="form-label small fw-semibold text-muted">Pesquisar filme ou série no catálogo:</label>
+                        
+                        <div class="col-md-3">
+                            <label class="form-label small fw-semibold text-muted">Buscar por:</label>
+                            <select name="tipo" class="form-select border-2">
+                                <option value="titulo" <?= isset($_POST['tipo']) && $_POST['tipo'] == 'titulo' ? 'selected' : '' ?>>Nome do Filme</option>
+                                <option value="faixa_etaria" <?= isset($_POST['tipo']) && $_POST['tipo'] == 'faixa_etaria' ? 'selected' : '' ?>>Faixa Etária</option>
+                                <option value="genero" <?= isset($_POST['tipo']) && $_POST['tipo'] == 'genero' ? 'selected' : '' ?>>Gênero</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label small fw-semibold text-muted">Inserir termo para busca:</label>
                             <div class="input-group">
                                 <span class="input-group-text bg-light border-2 border-end-0"><i class="fi fi-rr-search text-muted"></i></span>
-                                <input type="text" name="valor" placeholder="Digite o título do filme..." class="form-control border-2 border-start-0" value="<?php echo isset($_POST['valor']) ? htmlspecialchars($_POST['valor']) : ''; ?>">
+                                <input type="text" name="valor" placeholder="O que você está procurando?" class="form-control border-2 border-start-0" value="<?php echo isset($_POST['valor']) ? htmlspecialchars($_POST['valor']) : ''; ?>">
                             </div>
                         </div>
+
                         <div class="col-md-3">
                             <button type="submit" class="btn fw-bold text-dark w-100 border-0 py-2 rounded-3" 
                                     style="background-color: var(--amarelopastel, #fbd28c); height: 41px;">
                                 Procurar
                             </button>
                         </div>
+
                     </div>
                 </form>
             </div>
@@ -94,7 +107,7 @@ $filmesAleatorios = $filmes;
                             <i class="fi fi-rr-search-alt text-muted" style="font-size: 1.5rem;"></i>
                         </div>
                         <h5 class="fw-bold text-dark">Nenhum título encontrado</h5>
-                        <p class="text-muted small">Não encontramos resultados correspondentes para "<strong><?= htmlspecialchars($_POST['valor']) ?></strong>". Verifique a grafia ou tente outro termo.</p>
+                        <p class="text-muted small">Não encontramos resultados correspondentes para a sua busca por "<strong><?= htmlspecialchars($_POST['valor']) ?></strong>". Verifique os termos ou tente outro critério.</p>
                     </div>
                 <?php endif; ?>
             </div>

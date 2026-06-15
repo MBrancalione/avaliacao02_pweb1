@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS `catalogo` (
 	`url_imagem_horizontal` varchar(300),
 	`titulo` varchar(255),
 	`sinopse` text,
-	`faixa_etaria` int,
+	`faixa_etaria` varchar(10),
 	`ano_lançamento` int,
 	`genero` varchar(20) NOT NULL,
 	PRIMARY KEY (`id`)

@@ -123,7 +123,7 @@ include './headerPages.php';
                     <?php $faixaSelecionada = getFormValue($data, 'faixa_etaria'); ?>
                     <select name="faixa_etaria" class="form-select border-2">
                         <option value="">Selecionar Classificação</option>
-                        <option value="0" <?php echo ($faixaSelecionada == '0') ? 'selected' : ''; ?>>Livre</option>
+                        <option value="L" <?php echo ($faixaSelecionada == 'L') ? 'selected' : ''; ?>>Livre</option>
                         <option value="12" <?php echo ($faixaSelecionada == '12') ? 'selected' : ''; ?>>12 anos</option>
                         <option value="14" <?php echo ($faixaSelecionada == '14') ? 'selected' : ''; ?>>14 anos</option>
                         <option value="16" <?php echo ($faixaSelecionada == '16') ? 'selected' : ''; ?>>16 anos</option>
