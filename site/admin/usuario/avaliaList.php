@@ -13,8 +13,24 @@ if (!empty($_GET['id'])) {
     $dados = $db->all(); 
 }
 
+// LÓGICA DE FILTRAGEM ATUALIZADA
 if (!empty($_POST['valor'])) {
-    $dados = $db->search($_POST); 
+    $tipo = $_POST['tipo'] ?? 'nota';
+    $valor = $_POST['valor'];
+
+    if ($tipo === 'titulo') {
+        // Intercepta a requisição e faz um INNER JOIN cruzando avaliacao com catalogo
+        $sql = "SELECT a.* FROM avaliacao a 
+                INNER JOIN catalogo c ON a.id_catalogo = c.id 
+                WHERE c.titulo LIKE ? ORDER BY a.id DESC";
+        
+        $stmt = $db->getConn()->prepare($sql); // Utiliza a conexão ativa da classe db
+        $stmt->execute(["%$valor%"]);
+        $dados = $stmt->fetchAll(PDO::FETCH_OBJ);
+    } else {
+        // Se o tipo selecionado for 'nota', mantém o comportamento padrão da classe
+        $dados = $db->search($_POST); 
+    }
 } else {
     $dados = $db->all();
 } 
@@ -35,7 +51,7 @@ if (!empty($_POST['valor'])) {
                     <label class="form-label small fw-semibold text-muted">Buscar por:</label>
                     <select name="tipo" class="form-select border-2">
                         <option value="nota" <?= isset($_POST['tipo']) && $_POST['tipo'] == 'nota' ? 'selected' : '' ?>>Nota</option>
-                        <option value="genero" <?= isset($_POST['tipo']) && $_POST['tipo'] == 'genero' ? 'selected' : '' ?>>Filme</option>
+                        <option value="titulo" <?= isset($_POST['tipo']) && $_POST['tipo'] == 'titulo' ? 'selected' : '' ?>>Filme</option>
                     </select>
                 </div>
                 <div class="col-md-6">
@@ -60,34 +76,47 @@ if (!empty($_POST['valor'])) {
             
             <?php if (!empty($dados)): foreach ($dados as $item): ?>
                 
+                <?php 
+                // Faz a busca do filme no catálogo antes de montar o HTML do card
+                $nomeFilme = "Filme não encontrado";
+                $urlPoster = ""; // Variável para armazenar a imagem
+                
+                if (!empty($catalogofilmes)):
+                    foreach ($catalogofilmes as $itemFilme): 
+                        if ($itemFilme->id == $item->id_catalogo): 
+                            $nomeFilme = $itemFilme->titulo;
+                            $urlPoster = $itemFilme->url_poster; // Captura a URL do poster
+                            break; 
+                        endif;
+                    endforeach; 
+                endif;
+                ?>
+
                 <div class="card shadow-sm border-0 rounded-4 overflow-hidden mb-4" style="background: #ffffff;">
                     <div class="card-body p-4">
                         <div class="row align-items-center">
                             
-                            <div class="col-md-4 mb-3 mb-md-0">
-                                <span class="text-muted d-block small fw-semibold mb-1">Filme</span>
+                            <div class="col-md-2 text-center text-md-start mb-3 mb-md-0">
+                                <?php if (!empty($urlPoster)): ?>
+                                    <img src="<?= htmlspecialchars($urlPoster) ?>" alt="Poster de <?= htmlspecialchars($nomeFilme) ?>" class="rounded-3 shadow-sm img-fluid" style="max-height: 120px; object-fit: cover;">
+                                <?php else: ?>
+                                    <div class="bg-light rounded-3 d-flex align-items-center justify-content-center text-muted border mx-auto mx-md-0" style="width: 85px; height: 120px; font-size: 0.75rem;">Sem Foto</div>
+                                <?php endif; ?>
+                            </div>
+                            
+                            <div class="col-md-3 mb-3 mb-md-0">
+                                <span class="text-muted d-block small fw-semibold mb-1">FILME</span>
                                 <h5 class="fw-bold text-dark mb-2">
-                                    <?php 
-                                    $nomeFilme = "Filme não encontrado";
-                                    if (!empty($catalogofilmes)):
-                                        foreach ($catalogofilmes as $itemFilme): 
-                                            if ($itemFilme->id == $item->id_catalogo): 
-                                                $nomeFilme = $itemFilme->titulo;
-                                                break; 
-                                            endif;
-                                        endforeach; 
-                                    endif;
-                                    echo htmlspecialchars($nomeFilme);
-                                    ?>
+                                    <?= htmlspecialchars($nomeFilme); ?>
                                 </h5>
                                 
                                 <div class="d-inline-flex align-items-center gap-1 rounded-pill px-3 py-1 bg-light border">
                                     <i class="fi fi-rr-star text-warning small" style="line-height: 1;"></i>
-                                    <span class="small fw-bold text-dark">Nota: <?= htmlspecialchars($item->nota) ?>/10</span>
+                                    <span class="small fw-bold text-dark">Nota: <?= htmlspecialchars($item->nota) ?>/5</span>
                                 </div>
                             </div>
 
-                            <div class="col-md-5 mb-3 mb-md-0 border-start-md ps-md-4" style="border-color: #dee2e6;">
+                            <div class="col-md-4 mb-3 mb-md-0 border-start-md ps-md-4" style="border-color: #dee2e6;">
                                 <span class="text-muted d-block small fw-semibold mb-1">COMENTÁRIO</span>
                                 <p class="text-secondary small mb-2 italic">"<?= htmlspecialchars($item->comentario) ?>"</p>
                                 
@@ -103,21 +132,15 @@ if (!empty($_POST['valor'])) {
                             </div>
 
                             <div class="col-md-3 text-md-end">
-                                <div class="d-flex d-md-block justify-content-end gap-2">
-                                    
-                                    <div class="text-center">
-                                        <div class="d-flex justify-content-center gap-1">
-                                            <a class="btn btn-light border btn-sm text-dark" title="Editar" href="avaliaInsert.php?id=<?php echo $item->id; ?>">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                            <a class="btn btn-outline-danger btn-sm" title="Deletar" 
-                                            onclick="return confirm('Tem certeza que deseja deletar este item do catálogo?')" 
-                                            href="listCatalogo.php?id=<?php echo $item->id; ?>">
-                                                <i class="bi bi-trash"></i>
-                                            </a>
-                                        </div>
-                                    </div>   
-
+                                <div class="d-flex justify-content-center justify-content-md-end gap-2">
+                                    <a class="btn btn-light border btn-sm text-dark px-3 py-2 rounded-3" title="Editar" href="avaliaInsert.php?id=<?php echo $item->id; ?>">
+                                        <i class="bi bi-pencil me-1"></i> Editar
+                                    </a>
+                                    <a class="btn btn-outline-danger btn-sm px-3 py-2 rounded-3" title="Deletar" 
+                                       onclick="return confirm('Tem certeza que deseja deletar esta avaliação?')" 
+                                       href="avaliaList.php?id=<?php echo $item->id; ?>">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
                                 </div>
                             </div>
 

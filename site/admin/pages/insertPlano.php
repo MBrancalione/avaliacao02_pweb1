@@ -58,7 +58,7 @@ if (!empty($_POST)) {
             }
 
             // Redirecionamento limpo e seguro usando o método da classe db
-            $db->redirect('/avaliacao02_pweb1/site/admin/pages/listPlano.php');
+            $db->redirect('/site/admin/pages/listPlano.php');
             exit;
         }
     } catch (PDOException $e) {

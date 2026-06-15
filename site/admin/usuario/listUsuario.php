@@ -8,7 +8,7 @@ $db = new db('usuario');
 // Redireciona e deleta apontando para si mesmo para limpar a URL e evitar re-exclusão ao atualizar
 if (!empty($_GET['id'])) {
     $db->destroi($_GET['id']);
-    $db->redirect('/avaliacao02_pweb1/site/admin/usuario/listUsuario.php');
+    $db->redirect('/site/admin/usuario/listUsuario.php');
     exit;
 }
 
@@ -88,9 +88,9 @@ include '../pages/headerPages.php';
                                 
                                 <td class="text-center small">
                                     <?php if ($item->tipo == 2): //compara o item q ele puxa do banco com o vaor q eu coloquei (2), que seria o admin ?>
-                                        <span class="badge rounded-pill px-2 py-1 small fw-bold" style="background-color: #4c32a8; color: #fff;">Admin</span>
+                                        <span class="badge rounded-pill px-2 py-1 small fw-bold" style="background-color: #4c32a8; color: #fff;">2</span>
                                     <?php else: ?>
-                                        <span class="badge text-secondary px-2 py-1 small fw-bold">Cliente</span>
+                                        <span class="badge text-secondary px-2 py-1 small fw-bold">1</span>
                                     <?php endif; ?>
                                 </td>
                                 

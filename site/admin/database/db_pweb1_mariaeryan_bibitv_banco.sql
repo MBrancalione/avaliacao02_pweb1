@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `catalogo` (
 CREATE TABLE IF NOT EXISTS `planos` (
 	`id` int AUTO_INCREMENT NOT NULL UNIQUE,
 	`nome_plano` varchar(255),
-	`preco_mensal` int,
+	`preco_mensal` float,
 	`limite_telas` int,
 	`resolucao_max` varchar(255),
 	PRIMARY KEY (`id`)

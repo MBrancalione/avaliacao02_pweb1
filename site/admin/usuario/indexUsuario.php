@@ -44,14 +44,14 @@ $filmesAleatorios = $filmes;
                         shuffle($filmesAleatorios); // Embaralha de forma independente
                         foreach ($filmesAleatorios as $filme): 
                     ?>
-                            <div class="d-flex align-items-end rounded shadow movie-card-scale" 
+                            <div class="d-flex align-items-end rounded shadow movie-card-scale position-relative" 
                                  style="width: 200px; min-width: 200px; height: 300px; flex-shrink: 0; background: linear-gradient(rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.9)), url('<?= htmlspecialchars($filme->url_poster) ?>'); background-size: cover; background-position: center;">
                                 
-                                <a href="detalhes.php?id=<?= $filme->id ?>" class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 1;" title="Ver detalhes de <?= htmlspecialchars($filme->titulo) ?>"></a>
+                                <a href="<?= $filme->url_video ?>" class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 1;" title="Ver detalhes de <?= htmlspecialchars($filme->titulo) ?>"></a>
 
-                                <div class="container d-flex justify-content-center mb-2 position-absolute bottom-0 start-0 w-100 movie-buttons-container">
+                                <div class="container d-flex justify-content-center mb-2 position-absolute bottom-0 start-0 w-100 movie-buttons-container" style="z-index: 2;">
                                     <button class="btn text-white btn-movie-action" title="Comentar em <?= htmlspecialchars($filme->titulo) ?>">
-                                        <a href="./avaliaInsert.php" class="btn-link"><i class="fi fi-rr-comment" style="font-size: 24px;"></i></a>                                    </button>
+                                        <a href="./avaliaInsert.php?id_catalogo=<?= $filme->id ?>" class="btn-link"><i class="fi fi-rr-comment" style="font-size: 24px;"></i></a>
                                     </button>
                                 </div>
                             </div>
@@ -72,14 +72,14 @@ $filmesAleatorios = $filmes;
                         foreach ($filmes as $filme): ?>
 
                             <div class="col">
-                                <div class="d-flex align-items-end rounded shadow movie-card-scale" 
+                                <div class="d-flex align-items-end rounded shadow movie-card-scale position-relative" 
                                      style="height: 300px; background: linear-gradient(rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.9)), url('<?= htmlspecialchars($filme->url_poster) ?>'); background-size: cover; background-position: center;">
                                     
-                                    <a href="detalhes.php?id=<?= $filme->id ?>" class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 1;" title="Ver detalhes de <?= htmlspecialchars($filme->titulo) ?>"></a>
+                                    <a href="<?= $filme->url_video ?>" class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 1;" title="Ver detalhes de <?= htmlspecialchars($filme->titulo) ?>"></a>
 
-                                    <div class="container d-flex justify-content-center mb-2 position-absolute bottom-0 start-0 w-100 movie-buttons-container">
+                                    <div class="container d-flex justify-content-center mb-2 position-absolute bottom-0 start-0 w-100 movie-buttons-container" style="z-index: 2;">
                                         <button class="btn text-white btn-movie-action" title="Comentar em <?= htmlspecialchars($filme->titulo) ?>">
-                                            <a href="./avaliaInsert.php" class="btn-link"><i class="fi fi-rr-comment" style="font-size: 24px;"></i></a>
+                                            <a href="./avaliaInsert.php?id_catalogo=<?= $filme->id ?>" class="btn-link"><i class="fi fi-rr-comment" style="font-size: 24px;"></i></a>
                                         </button>
                                     </div>
                                 </div>

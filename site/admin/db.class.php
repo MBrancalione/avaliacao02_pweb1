@@ -197,5 +197,11 @@ class db
         return isset($data->$field) ? $data->$field : '';
     }
 
+    // Retorna a instância da conexão PDO para queries customizadas fora da classe
+    public function getConn()
+    {
+        return $this->conn;
+    }
+
 }
 

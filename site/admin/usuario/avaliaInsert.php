@@ -12,16 +12,27 @@ $data = null;
 $db_catalogo = new db('catalogo');
 $catalogofilmes = $db_catalogo->all();
 
-
-$filme_id = 1; // ID do filme fixado pelo seu escopo atual
 if (isset($_SESSION['usuario_id'])) {
     $id = $_SESSION['usuario_id'];
 }
 
-// Se for edição, busca os dados atuais do item
+// CORREÇÃO 1: Subi a busca de Edição para o topo. O PHP precisa ler o banco antes de checar os IDs.
 if(!empty($_GET['id'])) {  
     $data = $db->find($_GET['id']);
 } 
+
+// CORREÇÃO 2: Lógica refinada para capturar o ID do filme em qualquer cenário (Inserção, Edição ou Envio POST)
+if (!empty($_POST['id_catalogo'])) {
+    $filme_id = intval($_POST['id_catalogo']);
+} elseif (!empty($data->id_catalogo)) {
+    $filme_id = $data->id_catalogo;
+} elseif (!empty($_GET['id_catalogo'])) {
+    $filme_id = intval($_GET['id_catalogo']);
+} else {
+    // Só gera o erro se realmente não houver ID em nenhum lugar
+    $errors[] = "Operação inválida: Nenhum filme foi selecionado para avaliação.";
+    $filme_id = 0;
+}
 
 // Processamento do Formulário
 if (!empty($_POST)) {
@@ -32,7 +43,7 @@ if (!empty($_POST)) {
                 unset($_POST['id']);
                 $dado = [
                     'id_usuario'  => $id,          
-                    'id_catalogo' => $filme_id,    
+                    'id_catalogo' => $filme_id, // Usa a variável unificada correta    
                     'nota'        => $_POST['nota'],    
                     'comentario'  => $_POST['comentario'], 
                     'spoiler'     => $_POST['spoiler']   
@@ -46,7 +57,7 @@ if (!empty($_POST)) {
                 $success = "Avaliação atualizada com sucesso!";
             }
 
-            // Utiliza a sua função nativa de redirecionamento do arquivo
+            // Redirecionamento nativo
             redirect('avaliaList.php', 1200);
         }
     } catch (PDOException $e) {
@@ -104,78 +115,92 @@ if (!empty($_POST)) {
                 </div>
 
                 <div class="card-body p-4">
-                    <form action="./avaliaInsert.php" method="post">
+                    <?php if (empty($errors)): ?>
                         
-                        <input type="hidden" name="id" value="<?= getFormValue($data, 'id'); ?>"> 
-
-                     <h4>
-                        Filme: 
-                        <?php 
-                        if (!empty($catalogofilmes)):
-                            foreach ($catalogofilmes as $itemFilme): 
-                                if ($itemFilme->id == $filme_id): 
-                                    echo htmlspecialchars($itemFilme->titulo);
-                                    break; // Para o loop assim que encontrar o filme certo
-                                endif;
-                            endforeach; 
-                        else:
-                            echo "<span class='text-muted small'>Filme não encontrado</span>";
-                        endif;
-                        ?>
-                    </h4>
-
-                        <div class="mb-4">
-                            <label for="nota" class="form-label small fw-semibold text-muted">Sua Nota:</label>
-                            <select name="nota" id="nota" class="form-select border-2 py-2 fw-bold" style="color: #ffc107;" required>
-                                <option value="" style="color: #000;">Escolha uma nota...</option>
-                                <?php 
-                                $notaAtual = getFormValue($data, 'nota');
-                                $opcoesNotas = [
-                                    "5" => "★★★★★ (5 - Excelente)",
-                                    "4" => "★★★★☆ (4 - Muito Bom)",
-                                    "3" => "★★★☆☆ (3 - Regular)",
-                                    "2" => "★★☆☆☆ (2 - Ruim)",
-                                    "1" => "★☆☆☆☆ (1 - Péssimo)"
-                                ];
-                                foreach ($opcoesNotas as $valor => $texto):
-                                    $selected = ($notaAtual == $valor) ? 'selected' : '';
-                                    echo "<option value='{$valor}' {$selected} style='color: #212529;'>{$texto}</option>";
-                                endforeach;
-                                ?>
-                            </select>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="comentario" class="form-label small fw-semibold text-muted">Comentário:</label>
-                            <textarea name="comentario" id="comentario" maxlength="600" rows="4" class="form-control border-2 p-3 text-secondary" placeholder="Deixe sua opinião sincera sobre a obra..." required><?= getFormValue($data, 'comentario'); ?></textarea>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="spoiler" class="form-label small fw-semibold text-muted">Contém Spoiler?</label>
-                            <select name="spoiler" id="spoiler" class="form-select border-2 py-2" required>
-                                <option value="">Selecione uma opção...</option>
-                                <?php $spoilerAtual = getFormValue($data, 'spoiler'); ?>
-                                <option value="1" <?= ($spoilerAtual == '1' || $spoilerAtual == 'Sim') ? 'selected' : '' ?>>Sim</option>
-                                <option value="0" <?= ($spoilerAtual == '0' || $spoilerAtual == 'Não') ? 'selected' : '' ?>>Não</option>
-                            </select>
-                        </div>
-
-                        <hr class="text-black-50 my-4">
-
-                        <div class="d-flex gap-2 justify-content-end align-items-center">
-                            <a href="avaliaList.php" class="btn btn-link text-decoration-none fw-semibold text-muted me-2">
-                                Cancelar
-                            </a>
+                        <form action="./avaliaInsert.php" method="post">
                             
-                            <button type="submit" class="btn fw-bold px-4 py-2 border-0 text-dark rounded-3" 
-                                    style="background-color: var(--amarelopastel, #fbd28c); transition: all 0.2s;"
-                                    onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(251, 210, 140, 0.4)';"
-                                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                                    Salvar Avaliação
-                            </button>
-                        </div>
+                            <input type="hidden" name="id" value="<?= getFormValue($data, 'id'); ?>"> 
 
-                    </form>
+                            <input type="hidden" name="id_catalogo" value="<?= $filme_id ?>"> 
+
+                            <h4 class="mb-4">
+                                <span class="text-muted small d-block fw-semibold mb-1">Filme:</span>
+                                <span class="text-dark fw-bold">
+                                    <?php 
+                                    $tituloExibido = "Filme não encontrado";
+                                    if (!empty($catalogofilmes)):
+                                        foreach ($catalogofilmes as $itemFilme): 
+                                            if ($itemFilme->id == $filme_id): 
+                                                $tituloExibido = $itemFilme->titulo;
+                                                break;
+                                            endif;
+                                        endforeach; 
+                                    endif;
+                                    echo htmlspecialchars($tituloExibido);
+                                    ?>
+                                </span>
+                            </h4>
+
+                            <div class="mb-4">
+                                <label for="nota" class="form-label small fw-semibold text-muted">Sua Nota:</label>
+                                <select name="nota" id="nota" class="form-select border-2 py-2 fw-bold" style="color: #ffc107;" required>
+                                    <option value="" style="color: #000;">Escolha uma nota...</option>
+                                    <?php 
+                                    $notaAtual = getFormValue($data, 'nota');
+                                    $opcoesNotas = [
+                                        "5" => "★★★★★ (5 - Excelente)",
+                                        "4" => "★★★★☆ (4 - Muito Bom)",
+                                        "3" => "★★★☆☆ (3 - Regular)",
+                                        "2" => "★★☆☆☆ (2 - Ruim)",
+                                        "1" => "★☆☆☆☆ (1 - Péssimo)"
+                                    ];
+                                    foreach ($opcoesNotas as $valor => $texto):
+                                        $selected = ($notaAtual == $valor) ? 'selected' : '';
+                                        echo "<option value='{$valor}' {$selected} style='color: #212529;'>{$texto}</option>";
+                                    endforeach;
+                                    ?>
+                                </select>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="comentario" class="form-label small fw-semibold text-muted">Comentário:</label>
+                                <textarea name="comentario" id="comentario" maxlength="600" rows="4" class="form-control border-2 p-3 text-secondary" placeholder="Deixe sua opinião sincera sobre a obra..." required><?= getFormValue($data, 'comentario'); ?></textarea>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="spoiler" class="form-label small fw-semibold text-muted">Contém Spoiler?</label>
+                                <select name="spoiler" id="spoiler" class="form-select border-2 py-2" required>
+                                    <option value="">Selecione uma opção...</option>
+                                    <?php $spoilerAtual = getFormValue($data, 'spoiler'); ?>
+                                    <option value="1" <?= ($spoilerAtual == '1' || $spoilerAtual == 'Sim') ? 'selected' : '' ?>>Sim</option>
+                                    <option value="0" <?= ($spoilerAtual == '0' || $spoilerAtual == 'Não') ? 'selected' : '' ?>>Não</option>
+                                </select>
+                            </div>
+
+                            <hr class="text-black-50 my-4">
+
+                            <div class="d-flex gap-2 justify-content-end align-items-center">
+                                <a href="avaliaList.php" class="btn btn-link text-decoration-none fw-semibold text-muted me-2">
+                                    Cancelar
+                                </a>
+                                
+                                <button type="submit" class="btn fw-bold px-4 py-2 border-0 text-dark rounded-3" 
+                                        style="background-color: var(--amarelopastel, #fbd28c); transition: all 0.2s;"
+                                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(251, 210, 140, 0.4)';"
+                                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                                        Salvar Avaliação
+                                </button>
+                            </div>
+
+                        </form>
+                    
+                    <?php else: ?>
+                        <div class="text-center py-4">
+                            <p class="text-muted small">Por favor, volte à home e escolha um filme válido do catálogo para avaliar.</p>
+                            <a href="avaliaList.php" class="btn btn-secondary fw-bold px-4 rounded-3 border-0">Voltar</a>
+                        </div>
+                    <?php endif; ?>
+
                 </div>
             </div>
 

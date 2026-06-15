@@ -74,44 +74,33 @@ $filmesAleatorios = $filmes;
         </div>
 
 
-        <div class="col-12 my-2">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <div>
-                    <h4 class="fw-bold text-dark m-0">Catálogo Completo</h4>
-                </div>
-                <?php if (!empty($_POST['valor'])): ?>
-                    <a href="catalogoUsuario.php" class="btn btn-sm btn-outline-secondary rounded-3 px-3">Limpar Filtro</a>
-                <?php endif; ?>
-            </div>
-            
-            <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 p-2 mb-4">
-                <?php if (!empty($filmes)): foreach ($filmes as $filme): ?>
+        <div class="col-12 my-4">
+                <h4 class="mb-3 fw-bold">Catálogo</h4>
+                
+                <div class="row row-cols-2 row-cols-md-4 row-cols-lg-6 g-4 p-2 mb-4">
+                    <?php if (!empty($filmes)):
+                        foreach ($filmes as $filme): ?>
 
-                    <div class="col">
-                        <div class="d-flex align-items-end rounded shadow movie-card-scale position-relative" 
-                             style="height: 280px; background: linear-gradient(rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.9)), url('<?= htmlspecialchars($filme->url_poster) ?>'); background-size: cover; background-position: center;">
-                            
-                            <a href="detalhes.php?id=<?= $filme->id ?>" class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 1;" title="Ver detalhes de <?= htmlspecialchars($filme->titulo) ?>"></a>
+                            <div class="col">
+                                <div class="d-flex align-items-end rounded shadow movie-card-scale position-relative" 
+                                     style="height: 300px; background: linear-gradient(rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.9)), url('<?= htmlspecialchars($filme->url_poster) ?>'); background-size: cover; background-position: center;">
+                                    
+                                    <a href="<?= $filme->url_video ?>" class="position-absolute top-0 start-0 w-100 h-100" style="z-index: 1;" title="Ver detalhes de <?= htmlspecialchars($filme->titulo) ?>"></a>
 
-                            <div class="container d-flex justify-content-center mb-2 position-absolute bottom-0 start-0 w-100 movie-buttons-container" style="z-index: 2;">
-                                <button class="btn text-white btn-movie-action" title="Comentar em <?= htmlspecialchars($filme->titulo) ?>">
-                                    <a href="./avaliaInsert.php" class="btn-link"><i class="fi fi-rr-comment" style="font-size: 24px;"></i></a>
-                                </button>
+                                    <div class="container d-flex justify-content-center mb-2 position-absolute bottom-0 start-0 w-100 movie-buttons-container" style="z-index: 2;">
+                                        <button class="btn text-white btn-movie-action" title="Comentar em <?= htmlspecialchars($filme->titulo) ?>">
+                                            <a href="./avaliaInsert.php?id_catalogo=<?= $filme->id ?>" class="btn-link"><i class="fi fi-rr-comment" style="font-size: 24px;"></i></a>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                <?php endforeach; else: ?>
-                    <div class="col-12 text-center py-5 w-100 bg-white rounded-4 shadow-sm p-4">
-                        <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
-                            <i class="fi fi-rr-search-alt text-muted" style="font-size: 1.5rem;"></i>
-                        </div>
-                        <h5 class="fw-bold text-dark">Nenhum título encontrado</h5>
-                        <p class="text-muted small">Não encontramos resultados correspondentes para a sua busca por "<strong><?= htmlspecialchars($_POST['valor']) ?></strong>". Verifique os termos ou tente outro critério.</p>
-                    </div>
-                <?php endif; ?>
+                    <?php endforeach; 
+                    else:
+                        echo "<div class='col-12'><p class='text-muted ps-3'>Nenhum filme disponível no momento.</p></div>";
+                    endif;?>
+                </div>
             </div>
-        </div>
 
     </div>
 </div>
