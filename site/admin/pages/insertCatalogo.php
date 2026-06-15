@@ -139,16 +139,16 @@ if (!empty($_POST)) {
                                     "Filmes de guerra","Filme policial","Mistério","Musical","Romance","Terror","Thriller"];
                         
                         $generoSelecionado = getFormValue($data, 'genero');
-                        foreach ($generos as $genero) {
+                        foreach ($generos as $genero) { //printagem das opções conforme a lista $generos
                             $selecionado = ($genero === $generoSelecionado) ? 'selected' : '';
-                            echo "<option value=\"{$genero}\" {$selecionado}>{$genero}</option>";
+                            echo "<option value=\"{$genero}\" {$selecionado}>{$genero}</option>"; //dentro do value tem que colocar essas contra barras para ele n fechar como string sem puxar o dado
                         }
                         ?>
                     </select>
                 </div>
 
                 <div class="col-12">
-                    <label class="form-label small fw-semibold text-secondary">Sinopse / Descrição</label>
+                    <label class="form-label small fw-semibold text-secondary">Sinopse</label>
                     <textarea name="sinopse" rows="4" maxlength="600" class="form-control border-2" placeholder="Escreva um breve resumo sobre a obra..."><?php echo getFormValue($data, 'sinopse'); ?></textarea>
                     <div class="form-text text-end small text-muted">Máximo de 600 caracteres.</div>
                 </div>

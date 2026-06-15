@@ -18,6 +18,8 @@ if (!empty($_POST['valor'])) {
     $valor = $_POST['valor'];
 
     if ($tipo === 'titulo') {
+        //Não da para mexer em duas tabelas ao mesmo tempo usando as funções, dai tem que fazer a funcao em forma de sql
+        //INNER JOIN deixa mexer em duas tabelas ao mesmo tempo, "juntar" elas
         $sql = "SELECT a.* FROM avaliacao a 
                 INNER JOIN catalogo c ON a.id_catalogo = c.id 
                 WHERE c.titulo LIKE ? ORDER BY a.id DESC";
@@ -77,7 +79,7 @@ if (!empty($_POST['valor'])) {
                 $nomeFilme = "Filme não encontrado";
                 $urlPoster = ""; // Variável para armazenar a imagem
                 
-                if (!empty($catalogofilmes)):
+                if (!empty($catalogofilmes)): //printagem
                     foreach ($catalogofilmes as $itemFilme): 
                         if ($itemFilme->id == $item->id_catalogo): 
                             $nomeFilme = $itemFilme->titulo;

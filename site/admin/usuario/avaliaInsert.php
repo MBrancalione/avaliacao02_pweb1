@@ -16,10 +16,12 @@ if (isset($_SESSION['usuario_id'])) {
     $id = $_SESSION['usuario_id'];
 }
 
+// CORREÇÃO 1: Subi a busca de Edição para o topo. O PHP precisa ler o banco antes de checar os IDs.
 if(!empty($_GET['id'])) {  
     $data = $db->find($_GET['id']);
 } 
 
+// CORREÇÃO 2: Lógica refinada para capturar o ID do filme em qualquer cenário (Inserção, Edição ou Envio POST)
 if (!empty($_POST['id_catalogo'])) {
     $filme_id = intval($_POST['id_catalogo']);
 } elseif (!empty($data->id_catalogo)) {
@@ -27,10 +29,12 @@ if (!empty($_POST['id_catalogo'])) {
 } elseif (!empty($_GET['id_catalogo'])) {
     $filme_id = intval($_GET['id_catalogo']);
 } else {
+    // Só gera o erro se realmente não houver ID em nenhum lugar
     $errors[] = "Operação inválida: Nenhum filme foi selecionado para avaliação.";
     $filme_id = 0;
 }
 
+// Processamento do Formulário
 if (!empty($_POST)) {
     $data = (object) $_POST; 
     try {
@@ -39,7 +43,7 @@ if (!empty($_POST)) {
                 unset($_POST['id']);
                 $dado = [
                     'id_usuario'  => $id,          
-                    'id_catalogo' => $filme_id,    
+                    'id_catalogo' => $filme_id, // Usa a variável unificada correta    
                     'nota'        => $_POST['nota'],    
                     'comentario'  => $_POST['comentario'], 
                     'spoiler'     => $_POST['spoiler']   
@@ -48,10 +52,12 @@ if (!empty($_POST)) {
                 $db->store($dado);
                 $success = "Avaliação salva com sucesso!";
             } else {
+                // Modo Edição/Atualização
                 $db->update($_POST); 
                 $success = "Avaliação atualizada com sucesso!";
             }
 
+            // Redirecionamento nativo
             redirect('avaliaList.php', 1200);
         }
     } catch (PDOException $e) {
@@ -63,6 +69,8 @@ if (!empty($_POST)) {
 ?>
 
 <?php
+    //Não está puxando corretamente do db
+    /* Funções Auxiliares do arquivo */
     function redirect($page, $time = 500){
         echo "<script>setTimeout(()=>window.location.href='$page', '$time')</script>";
     }
@@ -103,7 +111,7 @@ if (!empty($_POST)) {
                 
                 <div class="d-flex align-items-center px-4" style="height: 100px; background: #4c32a8;">
                     <h4 class="fw-bold text-white m-0">
-                        <?= !empty($_GET['id']) ? 'Editar Avaliação' : 'Nova Avaliação' ?>
+                        <?= !empty($_GET['id']) ? 'Editar Avaliação' : 'Nova Avaliação' ?> 
                     </h4>
                 </div>
 
@@ -113,15 +121,14 @@ if (!empty($_POST)) {
                         <form action="./avaliaInsert.php" method="post">
                             
                             <input type="hidden" name="id" value="<?= getFormValue($data, 'id'); ?>"> 
-
                             <input type="hidden" name="id_catalogo" value="<?= $filme_id ?>"> 
 
                             <h4 class="mb-4">
                                 <span class="text-muted small d-block fw-semibold mb-1">Filme:</span>
                                 <span class="text-dark fw-bold">
-                                    <?php 
+                                    <?php //printar o titulo conorme o id. ele percore e pega o titulo q é igual o id da av.
                                     $tituloExibido = "Filme não encontrado";
-                                    if (!empty($catalogofilmes)):
+                                    if (!empty($catalogofilmes)): 
                                         foreach ($catalogofilmes as $itemFilme): 
                                             if ($itemFilme->id == $filme_id): 
                                                 $tituloExibido = $itemFilme->titulo;
@@ -147,7 +154,7 @@ if (!empty($_POST)) {
                                         "2" => "★★☆☆☆ (2 - Ruim)",
                                         "1" => "★☆☆☆☆ (1 - Péssimo)"
                                     ];
-                                    foreach ($opcoesNotas as $valor => $texto):
+                                    foreach ($opcoesNotas as $valor => $texto): //faz um laço para printar e fazer as opções
                                         $selected = ($notaAtual == $valor) ? 'selected' : '';
                                         echo "<option value='{$valor}' {$selected} style='color: #212529;'>{$texto}</option>";
                                     endforeach;

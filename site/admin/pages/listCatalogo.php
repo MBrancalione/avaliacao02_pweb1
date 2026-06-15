@@ -20,7 +20,7 @@ if (!empty($_POST['valor'])) {
 <div class="container my-4 pb-5">
     
     <div class="d-flex justify-content-between align-items-center mb-4 p-2">
-        <h3 class="fw-bold text-dark m-0">Catálogo de Mídias</h3>
+        <h3 class="fw-bold text-dark m-0">Catálogo</h3>
         <a href="insertCatalogo.php" class="btn text-white btn-sm px-3 fw-bold d-inline-flex align-items-center gap-1" style="background-color: #4c32a8;">Novo Item
         </a>
     </div>

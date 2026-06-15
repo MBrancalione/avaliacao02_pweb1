@@ -23,6 +23,7 @@ $filmesAleatorios = $filmes;
                 <h3 class="fw-bold mb-3" style="color: var(--lilas);">Bem-vindo, <?= htmlspecialchars($_SESSION['usuario_nome']); ?>!</h3>
             </div>
             
+            <!--Banner do index-->
             <?php if ($filmeAleatorio): ?>
             <div class="container-fluid d-flex align-items-end rounded shadow mb-5" style="height: 80vh; background: linear-gradient(rgba(0, 0, 0, 0.2), #141414), url('<?= htmlspecialchars($filmeAleatorio->url_imagem_horizontal) ?>'); background-size: cover; background-position: top;">
                 <div class="container text-white pb-4 ps-4">
@@ -32,13 +33,15 @@ $filmesAleatorios = $filmes;
                     <a href="https://www.google.com/search?q=<?= urlencode($filmeAleatorio->titulo) ?>" target="_blank" class="btn btn-secondary btn-lg px-4 text-white" style="background-color: rgba(255,255,255,0.2); border: none;">Mais Informações</a>                </div>
             </div>
             <?php endif; ?>
-
+            
+            
+            <!--Aquela rolagem vertica com o  suffle-->
             <div class="col-12 mb-4">
                 <h4 class="fw-bold">O que acha desses?</h4>
                 <div class="flex-row d-flex overflow-auto gap-3 p-3" style="scrollbar-width: none; -ms-overflow-style: none;">
                     <?php 
                     if (!empty($filmesAleatorios)):
-                        shuffle($filmesAleatorios); // Embaralha de forma independente
+                        shuffle($filmesAleatorios); // Embaralha sozinho
                         foreach ($filmesAleatorios as $filme): 
                     ?>
                             <div class="d-flex align-items-end rounded shadow movie-card-scale position-relative" 
@@ -61,6 +64,7 @@ $filmesAleatorios = $filmes;
                 </div>
             </div>
 
+            <!--Printagem do Catálogo-->
             <div class="col-12 my-4">
                 <h4 class="mb-3 fw-bold">Catálogo</h4>
                 

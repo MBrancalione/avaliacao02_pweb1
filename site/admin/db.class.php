@@ -179,6 +179,7 @@ class db
             echo "<div class='alert alert-danger' role='alert'>$error</div>";
         }
     }
+    
 
     public function showValidationError($errors = [])
     {
