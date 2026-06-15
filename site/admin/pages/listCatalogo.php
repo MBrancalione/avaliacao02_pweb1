@@ -44,7 +44,7 @@ if (!empty($_POST['valor'])) {
                 </div>
             </div>
             <div class="col-md-3">
-                <button type="submit" class="btn btn-warning fw-bold text-dark w-100 border-0" style="padding: 0.6rem 0;">Filtrar Mídias</button>
+                <button type="submit" class="btn btn-warning fw-bold text-dark w-100 border-0" style="padding: 0.6rem 0;">Filtrar Catálogo</button>
             </div>
         </div>
     </form>

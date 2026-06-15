@@ -2,7 +2,7 @@
 include './headerPages.php';
 include '../login/autenticacao.php';
 
-$db = new db('planos');
+$db = new db('plano');
 
 if (!empty($_GET['id'])) {
     $db->destroi($_GET['id']);
