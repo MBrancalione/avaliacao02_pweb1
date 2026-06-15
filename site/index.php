@@ -16,31 +16,35 @@ $dados = [
 $conn->store($dados);*/
 ?>
 
-<div class="carousel-container">
-    <div class="texto-fixo-overlay">
-        <h1 class="display-4 fw-bold mb-3" style="color: #4c32a8;">Bem-vindo à Bibi TV</h1>
-        <p class="lead text-muted mb-5">Sua plataforma favorita de vídeos e conteúdos interativos.</p>
-        <div class="d-flex justify-content-center gap-3">
-            <a href="./admin/login/login.php" class="btn btn-primary btn-lg px-4" style="background-color: #4c32a8; border-color: #4c32a8;">Acessar Login</a><br>
-            <a href="./admin/login/cadastro.php" class="btn btn-outline-secondary btn-lg px-4">Criar uma Conta</a>
-        </div>
-    </div>
-    
-    <!-- Carrossel -->
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="https://picsum.photos/1200/400?random=1" class="d-block w-100" alt="Primeiro Slide">
-            </div>
-            <div class="carousel-item">
-                <img src="https://picsum.photos/1200/400?random=2" class="d-block w-100" alt="Segundo Slide">
-            </div>
-            <div class="carousel-item">
-                <img src="https://picsum.photos/1200/400?random=3" class="d-block w-100" alt="Terceiro Slide">
+    <div class="carousel-container">
+        <div class="texto-fixo-overlay">
+            <div class="card shadow border-0 rounded-4 overflow-hidden" style="background-color:rgba(255, 255, 255, 0.83)">
+                <div class="card-body p-5">
+                    <h1 class="display-4 fw-bold mb-3" style="color: #4c32a8;">Bem-vindo à Bibi TV</h1>
+                    <p class="lead text-muted mb-5">Sua plataforma favorita de vídeos e conteúdos interativos.</p>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="./admin/login/login.php" class="btn btn-primary btn-lg px-4" style="background-color: #4c32a8; border-color: #4c32a8;">Acessar Login</a><br>
+                        <a href="./admin/login/cadastro.php" class="btn btn-outline-secondary btn-lg px-4">Criar uma Conta</a>
+                    </div>
+                </div>
             </div>
         </div>
+        
+        <!-- Carrossel -->
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://picsum.photos/1200/400?random=1" class="d-block w-100" alt="Primeiro Slide">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://picsum.photos/1200/400?random=2" class="d-block w-100" alt="Segundo Slide">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://picsum.photos/1200/400?random=3" class="d-block w-100" alt="Terceiro Slide">
+                </div>
+            </div>
+        </div>
     </div>
-</div>
 
 <?php
 include_once './footer.php';

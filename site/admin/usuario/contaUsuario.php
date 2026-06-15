@@ -96,17 +96,14 @@ if ($dados && !is_array($dados)) {
 
                         <hr class="text-black-50 my-3">
 
-                        <div class="d-flex gap-2 justify-content-end pt-2">
-                            <a class="btn fw-bold px-4 py-2 border-0 text-dark rounded-3" 
+                        <div class="d-flex flex-row-reverse justify-content-between m-3 pt-2">
+                            <a class="btn fw-bold px-4 py-2 border-0 text-dark" 
                                style="background-color: var(--amarelopastel, #fbd28c); transition: all 0.2s;" 
-                               href="../login/cadastro.php?id=<?= $id ?>"
-                               onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(251, 210, 140, 0.4)';"
-                               onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                                <i class="fi fi-rr-edit me-1" style="vertical-align: middle;"></i> Editar Perfil
+                               href="../login/cadastro.php?id=<?= $id ?>">Editar Perfil
                             </a>
 
                             <a class="btn btn-link btn-sm text-danger text-decoration-none fw-semibold align-self-center ms-2" 
-                               onclick="return confirm('Tem certeza absoluta que deseja deletar a sua conta? Esta ação não pode ser desfeita.')" 
+                               onclick="return confirm('Tem certeza absoluta 2que deseja deletar a sua conta? Esta ação não pode ser desfeita.')" 
                                href="?id_delete=<?= $id ?>">
                                 Excluir Conta
                             </a>

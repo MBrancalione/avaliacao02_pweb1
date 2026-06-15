@@ -1,5 +1,5 @@
 <?php
-include '../../header.php';
+include './headerLogin.php';
 include_once "../db.class.php";
 
 $db = new db('usuario');
@@ -51,7 +51,7 @@ if (!empty($_POST)) {
 
                 $db->store($dado);
                 $success = "Registro Salvo com sucesso!";
-                redirect('./login.php');
+                $db->redirect('./login.php');
             }
             else {
                 // Atualização
@@ -81,40 +81,85 @@ if (!empty($_POST)) {
 }
 ?>
 
-<div class="row">
-    <?php actionMessage($success, $actionError) ?>
-    <?php showValidationError($errors) ?>
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            
+            <?php $db->actionMessage($success, $actionError); ?>
+            <?php $db->showValidationError($errors); ?>
 
-    <form action="" method="post">
-        <h3>Registar Usuário</h3>
-        <input type="hidden" name="id" value="<?php echo isset($data->id) ? $data->id : ''; ?>"> 
-        <div class="col-6">
-            <label for="nome">Nome</label>
-            <input type="text" name="nome" class="form-control" value="<?php echo getFormValue($data, 'nome'); ?>">
+            <div class="card shadow border-0 rounded-4 overflow-hidden bg-white">
+                
+                <div class="d-flex align-items-center justify-content-center px-4" style="height: 90px; background: #4c32a8">
+                    <h4 class="fw-bold text-white m-0">
+                        Criar Conta - Bibi TV
+                    </h4>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+                    <form action="" method="post">
+                        <input type="hidden" name="id" value="<?php echo isset($data->id) ? $data->id : ''; ?>"> 
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="nome" class="form-label small fw-semibold text-muted">Nome Completo</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-2 border-end-0"><i class="fi fi-rr-id-card-clip-alt text-muted"></i></span>
+                                    <input type="text" name="nome" id="nome" class="form-control border-2 border-start-0 text-secondary" placeholder="Ex: João Silva" value="<?php echo $db->getFormValue($data, 'nome'); ?>">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="telefone" class="form-label small fw-semibold text-muted">Telefone / Celular</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-2 border-end-0"><i class="fi fi-rr-phone-call text-muted"></i></span>
+                                    <input type="text" name="telefone" id="telefone" class="form-control border-2 border-start-0 text-secondary" placeholder="(00) 00000-0000" value="<?php echo $db->getFormValue($data, 'telefone'); ?>">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="email" class="form-label small fw-semibold text-muted">Endereço de E-mail</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-2 border-end-0"><i class="fi fi-rr-envelope text-muted"></i></span>
+                                    <input type="email" name="email" id="email" class="form-control border-2 border-start-0 text-secondary" placeholder="exemplo@email.com" value="<?php echo $db->getFormValue($data, 'email'); ?>">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="login" class="form-label small fw-semibold text-muted">Nome de Usuário (Login)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-2 border-end-0"><i class="fi fi-rr-user text-muted"></i></span>
+                                    <input type="text" name="login" id="login" class="form-control border-2 border-start-0 text-secondary" placeholder="Login" value="<?php echo $db->getFormValue($data, 'login'); ?>">
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="senha" class="form-label small fw-semibold text-muted">Senha de Acesso</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-2 border-end-0"><i class="fi fi-rr-key text-muted"></i></span>
+                                    <input type="password" name="senha" id="senha" class="form-control border-2 border-start-0 text-secondary" placeholder="Mínimo de 6 caracteres">
+                                </div>
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="tipo" value="1"> 
+
+                        <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+                            <a href="./login.php" class="text-decoration-none text-muted fw-semibold">Já possui uma conta? Entre aqui
+                            </a>
+                            <button type="submit" class="btn fw-bold text-dark border-0 px-4 py-2 rounded-3" 
+                                    style="background-color: #fbd28c;">Salvar Cadastro
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
         </div>
-        <div class="col-6">
-            <label for="telefone">Telefone</label>
-            <input type="text" name="telefone" class="form-control" value="<?php echo getFormValue($data, 'telefone'); ?>">
-        </div>
-        <div class="col-6">
-            <label for="email">Email</label>
-            <input type="email" name="email" class="form-control" value="<?php echo getFormValue($data, 'email'); ?>">
-        </div>
-        <div class="col-6">
-            <label for="login">Login</label>
-            <input type="text" name="login" class="form-control" value="<?php echo getFormValue($data, 'login'); ?>">
-        </div>
-        <div class="col-6">
-            <label for="senha">Senha</label>
-            <input type="password" name="senha" class="form-control" value="<?php echo getFormValue($data, 'senha'); ?>">
-        </div>
-        <input type="hidden" name="tipo" value="1"> <!--cadastra como usuário automaticamente -->
-        <div class="mt-2">
-            <button type="submit" class="btn btn-success">Salvar</button>
-        </div>
-    </form>
+    </div>
 </div>
 
+<div><div>
 <?php
 include '../../footer.php';
 ?>

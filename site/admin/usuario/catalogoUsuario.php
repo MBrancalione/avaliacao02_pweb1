@@ -82,10 +82,7 @@ $filmesAleatorios = $filmes;
 
                             <div class="container d-flex justify-content-center mb-2 position-absolute bottom-0 start-0 w-100 movie-buttons-container" style="z-index: 2;">
                                 <button class="btn text-white btn-movie-action" title="Comentar em <?= htmlspecialchars($filme->titulo) ?>">
-                                    <i class="fi fi-rr-comment" style="font-size: 20px;"></i>
-                                </button>
-                                <button class="btn text-white btn-movie-action" title="Favoritar">
-                                    <i class="fi fi-rr-bookmark" style="font-size: 20px;"></i>
+                                    <a href="./avaliaInsert.php" class="btn-link"><i class="fi fi-rr-comment" style="font-size: 24px;"></i></a>
                                 </button>
                             </div>
                         </div>

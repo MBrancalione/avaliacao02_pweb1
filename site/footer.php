@@ -1,4 +1,4 @@
-</div> </div> <footer class="mt-5 py-4" style="background-color: var(--lilas, #4c32a8) !important; border-top: 1px solid rgba(255,255,255,0.1);">
+</div> </div> <footer class="py-4" style="background-color: var(--lilas, #4c32a8) !important; border-top: 1px solid rgba(255,255,255,0.1); bottom: 0; left: 0; width: 100%; z-index: 20;">
         <div class="container">
             <div class="row align-items-center">
                 
@@ -14,7 +14,7 @@
                                style="transition: opacity 0.2s; opacity: 0.85;"
                                onmouseover="this.style.opacity='1'; this.style.color='var(--amarelopastel, #fbd28c)';" 
                                onmouseout="this.style.opacity='0.85'; this.style.color='#ffffff';">
-                               Termos de Uso
+                                Termos de Uso
                             </a>
                         </li>
                         <li class="list-inline-item">
@@ -22,7 +22,7 @@
                                style="transition: opacity 0.2s; opacity: 0.85;"
                                onmouseover="this.style.opacity='1'; this.style.color='var(--amarelopastel, #fbd28c)';" 
                                onmouseout="this.style.opacity='0.85'; this.style.color='#ffffff';">
-                               Políticas de Privacidade
+                                Políticas de Privacidade
                             </a>
                         </li>
                     </ul>
