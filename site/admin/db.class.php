@@ -187,5 +187,23 @@ class db
         return $this->conn;
     }
 
+
+    //Pesquisar item
+    public function pesquisarItem($listaDeAtores, $termoDigitado, $campoDaBusca) { //Não consegui fazer isso sozinho, tentei mas deu erro. Pedi pro gemini ajuda
+        if (empty($termoDigitado)) {
+            return $listaDeAtores;
+        }
+
+        $limpador = Transliterator::create("Any-Latin; Latin-ASCII; Lower");
+        $termoSemAcento = $limpador->transliterate($termoDigitado); 
+
+        return array_filter($listaDeAtores, function($ator) use ($limpador, $termoSemAcento, $campoDaBusca) {
+            $valorDoCampo = $ator->$campoDaBusca;
+            
+            $itemSemAcento = $limpador->transliterate($valorDoCampo);
+            return str_contains($itemSemAcento, $termoSemAcento);
+        });
+    }
+   
 }
 
