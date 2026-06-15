@@ -1,7 +1,7 @@
 <?php
 // Mantemos a autenticação e a classe do banco antes de renderizar qualquer HTML
 include '../login/autenticacao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/site/admin/db.class.php';
+include './headerPages.php';
 
 $db = new db('catalogo');
 
@@ -20,7 +20,6 @@ if (!empty($_POST['valor'])) {
 } 
 
 // Inclui o cabeçalho administrativo unificado e com as animações funcionando
-include './headerPages.php'; 
 ?>
 
 <div class="container my-4 pb-5">

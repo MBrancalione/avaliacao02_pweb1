@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/site/admin/db.class.php';
+include_once '../db.class.php';
 ?>
 <!doctype html>
 <html lang="pt-BR">
@@ -22,7 +22,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/site/admin/db.class.php';
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-md-3">
-                        <a href="/site/admin/indexAdmin.php" class="text-decoration-none d-flex align-items-baseline gap-2">
+                        <a href="/avaliacao02_pweb1/site/admin/indexAdmin.php" class="text-decoration-none d-flex align-items-baseline gap-2">
                             <h4>Bibi TV</h4>
                             <small class="fw-semibold" style="font-size: 0.85rem; color: #fbd28c;">- Painel ADMIN</small>
                         </a>
@@ -30,11 +30,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/site/admin/db.class.php';
                     <div class="col-md-9">
                         <nav class="nav justify-content-end align-items-center gap-2">
                             
-                            <a class="nav-link nav-link-custom d-inline-flex align-items-center gap-2" href="/site/admin/usuario/indexUsuario.php">Home</a>
-                            <a class="nav-link nav-link-custom" href="/site/admin/pages/listCatalogo.php">Catálogo</a>
-                            <a class="nav-link nav-link-custom" href="/site/admin/pages/listPlano.php">Planos</a>
-                            <a class="nav-link nav-link-custom" href="/site/admin/usuario/listUsuario.php">Usuáriosㅤㅤ</a>
-                            <a class="btn btn-sm btn-header-logout px-3" href="/site/admin/login/logout.php">Sair</a>
+                            <a class="nav-link nav-link-custom d-inline-flex align-items-center gap-2" href="/avaliacao02_pweb1/site/admin/indexAdmin.php">Home</a>
+                            <a class="nav-link nav-link-custom" href="/avaliacao02_pweb1/site/admin/pages/listCatalogo.php">Catálogo</a>
+                            <a class="nav-link nav-link-custom" href="/avaliacao02_pweb1/site/admin/pages/listPlano.php">Planos</a>
+                            <a class="nav-link nav-link-custom" href="/avaliacao02_pweb1/site/admin/usuario/listUsuario.php">Usuáriosㅤㅤ</a>
+                            <a class="btn btn-sm btn-header-logout px-3" href="/avaliacao02_pweb1/site/admin/login/logout.php">Sair</a>
                         </nav>
                     </div>
                 </div>

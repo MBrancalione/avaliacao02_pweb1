@@ -1,6 +1,5 @@
 <?php
-include './headerLogin.php';
-include_once "../db.class.php";
+include 'headerLogin.php';
 
 $db = new db('usuario');
 $success = '';
@@ -36,9 +35,9 @@ if (!empty($_POST)){ //verifica se o formulário foi submetido
                 $success = "Login bem-sucedido! Redirecionando para o painel...";
                 
                 if ($_SESSION['usuario_tipo'] == 2) {
-                    $db->redirect('/site/admin/indexAdmin.php', 1000); // Ajuste para a pasta real do seu admin
+                    $db->redirect('/avaliacao02_pweb1/site/admin/indexAdmin.php', 1000); // Ajuste para a pasta real do seu admin
                 } else {
-                    $db->redirect('/site/admin/usuario/indexUsuario.php', 1000); // Vai para a index do usuário comum
+                    $db->redirect('/avaliacao02_pweb1/site/admin/usuario/indexUsuario.php', 1000); // Vai para a index do usuário comum
                 }
                 exit;
             }

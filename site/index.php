@@ -14,7 +14,7 @@ $dados = [
     'tipo' => '2'
 ];
 $conn->store($dados);*/
-?>
+?> 
 
     <div class="carousel-container">
         <div class="texto-fixo-overlay">

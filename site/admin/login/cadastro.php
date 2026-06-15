@@ -1,6 +1,5 @@
 <?php
-include './headerLogin.php';
-include_once "../db.class.php";
+include 'headerLogin.php';
 
 $db = new db('usuario');
 $success = '';
@@ -71,7 +70,7 @@ if (!empty($_POST)) {
                 
                 $db->update($dado); 
                 $success = "Registro Atualizado com sucesso!";
-                $db->redirect('/site/admin/usuario/contaUsuario.php');
+                $db->redirect('/avaliacao02_pweb1/site/admin/usuario/contaUsuario.php');
             }
 
         }

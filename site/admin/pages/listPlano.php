@@ -1,7 +1,6 @@
 <?php
 include './headerPages.php';
 include '../login/autenticacao.php';
-include_once "../db.class.php";
 
 $db = new db('planos');
 

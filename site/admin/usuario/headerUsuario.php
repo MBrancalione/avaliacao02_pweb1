@@ -29,9 +29,9 @@ include_once "../db.class.php";
                     <a class="nav-link nav-link-custom d-inline-flex align-items-center gap-2" href="/site/admin/usuario/catalogoUsuario.php">
                         <i class="fi fi-rr-search" style="font-size: 1.1rem; line-height: 1;"></i> Pesquisa
                     </a>
-                    <a class="nav-link nav-link-custom" href="/site/admin/usuario/avaliaList.php">Avaliações</a>
-                    <a class="nav-link nav-link-custom" href="/site/admin/usuario/contaUsuario.php">Contaㅤㅤ</a>
-                    <a class="btn btn-sm btn-header-logout px-3" href="/site/admin/login/logout.php">Sair</a>
+                    <a class="nav-link nav-link-custom" href="/avaliacao02_pweb1/site/admin/usuario/avaliaList.php">Avaliações</a>
+                    <a class="nav-link nav-link-custom" href="/avaliacao02_pweb1/site/admin/usuario/contaUsuario.php">Contaㅤㅤ</a>
+                    <a class="btn btn-sm btn-header-logout px-3" href="/avaliacao02_pweb1/site/admin/login/logout.php">Sair</a>
                 </nav>
             </div>
             </div>

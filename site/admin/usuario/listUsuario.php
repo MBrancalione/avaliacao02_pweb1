@@ -1,7 +1,7 @@
 <?php
 // Mantemos a autenticação e a classe do banco antes de renderizar qualquer HTML
 include '../login/autenticacao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/site/admin/db.class.php';
+include '../pages/headerPages.php';
 
 $db = new db('usuario');
 
@@ -19,7 +19,6 @@ if (!empty($_POST['valor'])) {
 } 
 
 // Inclui o cabeçalho unificado após carregar os dados
-include '../pages/headerPages.php'; 
 ?>
 
 <div class="container my-4 pb-5">

@@ -1,6 +1,6 @@
 <?php
+include './headerPages.php';
 include '../login/autenticacao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/site/admin/db.class.php';
 
 $db = new db('planos');
 $success = '';
@@ -58,7 +58,7 @@ if (!empty($_POST)) {
             }
 
             // Redirecionamento limpo e seguro usando o método da classe db
-            $db->redirect('/site/admin/pages/listPlano.php');
+            $db->redirect('/avaliacao02_pweb1/site/admin/pages/listPlano.php');
             exit;
         }
     } catch (PDOException $e) {
@@ -68,7 +68,6 @@ if (!empty($_POST)) {
     }
 }
 
-include './headerPages.php'; 
 ?>
 
 <div class="container my-4 pb-5">
