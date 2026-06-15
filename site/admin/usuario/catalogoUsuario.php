@@ -14,18 +14,15 @@ if (!empty($_POST['valor'])) {
     
     $filmes = $dbCatalogo->search($_POST); 
 } else {
-    // Se não houver busca, traz todos os registros ordinários
     $filmes = $dbCatalogo->all();
 }
 
-// Sorteia um filme aleatório para o banner de destaque (Apenas se houver registros)
 $filmeAleatorio = null;
 if (!empty($filmes)) {
     $chaveAleatoria = array_rand($filmes); 
     $filmeAleatorio = $filmes[$chaveAleatoria];
 }
 
-// Cria uma cópia independente para a esteira horizontal "O que acha desses?"
 $filmesAleatorios = $filmes;
 ?>
 

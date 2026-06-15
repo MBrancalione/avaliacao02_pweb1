@@ -21,18 +21,16 @@ if (!function_exists('getFormValue')) {
     }
 }
 
-// Busca os dados se for uma edição (passando ID via URL)
+// confere se o id já existe
 if(!empty($_GET['id'])) { 
     $data = $db->find($_GET['id']);
 } 
 
-// Processamento do Formulário (Salvar / Atualizar)
 if (!empty($_POST)) {
     $data = (object) $_POST; 
     
     try {
         if (empty($_POST['url_poster'])) $errors[] = "<li>O URL do pôster é obrigatório.</li>";
-        // ADICIONADO: Validação do novo campo horizontal no PHP
         if (empty($_POST['url_imagem_horizontal'])) $errors[] = "<li>O URL da imagem horizontal é obrigatório.</li>";
         if (empty($_POST['url_video'])) $errors[] = "<li>O URL do vídeo é obrigatório.</li>";
         if (empty($_POST['titulo'])) $errors[] = "<li>O título é obrigatório.</li>";
@@ -51,7 +49,6 @@ if (!empty($_POST)) {
                 $success = "Registro updated com sucesso!";
             }
             
-            // Redirecionamento limpo usando o método da classe db
             $db->redirect('/avaliacao02_pweb1/site/admin/pages/listCatalogo.php');
             exit;
         }
@@ -86,7 +83,7 @@ if (!empty($_POST)) {
     <?php endif; ?>
 
     <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
-        <form action="./insertCatalogo.php<?php echo !empty($_GET['id']) ? '?id='.$_GET['id'] : ''; ?>" method="post">
+        <form action="./insertCatalogo.php<?php echo !empty($_GET['id']) ? '?id='.$_GET['id'] : ''; ?>" method="post"> <!--escrever oq é-->
             
             <input type="hidden" name="id" value="<?php echo isset($data->id) ? $data->id : ''; ?>"> 
 

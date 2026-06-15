@@ -12,19 +12,16 @@ if(session_status() == PHP_SESSION_NONE) {
     session_start(); 
 }
 
-// Proteção do Painel: Se não estiver logado, manda para o login usando o método correto da sua classe
 if(!isset($_SESSION['usuario_id'])) {
     $db->redirect('/avaliacao02_pweb1/site/admin/login/login.php');
     exit;
 }
 
-// Bloqueio de Nível: Se não for administrador (tipo 2), expulsa para o index comum
 if((int)$_SESSION['usuario_tipo'] !== 2) { 
     $db->redirect('/avaliacao02_pweb1/site/admin/usuario/indexUsuario.php?erro=sem_permissao');
     exit; 
 }
 
-// Inclui o cabeçalho administrativo correto
 include '../header.php';
 ?>
 

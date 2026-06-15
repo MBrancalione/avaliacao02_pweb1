@@ -8,7 +8,6 @@ $actionError = '';
 $errors = [];
 $data = null;
 
-// Função de segurança caso getFormValue não esteja definida em outro arquivo integrado
 if (!function_exists('getFormValue')) {
     function getFormValue($data, $field) {
         if (is_object($data) && isset($data->$field)) {
@@ -21,12 +20,10 @@ if (!function_exists('getFormValue')) {
     }
 }
 
-// Busca os dados se for uma edição (passando ID via URL)
 if(!empty($_GET['id'])) {
     $data = $db->find($_GET['id']);
 }
 
-// Processamento do Formulário (Salvar / Atualizar)
 if (!empty($_POST)) {
     $data = (object) $_POST; 
     
@@ -57,7 +54,6 @@ if (!empty($_POST)) {
                 $success = "Registro atualizado com sucesso!";
             }
 
-            // Redirecionamento limpo e seguro usando o método da classe db
             $db->redirect('/avaliacao02_pweb1/site/admin/pages/listPlano.php');
             exit;
         }

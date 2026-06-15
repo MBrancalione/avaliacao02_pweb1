@@ -6,17 +6,14 @@ include_once '../db.class.php';
 $db = new db('usuario');
 $dbCatalogo = new db('catalogo');
 
-// Retorna todos os registros cadastrados
 $filmes = $dbCatalogo->all();
 
-// Sorteia um filme aleatório para o banner de destaque
 $filmeAleatorio = null;
 if (!empty($filmes)) {
     $chaveAleatoria = array_rand($filmes); 
     $filmeAleatorio = $filmes[$chaveAleatoria];
 }
 
-// Cria uma cópia isolada para a seção horizontal "O que acha desses?"
 $filmesAleatorios = $filmes;
 ?>
 

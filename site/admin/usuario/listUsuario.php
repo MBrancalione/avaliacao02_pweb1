@@ -1,14 +1,12 @@
 <?php
-// Mantemos a autenticação e a classe do banco antes de renderizar qualquer HTML
 include '../login/autenticacao.php';
 include '../pages/headerPages.php';
 
 $db = new db('usuario');
 
-// Redireciona e deleta apontando para si mesmo para limpar a URL e evitar re-exclusão ao atualizar
 if (!empty($_GET['id'])) {
     $db->destroi($_GET['id']);
-    $db->redirect('/site/admin/usuario/listUsuario.php');
+    $db->redirect('/avaliacao02_pweb1/site/admin/usuario/listUsuario.php');
     exit;
 }
 
@@ -18,7 +16,6 @@ if (!empty($_POST['valor'])) {
     $dados = $db->all();
 } 
 
-// Inclui o cabeçalho unificado após carregar os dados
 ?>
 
 <div class="container my-4 pb-5">

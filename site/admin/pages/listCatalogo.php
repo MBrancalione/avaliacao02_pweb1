@@ -1,14 +1,11 @@
 <?php
-// Mantemos a autenticação e a classe do banco antes de renderizar qualquer HTML
 include '../login/autenticacao.php';
 include './headerPages.php';
 
 $db = new db('catalogo');
 
-// CORRIGIDO: Agora redireciona e deleta apontando para si mesmo (listCatalogo.php)
 if (!empty($_GET['id'])) {
     $db->destroi($_GET['id']);
-    // Redireciona para limpar o ID da URL após deletar, evitando re-exclusão indesejada ao atualizar a página
     $db->redirect('/avaliacao02_pweb1/site/admin/pages/listCatalogo.php');
     exit;
 }
@@ -18,8 +15,6 @@ if (!empty($_POST['valor'])) {
 } else {
     $dados = $db->all();
 } 
-
-// Inclui o cabeçalho administrativo unificado e com as animações funcionando
 ?>
 
 <div class="container my-4 pb-5">

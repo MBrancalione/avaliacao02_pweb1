@@ -16,12 +16,10 @@ if (isset($_SESSION['usuario_id'])) {
     $id = $_SESSION['usuario_id'];
 }
 
-// CORREÇÃO 1: Subi a busca de Edição para o topo. O PHP precisa ler o banco antes de checar os IDs.
 if(!empty($_GET['id'])) {  
     $data = $db->find($_GET['id']);
 } 
 
-// CORREÇÃO 2: Lógica refinada para capturar o ID do filme em qualquer cenário (Inserção, Edição ou Envio POST)
 if (!empty($_POST['id_catalogo'])) {
     $filme_id = intval($_POST['id_catalogo']);
 } elseif (!empty($data->id_catalogo)) {
@@ -29,12 +27,10 @@ if (!empty($_POST['id_catalogo'])) {
 } elseif (!empty($_GET['id_catalogo'])) {
     $filme_id = intval($_GET['id_catalogo']);
 } else {
-    // Só gera o erro se realmente não houver ID em nenhum lugar
     $errors[] = "Operação inválida: Nenhum filme foi selecionado para avaliação.";
     $filme_id = 0;
 }
 
-// Processamento do Formulário
 if (!empty($_POST)) {
     $data = (object) $_POST; 
     try {
@@ -43,7 +39,7 @@ if (!empty($_POST)) {
                 unset($_POST['id']);
                 $dado = [
                     'id_usuario'  => $id,          
-                    'id_catalogo' => $filme_id, // Usa a variável unificada correta    
+                    'id_catalogo' => $filme_id,    
                     'nota'        => $_POST['nota'],    
                     'comentario'  => $_POST['comentario'], 
                     'spoiler'     => $_POST['spoiler']   
@@ -52,12 +48,10 @@ if (!empty($_POST)) {
                 $db->store($dado);
                 $success = "Avaliação salva com sucesso!";
             } else {
-                // Modo Edição/Atualização
                 $db->update($_POST); 
                 $success = "Avaliação atualizada com sucesso!";
             }
 
-            // Redirecionamento nativo
             redirect('avaliaList.php', 1200);
         }
     } catch (PDOException $e) {
@@ -69,7 +63,6 @@ if (!empty($_POST)) {
 ?>
 
 <?php
-    /* Funções Auxiliares do seu arquivo */
     function redirect($page, $time = 500){
         echo "<script>setTimeout(()=>window.location.href='$page', '$time')</script>";
     }

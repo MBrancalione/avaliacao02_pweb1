@@ -13,13 +13,11 @@ if (!empty($_GET['id'])) {
     $dados = $db->all(); 
 }
 
-// LÓGICA DE FILTRAGEM ATUALIZADA
 if (!empty($_POST['valor'])) {
     $tipo = $_POST['tipo'] ?? 'nota';
     $valor = $_POST['valor'];
 
     if ($tipo === 'titulo') {
-        // Intercepta a requisição e faz um INNER JOIN cruzando avaliacao com catalogo
         $sql = "SELECT a.* FROM avaliacao a 
                 INNER JOIN catalogo c ON a.id_catalogo = c.id 
                 WHERE c.titulo LIKE ? ORDER BY a.id DESC";
@@ -28,7 +26,6 @@ if (!empty($_POST['valor'])) {
         $stmt->execute(["%$valor%"]);
         $dados = $stmt->fetchAll(PDO::FETCH_OBJ);
     } else {
-        // Se o tipo selecionado for 'nota', mantém o comportamento padrão da classe
         $dados = $db->search($_POST); 
     }
 } else {
@@ -77,7 +74,6 @@ if (!empty($_POST['valor'])) {
             <?php if (!empty($dados)): foreach ($dados as $item): ?>
                 
                 <?php 
-                // Faz a busca do filme no catálogo antes de montar o HTML do card
                 $nomeFilme = "Filme não encontrado";
                 $urlPoster = ""; // Variável para armazenar a imagem
                 
@@ -85,7 +81,7 @@ if (!empty($_POST['valor'])) {
                     foreach ($catalogofilmes as $itemFilme): 
                         if ($itemFilme->id == $item->id_catalogo): 
                             $nomeFilme = $itemFilme->titulo;
-                            $urlPoster = $itemFilme->url_poster; // Captura a URL do poster
+                            $urlPoster = $itemFilme->url_poster; 
                             break; 
                         endif;
                     endforeach; 

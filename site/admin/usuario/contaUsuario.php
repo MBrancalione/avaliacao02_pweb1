@@ -23,7 +23,6 @@ if (!empty($_GET['id_delete'])) {
 
 $dados = $db->getUser($id);
 
-// Se os dados vierem como um único objeto, envelopa em um array para o loop
 if ($dados && !is_array($dados)) {
     $dados = [$dados];
 }

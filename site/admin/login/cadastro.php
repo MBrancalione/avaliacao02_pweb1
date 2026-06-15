@@ -7,7 +7,7 @@ $actionError = '';
 $errors = [];
 $data = '';
 
-if(!empty($_GET['id'])) {  
+if(!empty($_GET['id'])) {  //vai procurar pelo id
     $data = $db->find($_GET['id']);
 } 
 

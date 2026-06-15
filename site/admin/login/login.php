@@ -26,7 +26,6 @@ if (!empty($_POST)){ //verifica se o formulário foi submetido
 
         if(empty($errors)){
             $usuario = $db->findBy('login', $_POST['login']); //busca o usuário no banco de dados pelo login fornecido
-    //echo "<pre>"; print_r($usuario); echo "</pre>"; exit;
             if($usuario && password_verify($_POST['senha'], $usuario->senha)){ //verifica se o usuário existe e se a senha está correta
                 $_SESSION['usuario_id'] = $usuario->id; //armazena o ID do usuário na sessão para manter o estado de login
                 $_SESSION['usuario_login'] = $usuario->login; 
