@@ -4,16 +4,20 @@
 
 <?php
 include './admin/db.class.php';
-/*$conn = new db('usuario');
+$conn = new db('usuario');
+$adminExistente = $conn->findBy('tipo', '2');
 $dados = [
-    'nome' => 'João',
+    'nome'     => 'João',
     'telefone' => '123456789',
-    'email' => 'joao@example.com',
-    'login' => 'admin',
-    'senha' => password_hash('123456', PASSWORD_DEFAULT),
-    'tipo' => '2'
+    'email'    => 'joao@example.com',
+    'login'    => 'admin',
+    'senha'    => password_hash('123456', PASSWORD_DEFAULT),
+    'tipo'     => '2'
 ];
-$conn->store($dados);*/
+if (!$adminExistente) {
+    $conn->store($dados);
+} else {
+}
 ?> 
 
     <div class="carousel-container">
