@@ -9,6 +9,10 @@ $actionError = '';
 $errors = [];
 $data = null;
 
+$db_catalogo = new db('catalogo');
+$catalogofilmes = $db_catalogo->all();
+
+
 $filme_id = 1; // ID do filme fixado pelo seu escopo atual
 if (isset($_SESSION['usuario_id'])) {
     $id = $_SESSION['usuario_id'];
@@ -93,9 +97,8 @@ if (!empty($_POST)) {
 
             <div class="card shadow border-0 rounded-4 overflow-hidden" style="background: #ffffff;">
                 
-                <div class="d-flex align-items-center px-4" style="height: 100px; background: linear-gradient(135deg, var(--lilas, #4c32a8), var(--lilas-hover, #745ccc));">
+                <div class="d-flex align-items-center px-4" style="height: 100px; background: #4c32a8;">
                     <h4 class="fw-bold text-white m-0">
-                        <i class="fi fi-rr-comment-heart me-2" style="vertical-align: middle;"></i>
                         <?= !empty($_GET['id']) ? 'Editar Avaliação' : 'Nova Avaliação' ?>
                     </h4>
                 </div>
@@ -104,6 +107,22 @@ if (!empty($_POST)) {
                     <form action="./avaliaInsert.php" method="post">
                         
                         <input type="hidden" name="id" value="<?= getFormValue($data, 'id'); ?>"> 
+
+                     <h4>
+                        Filme: 
+                        <?php 
+                        if (!empty($catalogofilmes)):
+                            foreach ($catalogofilmes as $itemFilme): 
+                                if ($itemFilme->id == $filme_id): 
+                                    echo htmlspecialchars($itemFilme->titulo);
+                                    break; // Para o loop assim que encontrar o filme certo
+                                endif;
+                            endforeach; 
+                        else:
+                            echo "<span class='text-muted small'>Filme não encontrado</span>";
+                        endif;
+                        ?>
+                    </h4>
 
                         <div class="mb-4">
                             <label for="nota" class="form-label small fw-semibold text-muted">Sua Nota:</label>
@@ -152,7 +171,7 @@ if (!empty($_POST)) {
                                     style="background-color: var(--amarelopastel, #fbd28c); transition: all 0.2s;"
                                     onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(251, 210, 140, 0.4)';"
                                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                                    <i class="fi fi-rr-disk me-1" style="vertical-align: middle;"></i> Salvar Avaliação
+                                    Salvar Avaliação
                             </button>
                         </div>
 

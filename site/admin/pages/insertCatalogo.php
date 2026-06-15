@@ -52,7 +52,7 @@ if (!empty($_POST)) {
             }
             
             // Redirecionamento limpo usando o método da classe db
-            $db->redirect('/avaliacao02_pweb1/site/admin/pages/listCatalogo.php');
+            $db->redirect('/site/admin/pages/listCatalogo.php');
             exit;
         }
     } catch (PDOException $e) {

@@ -31,9 +31,8 @@ $filmesAleatorios = $filmes;
                 <div class="container text-white pb-4 ps-4">
                     <h1 class="display-3 fw-bold"><?= htmlspecialchars($filmeAleatorio->titulo) ?></h1>
                     <p class="lead w-50 text-light"><?= htmlspecialchars($filmeAleatorio->sinopse) ?></p>
-                    <a href="detalhes.php?id=<?= $filmeAleatorio->id ?>" class="btn btn-light btn-lg px-4 me-2 fw-bold">Assistir</a>
-                    <a href="detalhes.php?id=<?= $filmeAleatorio->id ?>" class="btn btn-secondary btn-lg px-4 text-white" style="background-color: rgba(255,255,255,0.2); border: none;">Mais Informações</a>
-                </div>
+                    <a href="<?= $filmeAleatorio->url_video ?>" class="btn btn-light btn-lg px-4 me-2 fw-bold">Assistir</a>
+                    <a href="https://www.google.com/search?q=<?= urlencode($filmeAleatorio->titulo) ?>" target="_blank" class="btn btn-secondary btn-lg px-4 text-white" style="background-color: rgba(255,255,255,0.2); border: none;">Mais Informações</a>                </div>
             </div>
             <?php endif; ?>
 
