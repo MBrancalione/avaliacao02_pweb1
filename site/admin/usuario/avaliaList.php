@@ -5,6 +5,9 @@ include_once "../db.class.php";
 
 $db = new db('avaliacao');
 
+$db_catalogo = new db('catalogo');
+$catalogofilmes = $db_catalogo->all();
+
 if (!empty($_GET['id'])) {
     $db->destroi($_GET['id']);
     $dados = $db->all(); 
@@ -57,14 +60,25 @@ if (!empty($_POST['valor'])) {
             
             <?php if (!empty($dados)): foreach ($dados as $item): ?>
                 
-                <div class="card shadow-sm border-0 rounded-4 overflow-hidden mb-4" style="background: #ffffff; border-left: 5px solid var(--lilas, #4c32a8) !important;">
+                <div class="card shadow-sm border-0 rounded-4 overflow-hidden mb-4" style="background: #ffffff;">
                     <div class="card-body p-4">
                         <div class="row align-items-center">
                             
                             <div class="col-md-4 mb-3 mb-md-0">
-                                <span class="text-muted d-block small fw-semibold mb-1">FILME / TÍTULO ID</span>
+                                <span class="text-muted d-block small fw-semibold mb-1">Filme</span>
                                 <h5 class="fw-bold text-dark mb-2">
-                                    <i class="fi fi-rr-play-alt text-muted me-2" style="vertical-align: middle;"></i>#<?= htmlspecialchars($item->id_catalogo) ?>
+                                    <?php 
+                                    $nomeFilme = "Filme não encontrado";
+                                    if (!empty($catalogofilmes)):
+                                        foreach ($catalogofilmes as $itemFilme): 
+                                            if ($itemFilme->id == $item->id_catalogo): 
+                                                $nomeFilme = $itemFilme->titulo;
+                                                break; 
+                                            endif;
+                                        endforeach; 
+                                    endif;
+                                    echo htmlspecialchars($nomeFilme);
+                                    ?>
                                 </h5>
                                 
                                 <div class="d-inline-flex align-items-center gap-1 rounded-pill px-3 py-1 bg-light border">
@@ -91,21 +105,18 @@ if (!empty($_POST['valor'])) {
                             <div class="col-md-3 text-md-end">
                                 <div class="d-flex d-md-block justify-content-end gap-2">
                                     
-                                    <a class="btn btn-sm fw-bold px-3 py-2 border-0 text-dark rounded-3 me-md-2 mb-md-0" 
-                                       style="background-color: var(--amarelopastel, #fbd28c); transition: all 0.2s;" 
-                                       title="Editar Avaliação" 
-                                       href="avaliaInsert.php?id=<?= $item->id ?>"
-                                       onmouseover="this.style.transform='scale(1.05)'"
-                                       onmouseout="this.style.transform='scale(1)'">
-                                        <i class="fi fi-rr-edit"></i> Editar
-                                    </a>
-
-                                    <a class="btn btn-link btn-sm text-danger text-decoration-none fw-semibold align-self-center mt-md-2 d-md-block text-md-end" 
-                                       title="Excluir Avaliação"
-                                       onclick="return confirm('Tem certeza que deseja deletar esta avaliação?')" 
-                                       href="avaliaList.php?id=<?= $item->id ?>">
-                                        Excluir
-                                    </a>
+                                    <div class="text-center">
+                                        <div class="d-flex justify-content-center gap-1">
+                                            <a class="btn btn-light border btn-sm text-dark" title="Editar" href="avaliaInsert.php?id=<?php echo $item->id; ?>">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                            <a class="btn btn-outline-danger btn-sm" title="Deletar" 
+                                            onclick="return confirm('Tem certeza que deseja deletar este item do catálogo?')" 
+                                            href="listCatalogo.php?id=<?php echo $item->id; ?>">
+                                                <i class="bi bi-trash"></i>
+                                            </a>
+                                        </div>
+                                    </div>   
 
                                 </div>
                             </div>

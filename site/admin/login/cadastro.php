@@ -25,11 +25,13 @@ if (!empty($_POST)) {
         if (empty($_POST['login'])) {
             $errors[] = "<li>O login é obrigatório</li>";
         }
+
+        //Campos de verificação da senha
+        if(strlen($_POST['senha']) < 6) {
+            $errors[] = "<li>A senha deve conter no mínimo 6 caracteres</li>";
+            }
         if (empty($_POST['senha'])) {
             $errors[] = "<li>A senha é obrigatória</li>";
-            if(strlen($_POST['senha']) < 6) {
-                $errors[] = "<li>A senha deve conter no mínimo 6 caracteres</li>";
-            }
         }
 
         if (empty($errors)) {
@@ -69,7 +71,7 @@ if (!empty($_POST)) {
                 
                 $db->update($dado); 
                 $success = "Registro Atualizado com sucesso!";
-                redirect('/avaliacao02_pweb1/site/admin/usuario/contaUsuario.php');
+                $db->redirect('/site/admin/usuario/contaUsuario.php');
             }
 
         }
