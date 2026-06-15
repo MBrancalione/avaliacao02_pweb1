@@ -46,7 +46,7 @@ if (!empty($_POST)){ //verifica se o formulário foi submetido
     } catch (PDOException $e){
         $actionError = $e->getMessage();
     } catch (PDOException $e){
-    $actionError = $e->getMessage();
+        $actionError = $e->getMessage();
     }
 }
 ?>
