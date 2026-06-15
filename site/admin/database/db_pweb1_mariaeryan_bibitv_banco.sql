@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `catalogo` (
 	`genero` varchar(20) NOT NULL,
 	PRIMARY KEY (`id`)
 );
-CREATE TABLE IF NOT EXISTS `planos` (
+CREATE TABLE IF NOT EXISTS `plano` (
 	`id` int AUTO_INCREMENT NOT NULL UNIQUE,
 	`nome_plano` varchar(255),
 	`preco_mensal` float,
@@ -53,3 +53,7 @@ INSERT INTO `catalogo` (`id`, `url_poster`, `url_video`, `url_imagem_horizontal`
 INSERT INTO `catalogo` (`id`, `url_poster`, `url_video`, `url_imagem_horizontal`, `titulo`, `sinopse`, `faixa_etaria`, `ano_lançamento`, `genero`) VALUES (10, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhscLYLel8MrWgwww78GVX50fGGFQqyCXImg&s', 'https://youtu.be/4SyXl2KFSDI?si=phtciEfIbVFsJEsF', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRv5ml60Pd18GKODkYurJ46ZK7NWeJQ2KiT3g&s', 'Copan', 'O edifício Copan, localizado na cidade de São Paulo, é um microcosmo do Brasil. Cinco mil moradores e mais de cem funcionários representam uma diversidade de personagens e pontos de vista que revelam contrastes e desigualdades estruturais do país.', '12', 2026, 'Documentário');
 INSERT INTO `catalogo` (`id`, `url_poster`, `url_video`, `url_imagem_horizontal`, `titulo`, `sinopse`, `faixa_etaria`, `ano_lançamento`, `genero`) VALUES (11, 'https://m.media-amazon.com/images/I/61lC70mmjnL._AC_UF894,1000_QL80_.jpg', 'https://youtu.be/NAKlDJmwq-g?si=5aR6Jaj9I9jIfM0j', 'https://tm.ibxk.com.br/2024/09/18/18113313913110.jpg?ims=1600x900/filters:format(jpg)', 'Túmulo dos Vagalumes', 'Os irmãos Setsuko e Seita vivem no Japão em meio à Segunda Guerra Mundial. Após a morte da mãe em um bombardeio e a convocação do pai para a Guerra, eles vão morar com alguns parentes. Insatisfeitos, saem da cidade e acabam em um abrigo na floresta.', '14', 1988, 'Drama');
 INSERT INTO `catalogo` (`id`, `url_poster`, `url_video`, `url_imagem_horizontal`, `titulo`, `sinopse`, `faixa_etaria`, `ano_lançamento`, `genero`) VALUES (12, 'https://static.wikia.nocookie.net/dublagempedia/images/1/1d/Scoobydoo-omistc3a9riocomec3a7a.jpg/revision/latest?cb=20180214172617&path-prefix=pt-br', 'https://youtu.be/mKkXpY-qyBo?si=j8GNIbrssZx5lDxE', 'https://m.media-amazon.com/images/S/pv-target-images/796ad32a860b32262da329b547a68e1035effb5d3cf9cf193fe897b63e3105d3.jpg', 'Scooby-Doo! O Mistério Começa', 'O jovem Salsicha e seu novo cão adotado, Scooby-Doo, juntam forças com Fred, Daphne e Velma para investigar assombrações em uma escola.', 'L', 2009, 'Mistério');
+
+INSERT INTO `plano` (`nome_plano`, `preco_mensal`, `limite_telas`, `resolucao_max`) VALUES ('Simples', '24.90', 2, 'HD (720p)');
+INSERT INTO `plano` (`nome_plano`, `preco_mensal`, `limite_telas`, `resolucao_max`) VALUES ('Pro', '34.90', 2, 'Full HD (FHD / 1080p)');
+INSERT INTO `plano` (`nome_plano`, `preco_mensal`, `limite_telas`, `resolucao_max`) VALUES ('Pro Max', '44.90', 3, 'Quad HD (QHD / 2K / 1440p)');

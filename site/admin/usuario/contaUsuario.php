@@ -12,6 +12,7 @@ if (isset($_SESSION['usuario_id'])) {
     exit;
 }
 
+//só deixa deletar se for o mesmo id da sessão, para evitar exclus~]oes de outros usuários
 if (!empty($_GET['id_delete'])) {
     if ($_GET['id_delete'] == $id) {
         $db->destroi($_GET['id_delete']);
@@ -21,8 +22,9 @@ if (!empty($_GET['id_delete'])) {
     }
 }
 
+//para que seja retornado os dados somente do usuário e não uma lista
+//junto com a função, se me retornar o array vazio, ele se encarrea de não quebrar
 $dados = $db->getUser($id);
-
 if ($dados && !is_array($dados)) {
     $dados = [$dados];
 }
@@ -37,6 +39,7 @@ if ($dados && !is_array($dados)) {
                 <p class="text-muted small">Gerencie suas informações de acesso e perfil na Bibi TV</p>
             </div>
 
+<!--passa pelos dados dentro de dados como itens, para acessar cada um deles-->
             <?php if (!empty($dados)): foreach ($dados as $item): ?>
                 
                 <div class="card shadow border-0 rounded-4 overflow-hidden mb-4" style="background: #ffffff;">
@@ -45,6 +48,7 @@ if ($dados && !is_array($dados)) {
                     
                     <div class="card-body px-4 pb-4 position-relative">
                         
+            <!--formatação para colocar a primeira letra do nome-->
                         <div class="rounded-circle shadow-sm d-flex align-items-center justify-content-center text-white fw-bold" 
                              style="width: 80px; height: 80px; background-color: var(--amarelopastel, #fbd28c); color: var(--lilas, #4c32a8) !important; font-size: 2rem; border: 4px solid #ffffff; position: absolute; top: -40px; left: 24px;">
                             <?= strtoupper(substr(htmlspecialchars($item->nome), 0, 1)) ?>

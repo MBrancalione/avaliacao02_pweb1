@@ -20,7 +20,7 @@ include_once "../db.class.php";
         <div class="container">
             <div class="row align-items-center">
                 <div class="col d-flex justify-content-center">
-                    <a href="./index.php" class="text-decoration-none">
+                    <a href="/avaliacao02_pweb1/site/index.php" class="text-decoration-none">
                         <h4>Bibi TV</h4>
                     </a>
                 </div>

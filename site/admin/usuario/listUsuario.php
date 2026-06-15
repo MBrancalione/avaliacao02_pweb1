@@ -65,7 +65,6 @@ if (!empty($_POST['valor'])) {
                         <th scope="col">E-mail</th>
                         <th scope="col">Login</th>
                         <th scope="col" class="text-center" style="width: 130px;">Nível</th>
-                        <th scope="col" class="text-center" style="width: 140px;">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,15 +87,7 @@ if (!empty($_POST['valor'])) {
                                     <?php else: ?>
                                         <span class="badge text-secondary px-2 py-1 small fw-bold">1</span>
                                     <?php endif; ?>
-                                </td>
-                                
-                                <td class="text-center">
-                                    <div class="d-flex justify-content-center gap-1">
-                                        <a class="btn btn-light border btn-sm text-dark" title="Editar" href="../login/cadastro.php?id=<?php echo $item->id; ?>">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                    </div>
-                                </td>   
+                                </td>  
                             </tr>
                         <?php endforeach; ?>
                     <?php endif; ?>

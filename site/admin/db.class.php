@@ -58,6 +58,8 @@ class db
             throw new Exception("Erro ao inserir: ". $e->getMessage());
         }
     }
+
+
     public function find($id)
     {
         $sql = "SELECT * FROM $this->table_name WHERE id=?";
@@ -129,7 +131,7 @@ class db
         return $st->execute([$id]);
     }
 
-    // Realiza buscas baseadas no filtro do formulário (tipo e valor)
+    // Realiza buscas baseadas no filtro do formulário 
     public function search($post)
     {
         $campo = !empty($post['tipo']) ? $post['tipo'] : 'nome';
@@ -141,28 +143,7 @@ class db
 
         return $st->fetchAll(PDO::FETCH_OBJ);
     }
-
-    public function pesquisarItem($listaDeAtores, $termoDigitado, $campoDaBusca) { //Não consegui fazer isso sozinho, tentei mas deu erro. Pedi pro gemini ajuda
-        if (empty($termoDigitado)) {
-            return $listaDeAtores;
-        }
-
-        // Criamos a ferramenta que remove acentos e joga para minúsculo
-        $limpador = Transliterator::create("Any-Latin; Latin-ASCII; Lower");
-
-        // Mudamos o termo digitado usando a ferramenta
-        $termoSemAcento = $limpador->transliterate($termoDigitado); 
-
-        return array_filter($listaDeAtores, function($ator) use ($limpador, $termoSemAcento, $campoDaBusca) {
-            $valorDoCampo = $ator->$campoDaBusca;
-            
-            // Mudamos o valor do banco usando a ferramenta
-            $itemSemAcento = $limpador->transliterate($valorDoCampo);
-            
-            // CORRIGIDO: Agora compara o item do banco com o termo digitado!
-            return str_contains($itemSemAcento, $termoSemAcento);
-        });
-    }
+    
    
    
    
@@ -181,6 +162,7 @@ class db
     }
     
 
+
     public function showValidationError($errors = [])
     {
         if (!empty($errors)) {
@@ -193,6 +175,7 @@ class db
         }
     }   
 
+    //busca os dados no banco para o formulario quando ele está sendo editado
     public function getFormValue($data, $field='')
     {
         return isset($data->$field) ? $data->$field : '';

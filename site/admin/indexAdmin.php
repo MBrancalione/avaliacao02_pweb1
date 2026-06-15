@@ -16,7 +16,7 @@ if(!isset($_SESSION['usuario_id'])) {
     $db->redirect('/avaliacao02_pweb1/site/admin/login/login.php');
     exit;
 }
-
+//verificação para email de admin
 if((int)$_SESSION['usuario_tipo'] !== 2) { 
     $db->redirect('/avaliacao02_pweb1/site/admin/usuario/indexUsuario.php?erro=sem_permissao');
     exit; 

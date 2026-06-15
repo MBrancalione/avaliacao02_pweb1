@@ -92,3 +92,6 @@ if (!empty($_POST)){ //verifica se o formulário foi submetido
         </div>
     </div>
 </div>
+
+<?php
+include '../../footer.php'?>

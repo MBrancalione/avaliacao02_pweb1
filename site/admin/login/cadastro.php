@@ -55,14 +55,13 @@ if (!empty($_POST)) {
                 $db->redirect('./login.php');
             }
             else {
-                $id = $_SESSION['usuario_id'] ?? 1;
                 $dado = [
                     'id'       => $_POST['id'],
                     'nome'     => $_POST['nome'],
                     'telefone' => $_POST['telefone'] ? $_POST['telefone'] : "",
                     'email'    => $_POST['email'],
                     'login'    => $_POST['login'],
-                    'tipo'     => $id
+                    'tipo'     => $_POST['tipo']
                 ];
                 if (!empty($_POST['senha'])) {
                     $dado['senha'] = password_hash($_POST['senha'], PASSWORD_DEFAULT);
