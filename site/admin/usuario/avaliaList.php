@@ -18,15 +18,13 @@ if (!empty($_POST['valor'])) {
     $valor = $_POST['valor'];
 
     if ($tipo === 'titulo') {
-        //Não da para mexer em duas tabelas ao mesmo tempo usando as funções, dai tem que fazer a funcao em forma de sql
-        //INNER JOIN deixa mexer em duas tabelas ao mesmo tempo, "juntar" elas
         $sql = "SELECT a.* FROM avaliacao a 
                 INNER JOIN catalogo c ON a.id_catalogo = c.id 
                 WHERE c.titulo LIKE ? ORDER BY a.id DESC";
         
-        $stmt = $db->getConn()->prepare($sql); // Utiliza a conexão ativa da classe db
-        $stmt->execute(["%$valor%"]);
-        $dados = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $stmt = $db->getConn()->prepare($sql); // Pega a conexão do banco e prepsra o $sql
+        $stmt->execute(["%$valor%"]); //executa a ´pesquisa. os % é um generalizador
+        $dados = $stmt->fetchAll(PDO::FETCH_OBJ); 
     } else {
         $dados = $db->search($_POST); 
     }
@@ -49,7 +47,7 @@ if (!empty($_POST['valor'])) {
                 <div class="col-md-3">
                     <label class="form-label small fw-semibold text-muted">Buscar por:</label>
                     <select name="tipo" class="form-select border-2">
-                        <option value="nota" <?= isset($_POST['tipo']) && $_POST['tipo'] == 'nota' ? 'selected' : '' ?>>Nota</option>
+                        <option value="nota" <?= isset($_POST['tipo']) && $_POST['tipo'] == 'nota' ? 'selected' : '' ?>>Nota</option> <!--o cmapo tipo foi enviado via form? & o valor selcionado pelo usuario é igual a nota?-->
                         <option value="titulo" <?= isset($_POST['tipo']) && $_POST['tipo'] == 'titulo' ? 'selected' : '' ?>>Filme</option>
                     </select>
                 </div>
@@ -57,7 +55,7 @@ if (!empty($_POST['valor'])) {
                     <label class="form-label small fw-semibold text-muted">Inserir termo para busca:</label>
                     <div class="input-group">
                         <span class="input-group-text bg-light border-2 border-end-0"><i class="fi fi-rr-search text-muted"></i></span>
-                        <input type="text" name="valor" placeholder="O que você está procurando?" class="form-control border-2 border-start-0" value="<?php echo isset($_POST['valor']) ? htmlspecialchars($_POST['valor']) : ''; ?>">
+                        <input type="text" name="valor" placeholder="O que você está procurando?" class="form-control border-2 border-start-0" value="<?php echo isset($_POST['valor']) ? htmlspecialchars($_POST['valor']) : ''; ?>"> <!--busca-->
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -73,16 +71,16 @@ if (!empty($_POST['valor'])) {
     <div class="row justify-content-center">
         <div class="col-lg-10">
             
-            <?php if (!empty($dados)): foreach ($dados as $item): ?>
+            <?php if (!empty($dados)): foreach ($dados as $item): ?> <!--le cada registro-->
                 
                 <?php 
                 $nomeFilme = "Filme não encontrado";
                 $urlPoster = ""; // Variável para armazenar a imagem
                 
-                if (!empty($catalogofilmes)): //printagem por laco
+                if (!empty($catalogofilmes)): // procura o filme certo
                     foreach ($catalogofilmes as $itemFilme): 
-                        if ($itemFilme->id == $item->id_catalogo): 
-                            $nomeFilme = $itemFilme->titulo;
+                        if ($itemFilme->id == $item->id_catalogo): //compara o id do catalogo com o id do item
+                            $nomeFilme = $itemFilme->titulo; 
                             $urlPoster = $itemFilme->url_poster; 
                             break; 
                         endif;

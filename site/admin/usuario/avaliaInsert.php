@@ -41,7 +41,7 @@ if (!empty($_POST)) {
         if (empty($errors)) {
             if(empty($_POST['id'])) {
                 unset($_POST['id']);
-                $dado = [ //campos da avaliação
+                $dado = [ 
                     'id_usuario'  => $id,          
                     'id_catalogo' => $filme_id,
                     'nota'        => $_POST['nota'],    
@@ -152,7 +152,7 @@ if (!empty($_POST)) {
                                         "2" => "★★☆☆☆ (2 - Ruim)",
                                         "1" => "★☆☆☆☆ (1 - Péssimo)"
                                     ];
-                                    foreach ($opcoesNotas as $valor => $texto): //faz um laço para printar e fazer as opções das notas
+                                    foreach ($opcoesNotas as $valor => $texto): 
                                         $selected = ($notaAtual == $valor) ? 'selected' : '';
                                         echo "<option value='{$valor}' {$selected} style='color: #212529;'>{$texto}</option>";
                                     endforeach;

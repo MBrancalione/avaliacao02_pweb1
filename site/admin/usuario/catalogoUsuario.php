@@ -19,7 +19,7 @@ if (!empty($_POST['valor'])) {
 
 $filmeAleatorio = null;
 if (!empty($filmes)) {
-    $chaveAleatoria = array_rand($filmes); 
+    $chaveAleatoria = array_rand($filmes); //embaralha
     $filmeAleatorio = $filmes[$chaveAleatoria];
 }
 

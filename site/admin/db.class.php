@@ -11,14 +11,12 @@ class db
     private $table_name;
     private $conn; 
 
-    //construtor da classe, recebe o nome da tabela e estabelece a conexão com o banco de dados
     public function __construct($table_name)
     {
         $this->table_name = $table_name;
         $this->conn = $this->connect();
     }
 
-    //método para estabelecer a conexão com o banco de dados usando PDO
     private function connect()
     {
         try {
@@ -44,8 +42,8 @@ class db
         $sep = "";
 
         foreach ($dados as $campo => $valor) {
-            $campos .= $sep . $campo; //campo1, campo2, campo3
-            $marcadores .= $sep . "?"; //?, ?, ?
+            $campos .= $sep . $campo; 
+            $marcadores .= $sep . "?"; 
             $vetorData[] = $valor; //guarda os valores em um vetor para passar no execute
             $sep = ","; //após a primeira iteração, passa a ser ", " para separar os campos e marcadores
         }
@@ -78,12 +76,11 @@ class db
 
         foreach ($dados as $campo => $valor) {
             if($campo !== 'id') {
-            $campos .= $sep . " $campo = ?"; //?, ?, ?
-            $vetorData[] = $valor; //guarda os valores em um vetor para passar no execute
-            $sep = ", "; //após a primeira iteração, passa a ser ", " para separar os campos e marcadores
+            $campos .= $sep . " $campo = ?";
+            $vetorData[] = $valor; 
+            $sep = ", "; 
         }}
         $vetorData[] = $dados['id']; //adiciona o id no final do vetor para passar no execute
-                //concatenação dos dados que vem do banco para inserir no insert
         $sql = "UPDATE $this->table_name SET $campos WHERE id = ?";
 
         try {
@@ -93,7 +90,6 @@ class db
             throw new Exception("Erro ao atualizar: ". $e->getMessage());
         }
     }
-    //método para buscar um registro na tabela com base em um campo específico, recebe o nome do campo e o valor a ser buscado
     public function findBy($campo, $valor)
     {
         $sql = "SELECT * FROM $this->table_name WHERE $campo = ?";
@@ -103,7 +99,6 @@ class db
         return $st->fetchObject();
     }
 
-    // Retorna todos os registros da tabela
     public function all()
     {
         $sql = "SELECT * FROM $this->table_name";
@@ -123,7 +118,6 @@ class db
     }
 
 
-    // Deleta um registro pelo ID
     public function destroi($id)
     {
         $sql = "DELETE FROM $this->table_name WHERE id = ?";
@@ -143,11 +137,7 @@ class db
 
         return $st->fetchAll(PDO::FETCH_OBJ);
     }
-    
    
-   
-   
-    /*tempo padrão para o redirecoinamento nas páginas */
     public  function redirect($page, $time = 500){
         echo "<script>setTimeout(()=>window.location.href='$page', '$time')</script>";
     }
@@ -199,7 +189,6 @@ class db
 
         return array_filter($listaDeAtores, function($ator) use ($limpador, $termoSemAcento, $campoDaBusca) {
             $valorDoCampo = $ator->$campoDaBusca;
-            
             $itemSemAcento = $limpador->transliterate($valorDoCampo);
             return str_contains($itemSemAcento, $termoSemAcento);
         });
