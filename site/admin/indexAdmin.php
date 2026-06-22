@@ -33,7 +33,7 @@ include '../header.php';
                 <div class="d-md-flex align-items-center justify-content-between">
                     <div>
                         <h2 class="fw-bold mb-1">
-                            Olá, Admin <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?>!!!
+                            Olá, Admin <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?>!!! <!--neutraliza possíveis caracteres interpretados como html-->
                         </h2>
                         <p class="m-0 text-white-50 lead fs-6">Bem-vindo de volta ao centro de controle da Bibi TV.</p>
                     </div>

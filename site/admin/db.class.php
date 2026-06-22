@@ -188,7 +188,7 @@ class db
     }
 
 
-    //Pesquisar item
+    //Pesquisar item, problemas com acentos
     public function pesquisarItem($listaDeAtores, $termoDigitado, $campoDaBusca) { //Não consegui fazer isso sozinho, tentei mas deu erro. Pedi pro gemini ajuda
         if (empty($termoDigitado)) {
             return $listaDeAtores;
